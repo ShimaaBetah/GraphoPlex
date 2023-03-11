@@ -1,0 +1,32 @@
+{"properties": [
+  {
+    "name": "rabbitmq.queue.name",
+    "type": "java.lang.String",
+    "description": "A description for 'rabbitmq.queue.name'"
+  },
+  {
+    "name": "rabbitmq.exchange.name",
+    "type": "java.lang.String",
+    "description": "A description for 'rabbitmq.exchange.name'"
+  },
+  {
+    "name": "rabbitmq.routing.key",
+    "type": "java.lang.String",
+    "description": "A description for 'rabbitmq.routing.key'"
+  },
+  {
+    "name": "server.id",
+    "type": "java.lang.String",
+    "description": "A description for 'server.id'"
+  },
+  {
+    "name": "myserver.id",
+    "type": "java.lang.String",
+    "description": "A description for 'myserver.id'"
+  },
+  {
+    "name": "myserver.serverId",
+    "type": "java.lang.String",
+    "description": "A description for 'myserver.serverId'"
+  }
+]}
