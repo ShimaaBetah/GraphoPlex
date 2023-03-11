@@ -36,16 +36,7 @@ public class RabbitMQConfig {
 
     
     
-    @Bean
-    public Binding bindingQueue0 (){
-        return BindingBuilder.bind(queue(0)).to(exchange("PUT_VERTEX")).with(Integer.toString(0));
-    }
 
-    @Bean
-    public Binding bindingQueue1 (){
-        return BindingBuilder.bind(queue(1)).to(exchange("PUT_VERTEX")).with(Integer.toString(1));
-    }
-    
 
   
  
