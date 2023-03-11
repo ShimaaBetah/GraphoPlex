@@ -21,8 +21,8 @@ public class VertexRepositoryImpl implements VertexRepository {
 
     @Override
     public long count() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'count'");
+        // return count of Vertices from redis
+        return redisTemplate.opsForHash().size("Vertex");
     }
 
     @Override
@@ -33,8 +33,10 @@ public class VertexRepositoryImpl implements VertexRepository {
 
     @Override
     public void deleteAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteAll'");
+       // delete all keys from redis
+        redisTemplate.delete("Vertex");
+
+        
     }
 
     @Override
@@ -76,7 +78,7 @@ public class VertexRepositoryImpl implements VertexRepository {
     @Override
     public Optional<Vertex> findById(Integer id) {
         // get by id from redis
-        Vertex vertex = (Vertex) redisTemplate.opsForHash().get(Integer.toString(id), "Vertex");
+        Vertex vertex = (Vertex) redisTemplate.opsForHash().get("Vertex", Integer.toString(id));
         return Optional.ofNullable(vertex);
         
     }
@@ -84,7 +86,7 @@ public class VertexRepositoryImpl implements VertexRepository {
     @Override
     public <S extends Vertex> S save(S entity) {
         // save Vertix to redis
-        redisTemplate.opsForHash().put(Integer.toString(entity.getId()), "Vertex" , entity);
+        redisTemplate.opsForHash().put("Vertex", Integer.toString(entity.getId()) , entity);
         return entity;
         
     }

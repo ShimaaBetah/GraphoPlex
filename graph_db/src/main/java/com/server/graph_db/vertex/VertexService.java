@@ -37,7 +37,15 @@ public class VertexService {
         
     }
 
+    public void deleteAll() {
+        vertexRepository.deleteAll();
+    }
+
     public LinkedList<Edge> getEdges(int vertixId) {
         return null;
+    }
+
+    public long getVertexCount() {
+        return vertexRepository.count();
     }
 }
