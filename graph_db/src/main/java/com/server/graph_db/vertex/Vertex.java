@@ -30,8 +30,8 @@ public class Vertex implements Serializable{
     }
 
 
-    @JsonCreator
-    public Vertex( @JsonProperty int id) {
+
+    public Vertex( int id) {
         this.id = id;
         this.outgoingEdges = new LinkedList<>();
         this.properties = new HashMap<>();

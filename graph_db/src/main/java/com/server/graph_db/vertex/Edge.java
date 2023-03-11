@@ -16,12 +16,18 @@ public class Edge implements Serializable {
     int destinationVertexId;
     HashMap<String,String> properties;
 
-    @JsonCreator
-    public Edge(@JsonProperty int destinationVertexId) {
+    
+    public Edge( int destinationVertexId) {
         this.destinationVertexId = destinationVertexId;
         this.properties = new HashMap<String, String>();
         
 
+    }
+    
+    @JsonCreator
+    public Edge(@JsonProperty("destinationVertexId")int destinationVertexId, @JsonProperty("properties")HashMap<String, String> properties) {
+        this.destinationVertexId = destinationVertexId;
+        this.properties = new HashMap<String, String>();
     }
 
     public int getDestinationVertexId() {
