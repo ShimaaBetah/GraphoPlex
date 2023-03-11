@@ -3,6 +3,7 @@ package com.server.graph_db.vertex;
 import java.util.LinkedList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,16 +31,19 @@ public class VertexController {
     public Vertex getVertex(@PathVariable int id) {
         return vertexService.getVertex(id);
     }
+     
 
-    @PostMapping("/vertex")
+     @PostMapping("/vertex")
+
     public void addVertex(@RequestBody Vertex vertex) {
-
+        vertex = new Vertex(vertex.getId());
         vertexService.addVertex(vertex);
-    }
+    } 
 
     //add edge 
     @PostMapping("/vertex/{id}/edge")
     public void addEdge(@PathVariable int id, @RequestBody Edge edge) {
+        edge= new Edge(edge.getDestinationVertexId());
         vertexService.addEdge(id, edge);
     }
 
@@ -48,4 +52,14 @@ public class VertexController {
         return vertexService.getEdges(id);
     }
 
+    @DeleteMapping("/vertex")
+    public void deleteAll() {
+        vertexService.deleteAll();
+    }
+
+    //get vertex count 
+    @GetMapping("/vertex/count")
+    public long getVertexCount() {
+        return vertexService.getVertexCount();
+    }
 }
