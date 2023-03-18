@@ -3,8 +3,9 @@ package com.server.graph_db.vertex;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
+
+import com.server.graph_db.data.redis.RedisDataAccess;
 
 
 @Repository
@@ -13,16 +14,15 @@ public class VertexRepositoryImpl implements VertexRepository {
 
 
     @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
+    private RedisDataAccess redisDataAccess;
     
-    public VertexRepositoryImpl(RedisTemplate<String, Object> redisTemplate) {
-        this.redisTemplate = redisTemplate;
+    public VertexRepositoryImpl(RedisDataAccess redisDataAccess) {
+        this.redisDataAccess = redisDataAccess;
     } 
 
     @Override
     public long count() {
-        // return count of Vertices from redis
-        return redisTemplate.opsForHash().size("Vertex");
+        return redisDataAccess.countVertices();
     }
 
     @Override
@@ -33,10 +33,7 @@ public class VertexRepositoryImpl implements VertexRepository {
 
     @Override
     public void deleteAll() {
-       // delete all keys from redis
-        redisTemplate.delete("Vertex");
-
-        
+          redisDataAccess.deleteAllVertices();
     }
 
     @Override
@@ -72,29 +69,33 @@ public class VertexRepositoryImpl implements VertexRepository {
     @Override
     public Iterable<Vertex> findAllById(Iterable<Integer> ids) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAllById'");
+
+        return redisDataAccess.getVerticesByIds(ids);
     }
 
     @Override
     public Optional<Vertex> findById(Integer id) {
         // get by id from redis
-        Vertex vertex = (Vertex) redisTemplate.opsForHash().get("Vertex", Integer.toString(id));
+        Vertex vertex = redisDataAccess.getVertex(id);
         return Optional.ofNullable(vertex);
         
     }
 
     @Override
     public <S extends Vertex> S save(S entity) {
-        // save Vertix to redis
-        redisTemplate.opsForHash().put("Vertex", Integer.toString(entity.getId()) , entity);
+        redisDataAccess.saveVertex(entity);
         return entity;
-        
     }
 
     @Override
     public <S extends Vertex> Iterable<S> saveAll(Iterable<S> entities) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'saveAll'");
+    }
+
+    public Iterable<Integer> getAllVerticesIds() {
+
+        return redisDataAccess.getAllVerticesIds();
     }
     
 }
