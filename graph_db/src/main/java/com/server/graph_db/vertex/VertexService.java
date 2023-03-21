@@ -22,7 +22,9 @@ public class VertexService {
 
 
     public Vertex getVertex(int id) {
-        return vertexRepository.findById(id).get();
+        // if vertex is null return null
+       return  vertexRepository.findById(id).orElse(null);
+
     }
 
     public void addVertex(Vertex vertex) {
@@ -47,5 +49,13 @@ public class VertexService {
 
     public long getVertexCount() {
         return vertexRepository.count();
+    }
+
+    public Iterable<Integer> getAllVerticesIds() {
+        return vertexRepository.getAllVerticesIds();
+    }
+
+    public Iterable<Vertex> getVerticesByIds(Iterable<Integer> ids) {
+        return vertexRepository.findAllById(ids);
     }
 }

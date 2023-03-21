@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.server.graph_db.data.redis.RedisDataAccess;
+import com.server.graph_db.datastore.redis.RedisDataAccess;
 
 
 @Repository

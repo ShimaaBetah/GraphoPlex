@@ -62,4 +62,10 @@ public class VertexController {
     public long getVertexCount() {
         return vertexService.getVertexCount();
     }
+
+    //get all vertices ids
+    @GetMapping("/vertex/ids")
+    public Iterable<Integer> getAllVerticesIds() {
+        return vertexService.getAllVerticesIds();
+    }
 }
