@@ -8,11 +8,6 @@ import com.server.graph_db.vertex.Vertex;
 
 @Service
 public class PutVertexProducer {
-    
-
-
-
-
     @Autowired
     private  RabbitTemplate rabbitTemplate;
     
@@ -21,7 +16,7 @@ public class PutVertexProducer {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    public void send(Vertex vertex, String routingKey) {
-        rabbitTemplate.convertAndSend("PUT_VERTEX", routingKey, vertex);
+    public void send(Vertex vertex, String serverId) {
+        rabbitTemplate.convertAndSend(serverId,"PUT_VERTEX" ,vertex);
     }  
 }
