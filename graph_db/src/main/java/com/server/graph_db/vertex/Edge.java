@@ -3,6 +3,7 @@ import java.io.Serializable;
 
 
 import java.util.HashMap;
+import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -14,20 +15,30 @@ public class Edge implements Serializable {
     private static final long serialVersionUID = 2539153322097838755L;
     int sourceVertexId;
     int destinationVertexId;
-    HashMap<String,String> properties;
+    String label;
+    Map<String,String> properties;
 
     
     public Edge( int destinationVertexId) {
         this.destinationVertexId = destinationVertexId;
         this.properties = new HashMap<String, String>();
-        
+        label ="";
 
     }
     
     @JsonCreator
-    public Edge(@JsonProperty("destinationVertexId")int destinationVertexId, @JsonProperty("properties")HashMap<String, String> properties) {
+    public Edge(@JsonProperty("destinationVertexId")int destinationVertexId, @JsonProperty("properties")HashMap<String, String> properties, @JsonProperty("label")String label) {
         this.destinationVertexId = destinationVertexId;
-        this.properties = new HashMap<String, String>();
+        this.properties = properties;
+        this.label = label;
+    }
+
+    public String getLabel(){
+        return label;
+    }
+
+    public void setLabel(String label){
+        this.label = label;
     }
 
     public int getDestinationVertexId() {
@@ -38,11 +49,11 @@ public class Edge implements Serializable {
         this.destinationVertexId = destinationVertexId;
     }
 
-    public HashMap<String, String> getProperties() {
+    public Map<String, String> getProperties() {
         return properties;
     }
 
-    public void setProperties(HashMap<String, String> properties) {
+    public void setProperties(Map<String, String> properties) {
         this.properties = properties;
     }
 

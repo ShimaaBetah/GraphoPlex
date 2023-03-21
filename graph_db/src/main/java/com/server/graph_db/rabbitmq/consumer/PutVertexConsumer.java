@@ -18,11 +18,12 @@ public class PutVertexConsumer {
 
      //listen to specific binding
     @RabbitListener(bindings = @QueueBinding(
-        value = @Queue(value = "#{myQueryNameResolver.resolve()}"),
-        exchange = @Exchange(value = "PUT_VERTEX", durable = "true", type = "topic"),
-        key = "#{myServerProperties.serverId}"
+        value = @Queue(value = "#{myQueryNameResolver.resolve()}"+".PUT_VERTEX"),
+        exchange = @Exchange(value = "#{myServerProperties.serverId}", durable = "true", type = "topic"),
+        key = "PUT_VERTEX"
     ))
     public void receiveMessage(Vertex vertex) {
+
         System.out.println("Received Message") ;
         vertexService.addVertex(vertex);
     }

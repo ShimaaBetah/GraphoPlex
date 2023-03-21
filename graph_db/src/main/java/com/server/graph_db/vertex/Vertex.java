@@ -3,6 +3,7 @@ package com.server.graph_db.vertex;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 import org.springframework.data.redis.core.RedisHash;
 
@@ -18,12 +19,14 @@ public class Vertex implements Serializable{
     private static final long serialVersionUID = 1762381042002279295L;
 
     int id;
+    String label;
     LinkedList<Edge> outgoingEdges;
     LinkedList<Edge> incomingEdges;
-    HashMap<String,String> properties;
+    Map<String,String> properties;
 
     @JsonCreator
     public Vertex() {
+        label = "";
         this.outgoingEdges = new LinkedList<>();
         this.properties = new HashMap<>();
         this.incomingEdges = new LinkedList<>();
@@ -33,17 +36,27 @@ public class Vertex implements Serializable{
 
     public Vertex( int id) {
         this.id = id;
+        label = "";
         this.outgoingEdges = new LinkedList<>();
         this.properties = new HashMap<>();
         this.incomingEdges = new LinkedList<>();
     }
     
     @JsonCreator
-    public Vertex(@JsonProperty("id") int id, @JsonProperty("outgoingEdges") LinkedList<Edge> outgoingEdges, @JsonProperty("incomingEdges") LinkedList<Edge> incomingEdges, @JsonProperty("properties") HashMap<String, String> properties) {
+    public Vertex(@JsonProperty("id") int id,@JsonProperty("label") String label,  @JsonProperty("outgoingEdges") LinkedList<Edge> outgoingEdges, @JsonProperty("incomingEdges") LinkedList<Edge> incomingEdges, @JsonProperty("properties") HashMap<String, String> properties) {
         this.id = id;
+        this.label = label;
         this.outgoingEdges = outgoingEdges;
         this.incomingEdges = incomingEdges;
         this.properties = properties;
+    }
+
+    public String getLabel(){
+        return label;
+    }
+
+    public void setLabel(String label){
+        this.label = label;
     }
 
     public int getId() {
@@ -78,7 +91,7 @@ public class Vertex implements Serializable{
         this.incomingEdges.add(edge);
     }
 
-    public HashMap<String, String> getProperties() {
+    public Map<String, String> getProperties() {
         return properties;
     }
 
