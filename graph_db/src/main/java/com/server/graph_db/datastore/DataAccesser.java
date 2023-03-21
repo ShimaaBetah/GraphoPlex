@@ -1,4 +1,4 @@
-package com.server.graph_db.data;
+package com.server.graph_db.datastore;
 
 import com.server.graph_db.vertex.Vertex;
 

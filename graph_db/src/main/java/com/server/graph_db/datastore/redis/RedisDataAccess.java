@@ -1,4 +1,4 @@
-package com.server.graph_db.data.redis;
+package com.server.graph_db.datastore.redis;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
-import com.server.graph_db.data.DataAccesser;
+import com.server.graph_db.datastore.DataAccesser;
 import com.server.graph_db.vertex.Vertex;
 
 @Component

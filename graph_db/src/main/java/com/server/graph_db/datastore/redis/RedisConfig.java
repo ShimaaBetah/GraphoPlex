@@ -1,4 +1,4 @@
-package com.server.graph_db.data.redis;
+package com.server.graph_db.datastore.redis;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
