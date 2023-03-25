@@ -10,10 +10,9 @@ import org.springframework.data.redis.core.RedisHash;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import lombok.Data;
 
 @RedisHash("Vertex")
-@Data
+
 public class Vertex implements Serializable{
 
     private static final long serialVersionUID = 1762381042002279295L;
@@ -93,6 +92,14 @@ public class Vertex implements Serializable{
 
     public Map<String, String> getProperties() {
         return properties;
+    }
+
+    public void setProperties(Map<String, String> properties) {
+        this.properties = properties;
+    }
+
+    public String toString() {
+        return "Vertex [id=" + id + ", label=" + label + ", outgoingEdges=" + outgoingEdges + ", incomingEdges=" + incomingEdges + ", properties=" + properties + "]";
     }
 
 

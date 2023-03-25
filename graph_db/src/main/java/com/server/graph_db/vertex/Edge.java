@@ -66,4 +66,8 @@ public class Edge implements Serializable {
     public void setSourceVertexId(int sourceVertexId) {
         this.sourceVertexId = sourceVertexId;
     }
+
+    public String toString () {
+        return "Edge [destinationVertexId=" + destinationVertexId + ", properties=" + properties + ", label=" + label + "]";
+    }
 }

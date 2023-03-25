@@ -6,6 +6,7 @@ RUN apt-get update && apt-get install -y openjdk-17-jdk
 RUN apt-get update && apt-get install -y redis
 ## start redis server using cmd
 EXPOSE 8080
+EXPOSE 9090
 ADD target/graph-db-server.jar graph-db-server.jar
 
 ADD entrypoint.sh entrypoint.sh
