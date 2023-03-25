@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import com.server.graph_db.grpc.clients.VertexClient;
 import com.server.graph_db.rabbitmq.producer.GetVertexProducer;
 import com.server.graph_db.rabbitmq.producer.GetVerticesIdsProducer;
 import com.server.graph_db.rabbitmq.producer.PutVertexProducer;
@@ -30,6 +31,11 @@ public class PartitionManager {
 
     @Autowired
     GetVerticesIdsProducer getVerticesIdsProducer;
+
+    @Autowired
+    VertexClient vertexClient;
+
+
 
     @Value("${server.numOfServers}")
     private int numOfServers;
@@ -63,7 +69,9 @@ public class PartitionManager {
         } else {
             // send to the right partition
             // return getVertexProducer.send(vertexId, String.valueOf(partitionId));
-            return vertexService.getVertex(vertexId);
+            //return vertexService.getVertex(vertexId);
+
+            return vertexClient.getVertex(vertexId, String.valueOf(partitionId));
 
         }
     }
@@ -103,7 +111,7 @@ public class PartitionManager {
         for (int i = 0; i < numOfServers; i++) {
             if (i != Integer.parseInt(serverId)) {
                 // send to the right partition
-                Iterable<Vertex> verticesFromOtherServer = getVertexProducer.send(verticesIdsByPartitionId.get(i),
+                Iterable<Vertex> verticesFromOtherServer = vertexClient.getVertices(verticesIdsByPartitionId.get(i),
                         String.valueOf(i));
 
                 // append to vertices
