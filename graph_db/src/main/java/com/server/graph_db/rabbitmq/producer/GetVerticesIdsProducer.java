@@ -18,7 +18,7 @@ public class GetVerticesIdsProducer {
     }
 
     public Iterable<Integer> send(String serverId) {
-        return (Iterable<Integer>) rabbitTemplate.convertSendAndReceive(serverId, "GET_VERTICES_IDS","");
+        return (Iterable<Integer>) rabbitTemplate.convertSendAndReceive(serverId, "GET_VERTICES_IDS","yy");
     }
 
 }

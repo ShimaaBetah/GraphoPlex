@@ -25,7 +25,6 @@ public class GetVerticesIdsConsumer {
         key = "GET_VERTICES_IDS"
     ))
     public Iterable<Integer> receiveMessage(String x) {
-        System.out.println("Received Messageeeeeeeeeeeeeeeeeee") ;
         return vertexService.getAllVerticesIds();
     }
 }

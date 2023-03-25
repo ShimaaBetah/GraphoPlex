@@ -24,7 +24,6 @@ public class PutVertexConsumer {
     ))
     public void receiveMessage(Vertex vertex) {
 
-        System.out.println("Received Message") ;
         vertexService.addVertex(vertex);
     }
     
