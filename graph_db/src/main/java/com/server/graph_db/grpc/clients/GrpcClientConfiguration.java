@@ -26,7 +26,7 @@ public class GrpcClientConfiguration {
     Map<String, ManagedChannel> channels = new HashMap<>();
 
     for (int i = 0;i<ports.length;i++) {
-      ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", Integer.parseInt(ports[i])).usePlaintext().build();
+      ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", Integer.parseInt(ports[i])).maxInboundMessageSize(Integer.MAX_VALUE).usePlaintext().build();
       channels.put(Integer.toString(i), channel);
     }
     return channels;
