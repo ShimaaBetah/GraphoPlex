@@ -8,59 +8,65 @@ import java.util.Queue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.server.graph_db.partition.PartitionManager;
 import com.server.graph_db.vertex.Edge;
+import com.server.graph_db.vertex.GlobalVertexService;
 import com.server.graph_db.vertex.Vertex;
-import com.server.graph_db.vertex.VertexService;
+import com.server.graph_db.vertex.LocalVertexService;
 
 @Service
 public class BreadthFirstGrouped {
     @Autowired
-    PartitionManager partitionManager;
+    GlobalVertexService globalVertexService;
+    
 
     @Autowired 
-    VertexService vertexService;
+    LocalVertexService vertexService;
 
     int count = 0;
     int maxSize = 0;
 
-    HashSet<Integer> visited;
+    HashSet<String> visited;
 
-    public BreadthFirstGrouped(PartitionManager partitionManager) {
-        this.partitionManager = partitionManager;
-        visited = new HashSet<Integer>();
+    public BreadthFirstGrouped(GlobalVertexService globalVertexService) {
+        this.globalVertexService = globalVertexService;
     }
-
+    
     public void compute() {
-        Iterable<Integer> verticesIds = partitionManager.getVerticesIds();
-        for (Integer id : verticesIds) {
+        visited = new HashSet<String>();
+        Iterable<String> verticesIds = globalVertexService.getAllVerticesIds();
+        for (String id : verticesIds) {
             if (!visited.contains(id)) {
                 visited.add(id);
                 bfs(id);
             }
+         
         }
     }
 
 
-    public void bfs (Integer id){
-        Queue<Integer> currentLevelIds = new LinkedList<Integer>();
+    public void bfs (String id){
+       
+        Queue<String> currentLevelIds = new LinkedList<String>();
         Queue<Vertex> currentLevel = new LinkedList<Vertex>();
         currentLevelIds.add(id);
-        currentLevel.add(partitionManager.getVertex(id));
+        currentLevel.add(globalVertexService.getVertex(id));
         visited.add(id);
         while(!currentLevel.isEmpty()){
             currentLevel = processAndGetNextLevel(currentLevel);
         }
+       
+       
     }
 
     private Queue<Vertex> processAndGetNextLevel(Queue<Vertex> currentLevel) {
         System.out.println("currentLevel size: " + currentLevel.size());
         maxSize = Math.max(maxSize, currentLevel.size());
-        List<Integer> nextLevel = new LinkedList<Integer>();
+        List<String> nextLevel = new LinkedList<String>();
         while(!currentLevel.isEmpty()){
             Vertex vertex = currentLevel.poll();
             System.out.println(count);
             count++;
+           
             if(vertex == null){
                 continue;
             }
@@ -74,11 +80,12 @@ public class BreadthFirstGrouped {
             }
         }
 
-        Iterable<Vertex> vertices = partitionManager.getVertices(nextLevel);
+        Iterable<Vertex> vertices = globalVertexService.getVerticesByIds(nextLevel);
         Queue<Vertex> nextLevelQueue = new LinkedList<Vertex>();
         for (Vertex vertex : vertices) {
             nextLevelQueue.add(vertex);
         }
+        
         return nextLevelQueue;
     }
     

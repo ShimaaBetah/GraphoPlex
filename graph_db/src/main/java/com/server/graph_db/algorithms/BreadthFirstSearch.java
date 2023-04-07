@@ -9,30 +9,31 @@ import org.springframework.stereotype.Service;
 
 import com.server.graph_db.partition.PartitionManager;
 import com.server.graph_db.vertex.Edge;
+import com.server.graph_db.vertex.GlobalVertexService;
 import com.server.graph_db.vertex.Vertex;
-import com.server.graph_db.vertex.VertexService;
+import com.server.graph_db.vertex.LocalVertexService;
 
 @Service
 public class BreadthFirstSearch {
 
     @Autowired
-    PartitionManager partitionManager;
+    GlobalVertexService globalVertexService;
 
     @Autowired 
-    VertexService vertexService;
+    LocalVertexService vertexService;
 
     int count = 0;
 
-    HashSet<Integer> visited;
+    HashSet<String> visited;
 
-    public BreadthFirstSearch(PartitionManager partitionManager) {
-        this.partitionManager = partitionManager;
-        visited = new HashSet<Integer>();
+    public BreadthFirstSearch(GlobalVertexService globalVertexService) {
+        this.globalVertexService = globalVertexService;
     }
 
     public void compute() {
-        Iterable<Integer> verticesIds = partitionManager.getVerticesIds();
-        for (Integer id : verticesIds) {
+        visited = new HashSet<String>();
+        Iterable<String> verticesIds = globalVertexService.getAllVerticesIds();
+        for (String id : verticesIds) {
             if (!visited.contains(id)) {
                 visited.add(id);
                 bfs(id);
@@ -41,16 +42,16 @@ public class BreadthFirstSearch {
     }
 
 
-    public void bfs (Integer id){
-        Queue<Integer> queue = new LinkedList<Integer>();
+    public void bfs (String id){
+        Queue<String> queue = new LinkedList<String>();
         queue.add(id);
         visited.add(id);
         while(!queue.isEmpty()){
-            Integer vertexId = queue.poll();
+            String vertexId = queue.poll();
             System.out.println(count);
             count++;
             visited.add(vertexId);
-            Vertex vertex = partitionManager.getVertex(vertexId);
+            Vertex vertex = globalVertexService.getVertex(vertexId);
             if(vertex == null){
                 continue;
             }
