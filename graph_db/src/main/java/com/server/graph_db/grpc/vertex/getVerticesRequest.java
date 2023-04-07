@@ -16,7 +16,7 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private getVerticesRequest() {
-    vertexIds_ = emptyIntList();
+    vertexIds_ = com.google.protobuf.LazyStringArrayList.EMPTY;
   }
 
   @java.lang.Override
@@ -50,25 +50,13 @@ private static final long serialVersionUID = 0L;
           case 0:
             done = true;
             break;
-          case 8: {
-            if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-              vertexIds_ = newIntList();
-              mutable_bitField0_ |= 0x00000001;
-            }
-            vertexIds_.addInt(input.readInt32());
-            break;
-          }
           case 10: {
-            int length = input.readRawVarint32();
-            int limit = input.pushLimit(length);
-            if (!((mutable_bitField0_ & 0x00000001) != 0) && input.getBytesUntilLimit() > 0) {
-              vertexIds_ = newIntList();
+            java.lang.String s = input.readStringRequireUtf8();
+            if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+              vertexIds_ = new com.google.protobuf.LazyStringArrayList();
               mutable_bitField0_ |= 0x00000001;
             }
-            while (input.getBytesUntilLimit() > 0) {
-              vertexIds_.addInt(input.readInt32());
-            }
-            input.popLimit(limit);
+            vertexIds_.add(s);
             break;
           }
           default: {
@@ -87,7 +75,7 @@ private static final long serialVersionUID = 0L;
           e).setUnfinishedMessage(this);
     } finally {
       if (((mutable_bitField0_ & 0x00000001) != 0)) {
-        vertexIds_.makeImmutable(); // C
+        vertexIds_ = vertexIds_.getUnmodifiableView();
       }
       this.unknownFields = unknownFields.build();
       makeExtensionsImmutable();
@@ -107,32 +95,39 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int VERTEXIDS_FIELD_NUMBER = 1;
-  private com.google.protobuf.Internal.IntList vertexIds_;
+  private com.google.protobuf.LazyStringList vertexIds_;
   /**
-   * <code>repeated int32 vertexIds = 1;</code>
+   * <code>repeated string vertexIds = 1;</code>
    * @return A list containing the vertexIds.
    */
-  @java.lang.Override
-  public java.util.List<java.lang.Integer>
+  public com.google.protobuf.ProtocolStringList
       getVertexIdsList() {
     return vertexIds_;
   }
   /**
-   * <code>repeated int32 vertexIds = 1;</code>
+   * <code>repeated string vertexIds = 1;</code>
    * @return The count of vertexIds.
    */
   public int getVertexIdsCount() {
     return vertexIds_.size();
   }
   /**
-   * <code>repeated int32 vertexIds = 1;</code>
+   * <code>repeated string vertexIds = 1;</code>
    * @param index The index of the element to return.
    * @return The vertexIds at the given index.
    */
-  public int getVertexIds(int index) {
-    return vertexIds_.getInt(index);
+  public java.lang.String getVertexIds(int index) {
+    return vertexIds_.get(index);
   }
-  private int vertexIdsMemoizedSerializedSize = -1;
+  /**
+   * <code>repeated string vertexIds = 1;</code>
+   * @param index The index of the value to return.
+   * @return The bytes of the vertexIds at the given index.
+   */
+  public com.google.protobuf.ByteString
+      getVertexIdsBytes(int index) {
+    return vertexIds_.getByteString(index);
+  }
 
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
@@ -148,13 +143,8 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    getSerializedSize();
-    if (getVertexIdsList().size() > 0) {
-      output.writeUInt32NoTag(10);
-      output.writeUInt32NoTag(vertexIdsMemoizedSerializedSize);
-    }
     for (int i = 0; i < vertexIds_.size(); i++) {
-      output.writeInt32NoTag(vertexIds_.getInt(i));
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, vertexIds_.getRaw(i));
     }
     unknownFields.writeTo(output);
   }
@@ -168,16 +158,10 @@ private static final long serialVersionUID = 0L;
     {
       int dataSize = 0;
       for (int i = 0; i < vertexIds_.size(); i++) {
-        dataSize += com.google.protobuf.CodedOutputStream
-          .computeInt32SizeNoTag(vertexIds_.getInt(i));
+        dataSize += computeStringSizeNoTag(vertexIds_.getRaw(i));
       }
       size += dataSize;
-      if (!getVertexIdsList().isEmpty()) {
-        size += 1;
-        size += com.google.protobuf.CodedOutputStream
-            .computeInt32SizeNoTag(dataSize);
-      }
-      vertexIdsMemoizedSerializedSize = dataSize;
+      size += 1 * getVertexIdsList().size();
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -344,7 +328,7 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      vertexIds_ = emptyIntList();
+      vertexIds_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       bitField0_ = (bitField0_ & ~0x00000001);
       return this;
     }
@@ -374,7 +358,7 @@ private static final long serialVersionUID = 0L;
       com.server.graph_db.grpc.vertex.getVerticesRequest result = new com.server.graph_db.grpc.vertex.getVerticesRequest(this);
       int from_bitField0_ = bitField0_;
       if (((bitField0_ & 0x00000001) != 0)) {
-        vertexIds_.makeImmutable();
+        vertexIds_ = vertexIds_.getUnmodifiableView();
         bitField0_ = (bitField0_ & ~0x00000001);
       }
       result.vertexIds_ = vertexIds_;
@@ -466,68 +450,83 @@ private static final long serialVersionUID = 0L;
     }
     private int bitField0_;
 
-    private com.google.protobuf.Internal.IntList vertexIds_ = emptyIntList();
+    private com.google.protobuf.LazyStringList vertexIds_ = com.google.protobuf.LazyStringArrayList.EMPTY;
     private void ensureVertexIdsIsMutable() {
       if (!((bitField0_ & 0x00000001) != 0)) {
-        vertexIds_ = mutableCopy(vertexIds_);
+        vertexIds_ = new com.google.protobuf.LazyStringArrayList(vertexIds_);
         bitField0_ |= 0x00000001;
        }
     }
     /**
-     * <code>repeated int32 vertexIds = 1;</code>
+     * <code>repeated string vertexIds = 1;</code>
      * @return A list containing the vertexIds.
      */
-    public java.util.List<java.lang.Integer>
+    public com.google.protobuf.ProtocolStringList
         getVertexIdsList() {
-      return ((bitField0_ & 0x00000001) != 0) ?
-               java.util.Collections.unmodifiableList(vertexIds_) : vertexIds_;
+      return vertexIds_.getUnmodifiableView();
     }
     /**
-     * <code>repeated int32 vertexIds = 1;</code>
+     * <code>repeated string vertexIds = 1;</code>
      * @return The count of vertexIds.
      */
     public int getVertexIdsCount() {
       return vertexIds_.size();
     }
     /**
-     * <code>repeated int32 vertexIds = 1;</code>
+     * <code>repeated string vertexIds = 1;</code>
      * @param index The index of the element to return.
      * @return The vertexIds at the given index.
      */
-    public int getVertexIds(int index) {
-      return vertexIds_.getInt(index);
+    public java.lang.String getVertexIds(int index) {
+      return vertexIds_.get(index);
     }
     /**
-     * <code>repeated int32 vertexIds = 1;</code>
+     * <code>repeated string vertexIds = 1;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the vertexIds at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getVertexIdsBytes(int index) {
+      return vertexIds_.getByteString(index);
+    }
+    /**
+     * <code>repeated string vertexIds = 1;</code>
      * @param index The index to set the value at.
      * @param value The vertexIds to set.
      * @return This builder for chaining.
      */
     public Builder setVertexIds(
-        int index, int value) {
-      ensureVertexIdsIsMutable();
-      vertexIds_.setInt(index, value);
+        int index, java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureVertexIdsIsMutable();
+      vertexIds_.set(index, value);
       onChanged();
       return this;
     }
     /**
-     * <code>repeated int32 vertexIds = 1;</code>
+     * <code>repeated string vertexIds = 1;</code>
      * @param value The vertexIds to add.
      * @return This builder for chaining.
      */
-    public Builder addVertexIds(int value) {
-      ensureVertexIdsIsMutable();
-      vertexIds_.addInt(value);
+    public Builder addVertexIds(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureVertexIdsIsMutable();
+      vertexIds_.add(value);
       onChanged();
       return this;
     }
     /**
-     * <code>repeated int32 vertexIds = 1;</code>
+     * <code>repeated string vertexIds = 1;</code>
      * @param values The vertexIds to add.
      * @return This builder for chaining.
      */
     public Builder addAllVertexIds(
-        java.lang.Iterable<? extends java.lang.Integer> values) {
+        java.lang.Iterable<java.lang.String> values) {
       ensureVertexIdsIsMutable();
       com.google.protobuf.AbstractMessageLite.Builder.addAll(
           values, vertexIds_);
@@ -535,12 +534,28 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated int32 vertexIds = 1;</code>
+     * <code>repeated string vertexIds = 1;</code>
      * @return This builder for chaining.
      */
     public Builder clearVertexIds() {
-      vertexIds_ = emptyIntList();
+      vertexIds_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       bitField0_ = (bitField0_ & ~0x00000001);
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>repeated string vertexIds = 1;</code>
+     * @param value The bytes of the vertexIds to add.
+     * @return This builder for chaining.
+     */
+    public Builder addVertexIdsBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      ensureVertexIdsIsMutable();
+      vertexIds_.add(value);
       onChanged();
       return this;
     }

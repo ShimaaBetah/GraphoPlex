@@ -13,18 +13,18 @@ import org.springframework.amqp.rabbit.annotation.Exchange;
 import org.springframework.stereotype.Component;
 
 import com.server.graph_db.vertex.Vertex;
-import com.server.graph_db.vertex.VertexService;
+import com.server.graph_db.vertex.LocalVertexService;
 
 @Component
 public class GetVertexConsumer {
 
     @Autowired
-    VertexService vertexService;
+    LocalVertexService vertexService;
 
     @RabbitListener(bindings = @QueueBinding(value = @Queue(value = "#{myQueryNameResolver.resolve()}"
             + ".GET_VERTEX"), exchange = @Exchange(value = "#{myServerProperties.serverId}", durable = "true", type = "topic"), key = "GET_VERTEX"))
 
-    public Iterable<Vertex> receiveMessage(Iterable<Integer> vertexIds) {
+    public Iterable<Vertex> receiveMessage(Iterable<String> vertexIds) {
         return vertexService.getVerticesByIds(vertexIds);
     }
 }

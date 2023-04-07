@@ -13,13 +13,13 @@ public class Edge implements Serializable {
 
 
     private static final long serialVersionUID = 2539153322097838755L;
-    int sourceVertexId;
-    int destinationVertexId;
+    String sourceVertexId;
+    String destinationVertexId;
     String label;
     Map<String,String> properties;
 
     
-    public Edge( int destinationVertexId) {
+    public Edge( String destinationVertexId) {
         this.destinationVertexId = destinationVertexId;
         this.properties = new HashMap<String, String>();
         label ="";
@@ -27,7 +27,7 @@ public class Edge implements Serializable {
     }
     
     @JsonCreator
-    public Edge(@JsonProperty("destinationVertexId")int destinationVertexId, @JsonProperty("properties")HashMap<String, String> properties, @JsonProperty("label")String label) {
+    public Edge(@JsonProperty("destinationVertexId")String destinationVertexId, @JsonProperty("properties")HashMap<String, String> properties, @JsonProperty("label")String label) {
         this.destinationVertexId = destinationVertexId;
         this.properties = properties;
         this.label = label;
@@ -41,11 +41,11 @@ public class Edge implements Serializable {
         this.label = label;
     }
 
-    public int getDestinationVertexId() {
+    public String getDestinationVertexId() {
         return destinationVertexId;
     }
 
-    public void setDestinationVertexId(int destinationVertexId) {
+    public void setDestinationVertexId(String destinationVertexId) {
         this.destinationVertexId = destinationVertexId;
     }
 
@@ -60,10 +60,10 @@ public class Edge implements Serializable {
     public void addProperty(String key, String value) {
         this.properties.put(key, value);
     }
-    public void getSourceVertexId(int sourceVertexId) {
+    public void getSourceVertexId(String sourceVertexId) {
         this.sourceVertexId = sourceVertexId;
     }
-    public void setSourceVertexId(int sourceVertexId) {
+    public void setSourceVertexId(String sourceVertexId) {
         this.sourceVertexId = sourceVertexId;
     }
 

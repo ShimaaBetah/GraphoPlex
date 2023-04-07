@@ -4,6 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 
 
 
-public interface VertexRepository extends CrudRepository <Vertex, Integer> {
+public interface VertexRepository extends CrudRepository <Vertex, String> {
     
 }

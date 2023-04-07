@@ -16,19 +16,19 @@ public class VertexController {
     
 
     @Autowired
-    private VertexService vertexService;
+    private LocalVertexService vertexService;
     
 
 
 
-    public VertexController(VertexService vertexService) {
+    public VertexController(LocalVertexService vertexService) {
         this.vertexService = vertexService;
     }
         
     
 
   @GetMapping("/vertex/{id}")
-    public Vertex getVertex(@PathVariable int id) {
+    public Vertex getVertex(@PathVariable String id) {
         return vertexService.getVertex(id);
     }
      
@@ -42,13 +42,13 @@ public class VertexController {
 
     //add edge 
     @PostMapping("/vertex/{id}/edge")
-    public void addEdge(@PathVariable int id, @RequestBody Edge edge) {
+    public void addEdge(@PathVariable String id, @RequestBody Edge edge) {
         edge= new Edge(edge.getDestinationVertexId());
         vertexService.addEdge(id, edge);
     }
 
     @GetMapping("/vertex/{id}/edge")
-    public LinkedList<Edge> getEdges(@PathVariable int id) {
+    public LinkedList<Edge> getEdges(@PathVariable String id) {
         return vertexService.getEdges(id);
     }
 
@@ -65,7 +65,7 @@ public class VertexController {
 
     //get all vertices ids
     @GetMapping("/vertex/ids")
-    public Iterable<Integer> getAllVerticesIds() {
+    public Iterable<String> getAllVerticesIds() {
         return vertexService.getAllVerticesIds();
     }
 }

@@ -17,7 +17,7 @@ public class Vertex implements Serializable{
 
     private static final long serialVersionUID = 1762381042002279295L;
 
-    int id;
+    String id;
     String label;
     LinkedList<Edge> outgoingEdges;
     LinkedList<Edge> incomingEdges;
@@ -33,7 +33,7 @@ public class Vertex implements Serializable{
 
 
 
-    public Vertex( int id) {
+    public Vertex( String id) {
         this.id = id;
         label = "";
         this.outgoingEdges = new LinkedList<>();
@@ -42,7 +42,7 @@ public class Vertex implements Serializable{
     }
     
     @JsonCreator
-    public Vertex(@JsonProperty("id") int id,@JsonProperty("label") String label,  @JsonProperty("outgoingEdges") LinkedList<Edge> outgoingEdges, @JsonProperty("incomingEdges") LinkedList<Edge> incomingEdges, @JsonProperty("properties") HashMap<String, String> properties) {
+    public Vertex(@JsonProperty("id") String id,@JsonProperty("label") String label,  @JsonProperty("outgoingEdges") LinkedList<Edge> outgoingEdges, @JsonProperty("incomingEdges") LinkedList<Edge> incomingEdges, @JsonProperty("properties") HashMap<String, String> properties) {
         this.id = id;
         this.label = label;
         this.outgoingEdges = outgoingEdges;
@@ -58,11 +58,11 @@ public class Vertex implements Serializable{
         this.label = label;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -100,6 +100,18 @@ public class Vertex implements Serializable{
 
     public String toString() {
         return "Vertex [id=" + id + ", label=" + label + ", outgoingEdges=" + outgoingEdges + ", incomingEdges=" + incomingEdges + ", properties=" + properties + "]";
+    }
+
+    public boolean isPropertyExist (String key) {
+        return properties.containsKey(key);
+    }
+
+    public String getProperty(String key) {
+        return properties.get(key);
+    }
+
+    public void setProperty(String key, String value) {
+        properties.put(key, value);
     }
 
 

@@ -21,7 +21,7 @@ public class GetVertexProducer {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    public Iterable<Vertex> send(Iterable<Integer> verticesIds, String serverId) {
+    public Iterable<Vertex> send(Iterable<String> verticesIds, String serverId) {
         rabbitTemplate.setReplyTimeout(100000);
         ArrayList<Object> vertices = (ArrayList<Object>) rabbitTemplate.convertSendAndReceive(serverId, "GET_VERTEX",
         verticesIds);
@@ -29,8 +29,8 @@ public class GetVertexProducer {
         return convertToVertexType(vertices);
     }
 
-    public Vertex send(Integer vertexId, String serverId) {
-        List<Integer> verticesIds = new ArrayList<>();
+    public Vertex send(String vertexId, String serverId) {
+        List<String> verticesIds = new ArrayList<>();
         verticesIds.add(vertexId);
         ArrayList<Object> vertices = (ArrayList<Object>) rabbitTemplate.convertSendAndReceive(serverId, "GET_VERTEX",
                 verticesIds);

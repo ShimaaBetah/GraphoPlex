@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
@@ -19,12 +20,13 @@ public class RedisDataAccess implements DataAccesser {
 
     @Override
     public void saveVertex(Vertex vertex) {
-        redisTemplate.opsForHash().put("Vertex", Integer.toString(vertex.getId()) , vertex);
+        redisTemplate.opsForHash().put("Vertex", vertex.getId() , vertex);
     }
 
     @Override
-    public Vertex getVertex(int vertexId) {
-        return (Vertex) redisTemplate.opsForHash().get("Vertex", Integer.toString(vertexId));    
+    @Cacheable(value = "vertex", key = "#vertexId" ,unless = "#result == null")
+    public Vertex getVertex(String vertexId) {
+        return (Vertex) redisTemplate.opsForHash().get("Vertex", vertexId);    
     }
 
     @Override
@@ -38,20 +40,28 @@ public class RedisDataAccess implements DataAccesser {
     }
 
     @Override
-    public Iterable<Integer> getAllVerticesIds() {
-        Iterable<Integer> ids = redisTemplate.opsForHash().keys("Vertex").stream().map(key -> Integer.parseInt((String) key)).collect(Collectors.toList());
+    public Iterable<String> getAllVerticesIds() {
+        Iterable<String> ids = redisTemplate.opsForHash().keys("Vertex").stream().map(key -> (String) key).collect(Collectors.toList());
         return ids;
     }
 
     @Override
-    public Iterable<Vertex> getVerticesByIds(Iterable<Integer> ids) {
+
+    public Iterable<Vertex> getVerticesByIds(Iterable<String> ids) {
         // get all vertices by ids from redis
         List<Vertex> vertices = new ArrayList<>();
-        for (Integer id : ids) {
-            vertices.add((Vertex) redisTemplate.opsForHash().get("Vertex", Integer.toString(id)));
+        for (String id : ids) {
+            vertices.add((Vertex) getVertex(id));
         }    
         return vertices;
     
+    }
+
+    @Override
+    public Iterable<Vertex> getAllVertices() {
+        // get all vertices from redis
+        Iterable<String> ids = getAllVerticesIds();
+        return getVerticesByIds(ids);
     }
     
 }

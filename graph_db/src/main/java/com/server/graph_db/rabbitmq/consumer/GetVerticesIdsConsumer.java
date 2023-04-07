@@ -10,13 +10,13 @@ import java.util.LinkedList;
 
 import org.springframework.amqp.rabbit.annotation.Exchange;
 
-import com.server.graph_db.vertex.VertexService;
+import com.server.graph_db.vertex.LocalVertexService;
 
 
 @Component
 public class GetVerticesIdsConsumer {
     @Autowired
-    VertexService vertexService;
+    LocalVertexService vertexService;
 
 
     @RabbitListener(bindings = @QueueBinding(
@@ -24,7 +24,7 @@ public class GetVerticesIdsConsumer {
         exchange = @Exchange(value = "#{myServerProperties.serverId}", durable = "true", type = "topic"),
         key = "GET_VERTICES_IDS"
     ))
-    public Iterable<Integer> receiveMessage(String x) {
+    public Iterable<String> receiveMessage(String x) {
         return vertexService.getAllVerticesIds();
     }
 }

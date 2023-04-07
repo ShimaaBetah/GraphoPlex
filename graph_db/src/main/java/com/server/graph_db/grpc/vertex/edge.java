@@ -16,6 +16,7 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private edge() {
+    destinationVertexId_ = "";
     label_ = "";
   }
 
@@ -50,9 +51,10 @@ private static final long serialVersionUID = 0L;
           case 0:
             done = true;
             break;
-          case 8: {
+          case 10: {
+            java.lang.String s = input.readStringRequireUtf8();
 
-            destinationVertexId_ = input.readInt32();
+            destinationVertexId_ = s;
             break;
           }
           case 18: {
@@ -119,14 +121,41 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int DESTINATIONVERTEXID_FIELD_NUMBER = 1;
-  private int destinationVertexId_;
+  private volatile java.lang.Object destinationVertexId_;
   /**
-   * <code>int32 destinationVertexId = 1;</code>
+   * <code>string destinationVertexId = 1;</code>
    * @return The destinationVertexId.
    */
   @java.lang.Override
-  public int getDestinationVertexId() {
-    return destinationVertexId_;
+  public java.lang.String getDestinationVertexId() {
+    java.lang.Object ref = destinationVertexId_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      destinationVertexId_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string destinationVertexId = 1;</code>
+   * @return The bytes for destinationVertexId.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getDestinationVertexIdBytes() {
+    java.lang.Object ref = destinationVertexId_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      destinationVertexId_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
   }
 
   public static final int LABEL_FIELD_NUMBER = 2;
@@ -262,8 +291,8 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (destinationVertexId_ != 0) {
-      output.writeInt32(1, destinationVertexId_);
+    if (!getDestinationVertexIdBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, destinationVertexId_);
     }
     if (!getLabelBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 2, label_);
@@ -283,9 +312,8 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (destinationVertexId_ != 0) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(1, destinationVertexId_);
+    if (!getDestinationVertexIdBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, destinationVertexId_);
     }
     if (!getLabelBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, label_);
@@ -315,8 +343,8 @@ private static final long serialVersionUID = 0L;
     }
     com.server.graph_db.grpc.vertex.edge other = (com.server.graph_db.grpc.vertex.edge) obj;
 
-    if (getDestinationVertexId()
-        != other.getDestinationVertexId()) return false;
+    if (!getDestinationVertexId()
+        .equals(other.getDestinationVertexId())) return false;
     if (!getLabel()
         .equals(other.getLabel())) return false;
     if (!internalGetProperties().equals(
@@ -333,7 +361,7 @@ private static final long serialVersionUID = 0L;
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
     hash = (37 * hash) + DESTINATIONVERTEXID_FIELD_NUMBER;
-    hash = (53 * hash) + getDestinationVertexId();
+    hash = (53 * hash) + getDestinationVertexId().hashCode();
     hash = (37 * hash) + LABEL_FIELD_NUMBER;
     hash = (53 * hash) + getLabel().hashCode();
     if (!internalGetProperties().getMap().isEmpty()) {
@@ -477,7 +505,7 @@ private static final long serialVersionUID = 0L;
               com.server.graph_db.grpc.vertex.edge.class, com.server.graph_db.grpc.vertex.edge.Builder.class);
     }
 
-    // Construct using com.server.graph_db.proto.vertex.edge.newBuilder()
+    // Construct using com.server.graph_db.grpc.vertex.edge.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -495,7 +523,7 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      destinationVertexId_ = 0;
+      destinationVertexId_ = "";
 
       label_ = "";
 
@@ -579,8 +607,9 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(com.server.graph_db.grpc.vertex.edge other) {
       if (other == com.server.graph_db.grpc.vertex.edge.getDefaultInstance()) return this;
-      if (other.getDestinationVertexId() != 0) {
-        setDestinationVertexId(other.getDestinationVertexId());
+      if (!other.getDestinationVertexId().isEmpty()) {
+        destinationVertexId_ = other.destinationVertexId_;
+        onChanged();
       }
       if (!other.getLabel().isEmpty()) {
         label_ = other.label_;
@@ -618,33 +647,78 @@ private static final long serialVersionUID = 0L;
     }
     private int bitField0_;
 
-    private int destinationVertexId_ ;
+    private java.lang.Object destinationVertexId_ = "";
     /**
-     * <code>int32 destinationVertexId = 1;</code>
+     * <code>string destinationVertexId = 1;</code>
      * @return The destinationVertexId.
      */
-    @java.lang.Override
-    public int getDestinationVertexId() {
-      return destinationVertexId_;
+    public java.lang.String getDestinationVertexId() {
+      java.lang.Object ref = destinationVertexId_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        destinationVertexId_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
     }
     /**
-     * <code>int32 destinationVertexId = 1;</code>
+     * <code>string destinationVertexId = 1;</code>
+     * @return The bytes for destinationVertexId.
+     */
+    public com.google.protobuf.ByteString
+        getDestinationVertexIdBytes() {
+      java.lang.Object ref = destinationVertexId_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        destinationVertexId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string destinationVertexId = 1;</code>
      * @param value The destinationVertexId to set.
      * @return This builder for chaining.
      */
-    public Builder setDestinationVertexId(int value) {
-      
+    public Builder setDestinationVertexId(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
       destinationVertexId_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>int32 destinationVertexId = 1;</code>
+     * <code>string destinationVertexId = 1;</code>
      * @return This builder for chaining.
      */
     public Builder clearDestinationVertexId() {
       
-      destinationVertexId_ = 0;
+      destinationVertexId_ = getDefaultInstance().getDestinationVertexId();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string destinationVertexId = 1;</code>
+     * @param value The bytes for destinationVertexId to set.
+     * @return This builder for chaining.
+     */
+    public Builder setDestinationVertexIdBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      destinationVertexId_ = value;
       onChanged();
       return this;
     }

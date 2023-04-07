@@ -29,7 +29,7 @@ public class VertexClient {
     @Autowired
     Adapter adapter;
 
-    public Vertex getVertex(int vertexId, String serverId) {
+    public Vertex getVertex(String vertexId, String serverId) {
         VertexServiceGrpc.VertexServiceBlockingStub blockingStub = VertexServiceGrpc.newBlockingStub(grpcChannels.get(serverId));
         getVertexRequest request = getVertexRequest.newBuilder().setVertexId(vertexId).build();
         getVertexResponse response = blockingStub.getVertex(request);
@@ -37,7 +37,7 @@ public class VertexClient {
         return adapter.vertexResponseToVertex(response);
     }
 
-    public Iterable<Vertex> getVertices(Iterable<Integer> vertexIds, String serverId) {
+    public Iterable<Vertex> getVertices(Iterable<String> vertexIds, String serverId) {
         VertexServiceGrpc.VertexServiceBlockingStub blockingStub = VertexServiceGrpc.newBlockingStub(grpcChannels.get(serverId));
         getVerticesRequest request = getVerticesRequest.newBuilder().addAllVertexIds(vertexIds).build();
         getVerticesResponse response = blockingStub.getVertices(request);

@@ -9,7 +9,7 @@ import com.server.graph_db.grpc.vertex.VertexServiceGrpc;
 import com.server.graph_db.grpc.vertex.getVertexRequest;
 import com.server.graph_db.grpc.vertex.getVertexResponse;
 import com.server.graph_db.vertex.Vertex;
-import com.server.graph_db.vertex.VertexService;
+import com.server.graph_db.vertex.LocalVertexService;
 import com.server.graph_db.grpc.vertex.getVerticesRequest;
 import com.server.graph_db.grpc.vertex.getVerticesResponse;
 
@@ -19,7 +19,7 @@ import net.devh.boot.grpc.server.service.GrpcService;
 @GrpcService
 public class VertexServiceImpl extends VertexServiceGrpc.VertexServiceImplBase {
     @Autowired
-    VertexService vertexService;
+    LocalVertexService vertexService;
 
     @Autowired
     Adapter adapter;

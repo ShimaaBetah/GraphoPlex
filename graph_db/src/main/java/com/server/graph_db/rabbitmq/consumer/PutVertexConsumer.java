@@ -7,14 +7,14 @@ import org.springframework.amqp.rabbit.annotation.Queue;
 import org.springframework.amqp.rabbit.annotation.Exchange;
 import org.springframework.stereotype.Service;
 import com.server.graph_db.vertex.Vertex;
-import com.server.graph_db.vertex.VertexService;
+import com.server.graph_db.vertex.LocalVertexService;
 
 @Service
 public class PutVertexConsumer {
 
   
     @Autowired
-    VertexService vertexService;
+    LocalVertexService vertexService;
 
      //listen to specific binding
     @RabbitListener(bindings = @QueueBinding(

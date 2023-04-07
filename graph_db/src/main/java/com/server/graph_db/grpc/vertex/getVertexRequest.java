@@ -16,6 +16,7 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private getVertexRequest() {
+    vertexId_ = "";
   }
 
   @java.lang.Override
@@ -48,9 +49,10 @@ private static final long serialVersionUID = 0L;
           case 0:
             done = true;
             break;
-          case 8: {
+          case 10: {
+            java.lang.String s = input.readStringRequireUtf8();
 
-            vertexId_ = input.readInt32();
+            vertexId_ = s;
             break;
           }
           default: {
@@ -86,14 +88,41 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int VERTEXID_FIELD_NUMBER = 1;
-  private int vertexId_;
+  private volatile java.lang.Object vertexId_;
   /**
-   * <code>int32 vertexId = 1;</code>
+   * <code>string vertexId = 1;</code>
    * @return The vertexId.
    */
   @java.lang.Override
-  public int getVertexId() {
-    return vertexId_;
+  public java.lang.String getVertexId() {
+    java.lang.Object ref = vertexId_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      vertexId_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string vertexId = 1;</code>
+   * @return The bytes for vertexId.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getVertexIdBytes() {
+    java.lang.Object ref = vertexId_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      vertexId_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
   }
 
   private byte memoizedIsInitialized = -1;
@@ -110,8 +139,8 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (vertexId_ != 0) {
-      output.writeInt32(1, vertexId_);
+    if (!getVertexIdBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, vertexId_);
     }
     unknownFields.writeTo(output);
   }
@@ -122,9 +151,8 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (vertexId_ != 0) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(1, vertexId_);
+    if (!getVertexIdBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, vertexId_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -141,8 +169,8 @@ private static final long serialVersionUID = 0L;
     }
     com.server.graph_db.grpc.vertex.getVertexRequest other = (com.server.graph_db.grpc.vertex.getVertexRequest) obj;
 
-    if (getVertexId()
-        != other.getVertexId()) return false;
+    if (!getVertexId()
+        .equals(other.getVertexId())) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -155,7 +183,7 @@ private static final long serialVersionUID = 0L;
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
     hash = (37 * hash) + VERTEXID_FIELD_NUMBER;
-    hash = (53 * hash) + getVertexId();
+    hash = (53 * hash) + getVertexId().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -271,7 +299,7 @@ private static final long serialVersionUID = 0L;
               com.server.graph_db.grpc.vertex.getVertexRequest.class, com.server.graph_db.grpc.vertex.getVertexRequest.Builder.class);
     }
 
-    // Construct using com.server.graph_db.proto.vertex.getVertexRequest.newBuilder()
+    // Construct using com.server.graph_db.grpc.vertex.getVertexRequest.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -289,7 +317,7 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      vertexId_ = 0;
+      vertexId_ = "";
 
       return this;
     }
@@ -366,8 +394,9 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(com.server.graph_db.grpc.vertex.getVertexRequest other) {
       if (other == com.server.graph_db.grpc.vertex.getVertexRequest.getDefaultInstance()) return this;
-      if (other.getVertexId() != 0) {
-        setVertexId(other.getVertexId());
+      if (!other.getVertexId().isEmpty()) {
+        vertexId_ = other.vertexId_;
+        onChanged();
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -398,33 +427,78 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private int vertexId_ ;
+    private java.lang.Object vertexId_ = "";
     /**
-     * <code>int32 vertexId = 1;</code>
+     * <code>string vertexId = 1;</code>
      * @return The vertexId.
      */
-    @java.lang.Override
-    public int getVertexId() {
-      return vertexId_;
+    public java.lang.String getVertexId() {
+      java.lang.Object ref = vertexId_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        vertexId_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
     }
     /**
-     * <code>int32 vertexId = 1;</code>
+     * <code>string vertexId = 1;</code>
+     * @return The bytes for vertexId.
+     */
+    public com.google.protobuf.ByteString
+        getVertexIdBytes() {
+      java.lang.Object ref = vertexId_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        vertexId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string vertexId = 1;</code>
      * @param value The vertexId to set.
      * @return This builder for chaining.
      */
-    public Builder setVertexId(int value) {
-      
+    public Builder setVertexId(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
       vertexId_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>int32 vertexId = 1;</code>
+     * <code>string vertexId = 1;</code>
      * @return This builder for chaining.
      */
     public Builder clearVertexId() {
       
-      vertexId_ = 0;
+      vertexId_ = getDefaultInstance().getVertexId();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string vertexId = 1;</code>
+     * @param value The bytes for vertexId to set.
+     * @return This builder for chaining.
+     */
+    public Builder setVertexIdBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      vertexId_ = value;
       onChanged();
       return this;
     }

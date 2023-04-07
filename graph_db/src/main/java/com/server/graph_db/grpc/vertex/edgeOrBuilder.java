@@ -8,10 +8,16 @@ public interface edgeOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>int32 destinationVertexId = 1;</code>
+   * <code>string destinationVertexId = 1;</code>
    * @return The destinationVertexId.
    */
-  int getDestinationVertexId();
+  java.lang.String getDestinationVertexId();
+  /**
+   * <code>string destinationVertexId = 1;</code>
+   * @return The bytes for destinationVertexId.
+   */
+  com.google.protobuf.ByteString
+      getDestinationVertexIdBytes();
 
   /**
    * <code>string label = 2;</code>

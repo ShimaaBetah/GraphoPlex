@@ -43,38 +43,37 @@ public class VertexRepositoryImpl implements VertexRepository {
     }
 
     @Override
-    public void deleteAllById(Iterable<? extends Integer> ids) {
+    public void deleteAllById(Iterable<? extends String> ids) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'deleteAllById'");
     }
 
     @Override
-    public void deleteById(Integer id) {
+    public void deleteById(String id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'deleteById'");
     }
 
     @Override
-    public boolean existsById(Integer id) {
+    public boolean existsById(String id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'existsById'");
     }
 
     @Override
     public Iterable<Vertex> findAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
+        return redisDataAccess.getAllVertices();
     }
 
     @Override
-    public Iterable<Vertex> findAllById(Iterable<Integer> ids) {
+    public Iterable<Vertex> findAllById(Iterable<String> ids) {
         // TODO Auto-generated method stub
 
         return redisDataAccess.getVerticesByIds(ids);
     }
 
     @Override
-    public Optional<Vertex> findById(Integer id) {
+    public Optional<Vertex> findById(String id) {
         // get by id from redis
         Vertex vertex = redisDataAccess.getVertex(id);
         return Optional.ofNullable(vertex);
@@ -93,7 +92,7 @@ public class VertexRepositoryImpl implements VertexRepository {
         throw new UnsupportedOperationException("Unimplemented method 'saveAll'");
     }
 
-    public Iterable<Integer> getAllVerticesIds() {
+    public Iterable<String> getAllVerticesIds() {
 
         return redisDataAccess.getAllVerticesIds();
     }

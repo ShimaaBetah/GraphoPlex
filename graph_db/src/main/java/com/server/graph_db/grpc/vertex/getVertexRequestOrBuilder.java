@@ -8,8 +8,14 @@ public interface getVertexRequestOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>int32 vertexId = 1;</code>
+   * <code>string vertexId = 1;</code>
    * @return The vertexId.
    */
-  int getVertexId();
+  java.lang.String getVertexId();
+  /**
+   * <code>string vertexId = 1;</code>
+   * @return The bytes for vertexId.
+   */
+  com.google.protobuf.ByteString
+      getVertexIdBytes();
 }

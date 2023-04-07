@@ -59,16 +59,16 @@ public final class Vertex {
   static {
     java.lang.String[] descriptorData = {
       "\n\014vertex.proto\"$\n\020getVertexRequest\022\020\n\010ve" +
-      "rtexId\030\001 \001(\005\"\'\n\022getVerticesRequest\022\021\n\tve" +
-      "rtexIds\030\001 \003(\005\"\325\001\n\021getVertexResponse\022\n\n\002i" +
-      "d\030\001 \001(\005\022\r\n\005label\030\002 \001(\t\022\034\n\routgoingEdges\030" +
+      "rtexId\030\001 \001(\t\"\'\n\022getVerticesRequest\022\021\n\tve" +
+      "rtexIds\030\001 \003(\t\"\325\001\n\021getVertexResponse\022\n\n\002i" +
+      "d\030\001 \001(\t\022\r\n\005label\030\002 \001(\t\022\034\n\routgoingEdges\030" +
       "\004 \003(\0132\005.edge\022\034\n\rincomingEdges\030\005 \003(\0132\005.ed" +
       "ge\0226\n\nproperties\030\003 \003(\0132\".getVertexRespon" +
       "se.PropertiesEntry\0321\n\017PropertiesEntry\022\013\n" +
       "\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\";\n\023getVert" +
       "icesResponse\022$\n\010vertices\030\001 \003(\0132\022.getVert" +
       "exResponse\"\220\001\n\004edge\022\033\n\023destinationVertex" +
-      "Id\030\001 \001(\005\022\r\n\005label\030\002 \001(\t\022)\n\nproperties\030\003 " +
+      "Id\030\001 \001(\t\022\r\n\005label\030\002 \001(\t\022)\n\nproperties\030\003 " +
       "\003(\0132\025.edge.PropertiesEntry\0321\n\017Properties" +
       "Entry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\0012\201\001" +
       "\n\rVertexService\0224\n\tgetVertex\022\021.getVertex" +
