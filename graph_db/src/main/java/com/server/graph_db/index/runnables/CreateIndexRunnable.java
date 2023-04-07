@@ -1,30 +1,16 @@
 package com.server.graph_db.index.runnables;
 
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.server.graph_db.grpc.clients.SecondaryIndexClient;
 import com.server.graph_db.index.LocalSecondaryIndexManager;
 import com.server.graph_db.partition.PartitionManager;
 
-public class CreateIndexRunnable implements Runnable{
+public class CreateIndexRunnable extends IndexOperationRunnable implements Runnable{
     String indexName;
-    int serverId;
-
-    
-    private SecondaryIndexClient secondaryIndexClient;
-
-    
-    private PartitionManager partitionManager;
-
-    
-    private LocalSecondaryIndexManager localSecondaryIndexManager;
 
     public CreateIndexRunnable(String indexName, int serverId, SecondaryIndexClient secondaryIndexClient, PartitionManager partitionManager, LocalSecondaryIndexManager localSecondaryIndexManager) {
+        super(serverId, secondaryIndexClient, partitionManager, localSecondaryIndexManager);
         this.indexName = indexName;
-        this.serverId = serverId;
-        this.secondaryIndexClient = secondaryIndexClient;
-        this.partitionManager = partitionManager;
-        this.localSecondaryIndexManager = localSecondaryIndexManager;
     }
 
 

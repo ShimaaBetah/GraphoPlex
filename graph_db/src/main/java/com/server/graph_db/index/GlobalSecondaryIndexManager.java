@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import com.server.graph_db.grpc.clients.SecondaryIndexClient;
 import com.server.graph_db.index.runnables.CreateIndexRunnable;
+import com.server.graph_db.index.runnables.DeleteIndexRunnable;
 import com.server.graph_db.partition.PartitionManager;
 
 @Component
@@ -47,7 +48,19 @@ public class GlobalSecondaryIndexManager implements SecondaryIndexManager {
 
     @Override
     public void deleteIndex(String indexName) {
-        localSecondaryIndexManager.deleteIndex(indexName);
+        Thread [] threads = new Thread[partitionManager.getNumberOfServers()];
+        for(int i = 0; i < partitionManager.getNumberOfServers(); i++) {
+            threads[i] = new Thread(new DeleteIndexRunnable(indexName, i,secondaryIndexClient,partitionManager, localSecondaryIndexManager ));
+            threads[i].start();
+         }
+ 
+         for(int i = 0; i < partitionManager.getNumberOfServers(); i++) {
+             try {
+                 threads[i].join();
+             } catch (InterruptedException e) {
+                 e.printStackTrace();
+             }
+         }
     }
 
     @Override
