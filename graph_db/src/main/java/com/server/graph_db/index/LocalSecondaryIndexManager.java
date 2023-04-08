@@ -61,6 +61,24 @@ public class LocalSecondaryIndexManager implements SecondaryIndexManager {
         }
     }
 
+    public void addVertexToIndices(Vertex vertex) {
+        Iterable<String> indices = indexDataManager.getAllIndices();
+        for (String index : indices) {
+            if(vertex.isPropertyExist(index)) {
+                indexDataManager.addVertexToIndex(index, vertex.getProperty(index), vertex.getId());
+            }
+        }
+    }
+
+    public void deleteVertexFromIndices(Vertex vertex) {
+        Iterable<String> indices = indexDataManager.getAllIndices();
+        for (String index : indices) {
+            if(vertex.isPropertyExist(index)) {
+                indexDataManager.removeVertexFromIndex(index, vertex.getProperty(index), vertex.getId());
+            }
+        }
+    }
+
 
 
 }

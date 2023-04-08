@@ -75,5 +75,9 @@ public class RedisIndexDataManager implements IndexDataManager {
 
             return notExistingIndices;
         }
+
+        public Iterable<String> getAllIndices() {
+            return redisTemplate.opsForList().range(LIST_SECONDARY_INDEX_NAME, 0, -1).stream().map(key -> (String) key).collect(Collectors.toList());
+        }
     
 }

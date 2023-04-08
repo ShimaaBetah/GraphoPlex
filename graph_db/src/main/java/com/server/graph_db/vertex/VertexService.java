@@ -12,6 +12,7 @@ public interface VertexService {
     public long getVertexCount();
     public Iterable<String> getAllVerticesIds();
     public Iterable<Vertex> getVerticesByIds(Iterable<String> ids);
-    
+    public void deleteVertex(String id);
+
 
 }

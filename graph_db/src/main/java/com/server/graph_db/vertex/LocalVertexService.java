@@ -38,7 +38,8 @@ public class LocalVertexService implements VertexService {
     }
 
     public void addVertex(Vertex vertex) {
-          vertexRepository.save(vertex);  
+        localSecondaryIndexManager.addVertexToIndices(vertex);
+        vertexRepository.save(vertex);  
     }
 
     public void addEdge(String id, Edge edge) {
@@ -67,5 +68,15 @@ public class LocalVertexService implements VertexService {
 
     public Iterable<Vertex> getVerticesByIds(Iterable<String> ids) {
         return vertexRepository.findAllById(ids);
+    }
+
+
+
+
+
+    @Override
+    public void deleteVertex(String id) {
+        
+        vertexRepository.deleteById(id);
     }
 }
