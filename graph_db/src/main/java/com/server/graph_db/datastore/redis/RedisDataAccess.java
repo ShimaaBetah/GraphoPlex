@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
@@ -24,7 +25,6 @@ public class RedisDataAccess implements DataAccesser {
     }
 
     @Override
-    @Cacheable(value = "vertex", key = "#vertexId" ,unless = "#result == null")
     public Vertex getVertex(String vertexId) {
         return (Vertex) redisTemplate.opsForHash().get("Vertex", vertexId);    
     }
@@ -62,6 +62,11 @@ public class RedisDataAccess implements DataAccesser {
         // get all vertices from redis
         Iterable<String> ids = getAllVerticesIds();
         return getVerticesByIds(ids);
+    }
+
+    @Override
+    public void deleteVertex(String vertexId) {
+        redisTemplate.opsForHash().delete("Vertex", vertexId);
     }
     
 }

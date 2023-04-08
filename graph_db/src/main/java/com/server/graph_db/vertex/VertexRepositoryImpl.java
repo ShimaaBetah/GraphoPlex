@@ -50,8 +50,7 @@ public class VertexRepositoryImpl implements VertexRepository {
 
     @Override
     public void deleteById(String id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteById'");
+            redisDataAccess.deleteVertex(id);
     }
 
     @Override
