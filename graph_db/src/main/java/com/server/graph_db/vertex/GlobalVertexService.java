@@ -107,8 +107,10 @@ public class GlobalVertexService implements VertexService {
         // loop on all partitions and get vertices from them
         for (int i = 0; i < numOfServers; i++) {
            // execute in parallel
-            activeThreads[i] = new Thread(new getVerticesByIdsAsync(vertexService, verticesIdsByPartitionId.get(i), serverId, vertexClient, verticesByPartitionId.get(i), i));
-            activeThreads[i].start();
+           if(verticesIdsByPartitionId.get(i).size() > 0) {
+               activeThreads[i] = new Thread(new getVerticesByIdsAsync(vertexService, verticesIdsByPartitionId.get(i), serverId, vertexClient, verticesByPartitionId.get(i), i));
+               activeThreads[i].start();
+              }
 
         }
 
@@ -116,7 +118,8 @@ public class GlobalVertexService implements VertexService {
 
         for (int i = 0; i < numOfServers; i++) {
             try {
-                activeThreads[i].join();
+                if(activeThreads[i] != null)
+                    activeThreads[i].join();
             } catch (InterruptedException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -242,6 +245,12 @@ public class GlobalVertexService implements VertexService {
         }
 
     }
+
+@Override
+public void deleteVertex(String id) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'deleteVertex'");
+}
 
 }
 
