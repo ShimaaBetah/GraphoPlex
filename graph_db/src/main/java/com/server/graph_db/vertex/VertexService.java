@@ -1,6 +1,7 @@
 package com.server.graph_db.vertex;
 
 import java.util.LinkedList;
+import java.util.Map;
 
 public interface VertexService {
     
@@ -13,6 +14,8 @@ public interface VertexService {
     public Iterable<String> getAllVerticesIds();
     public Iterable<Vertex> getVerticesByIds(Iterable<String> ids);
     public void deleteVertex(String id);
+    public void updateVertex(String id, String label , Map<String, String> properties);
+    public void updateVertex (String id , Map<String, String> properties);
 
 
 }

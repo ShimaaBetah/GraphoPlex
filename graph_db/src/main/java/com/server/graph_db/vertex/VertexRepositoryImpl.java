@@ -1,5 +1,6 @@
 package com.server.graph_db.vertex;
 
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,6 +95,19 @@ public class VertexRepositoryImpl implements VertexRepository {
     public Iterable<String> getAllVerticesIds() {
 
         return redisDataAccess.getAllVerticesIds();
+    }
+
+    public void updateVertex(String id, String label , Map<String, String> properties) {
+        Vertex vertex = redisDataAccess.getVertex(id);
+        vertex.setLabel(label);
+        vertex.setProperties(properties);
+        redisDataAccess.saveVertex(vertex);
+    }
+
+    public void updateVertex (String id , Map<String, String> properties) {
+        Vertex vertex = redisDataAccess.getVertex(id);
+        vertex.setProperties(properties);
+        redisDataAccess.saveVertex(vertex);
     }
     
 }

@@ -1,6 +1,8 @@
 package com.server.graph_db.vertex;
 
 import java.util.LinkedList;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -70,13 +72,20 @@ public class LocalVertexService implements VertexService {
         return vertexRepository.findAllById(ids);
     }
 
-
-
-
-
     @Override
     public void deleteVertex(String id) {
         
         vertexRepository.deleteById(id);
+    }
+
+    @Override
+    public void updateVertex(String id, String label, Map<String, String> properties) {
+        vertexRepository.updateVertex(id, label, properties);
+    }
+
+
+    @Override
+    public void updateVertex(String id, Map<String, String> properties) {
+        vertexRepository.updateVertex(id, properties);
     }
 }

@@ -5,6 +5,8 @@ import java.util.HashMap;
 
 import org.springframework.stereotype.Component;
 
+import com.server.graph_db.grpc.vertex.GrpcVertex;
+import com.server.graph_db.grpc.vertex.createVertexRequest;
 import com.server.graph_db.grpc.vertex.edge;
 import com.server.graph_db.grpc.vertex.getVertexResponse;
 import com.server.graph_db.grpc.vertex.getVerticesResponse;
@@ -17,7 +19,17 @@ public class Adapter {
     public getVertexResponse vertexToVertexResponse(Vertex vertex) {
         return getVertexResponse.newBuilder()
                 .setId(vertex.getId())
-                .setLabel("")
+                .setLabel(vertex.getLabel())
+                .putAllProperties(vertex.getProperties())
+                .addAllOutgoingEdges(edgesToEdgesResponse(vertex.getOutgoingEdges()))
+                .addAllIncomingEdges(edgesToEdgesResponse(vertex.getIncomingEdges()))
+                .build();
+    }
+
+    public createVertexRequest vertexToCreateVertexRequest(Vertex vertex) {
+        return createVertexRequest.newBuilder()
+                .setId(vertex.getId())
+                .setLabel(vertex.getLabel())
                 .putAllProperties(vertex.getProperties())
                 .addAllOutgoingEdges(edgesToEdgesResponse(vertex.getOutgoingEdges()))
                 .addAllIncomingEdges(edgesToEdgesResponse(vertex.getIncomingEdges()))
@@ -38,7 +50,7 @@ public class Adapter {
     }
 
 
-    public Vertex vertexResponseToVertex(getVertexResponse vertexResponse) {
+    public Vertex vertexResponseToVertex(GrpcVertex vertexResponse) {
         Vertex vertex = new Vertex(vertexResponse.getId());
         vertex.setProperties(vertexResponse.getPropertiesMap());
         vertex.setLabel(vertexResponse.getLabel());

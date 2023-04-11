@@ -3,6 +3,7 @@ package com.server.graph_db.vertex;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,7 +16,7 @@ import com.server.graph_db.rabbitmq.producer.PutVertexProducer;
 
 @Component
 public class GlobalVertexService implements VertexService {
-    
+
     @Autowired
     private LocalVertexService vertexService;
 
@@ -33,8 +34,6 @@ public class GlobalVertexService implements VertexService {
 
     @Autowired
     private GetVerticesIdsProducer getVerticesIdsProducer;
-
-    
 
     @Value("#{@myServerProperties.serverId}")
     private String serverId;
@@ -60,7 +59,7 @@ public class GlobalVertexService implements VertexService {
         } else {
             // send to the right partition
             // return getVertexProducer.send(vertexId, String.valueOf(partitionId));
-            //return vertexService.getVertex(vertexId);
+            // return vertexService.getVertex(vertexId);
 
             return vertexClient.getVertex(vertexId, String.valueOf(partitionId));
 
@@ -97,28 +96,29 @@ public class GlobalVertexService implements VertexService {
     public Iterable<Vertex> getVerticesByIds(Iterable<String> verticesIds) {
         List<Vertex> vertices = new ArrayList<Vertex>();
         List<List<Vertex>> verticesByPartitionId = new ArrayList<List<Vertex>>();
-        // initialize 
-        for(int i = 0; i < numOfServers; i++) {
+        // initialize
+        for (int i = 0; i < numOfServers; i++) {
             verticesByPartitionId.add(new ArrayList<Vertex>());
         }
-        Thread [] activeThreads = new Thread[numOfServers];
+        Thread[] activeThreads = new Thread[numOfServers];
         // group vertices ids by partition id
         List<List<String>> verticesIdsByPartitionId = groupVerticesIdsByPartitionId(verticesIds);
         // loop on all partitions and get vertices from them
         for (int i = 0; i < numOfServers; i++) {
-           // execute in parallel
-           if(verticesIdsByPartitionId.get(i).size() > 0) {
-               activeThreads[i] = new Thread(new getVerticesByIdsAsync(vertexService, verticesIdsByPartitionId.get(i), serverId, vertexClient, verticesByPartitionId.get(i), i));
-               activeThreads[i].start();
-              }
+            // execute in parallel
+            if (verticesIdsByPartitionId.get(i).size() > 0) {
+                activeThreads[i] = new Thread(new getVerticesByIdsAsync(vertexService, verticesIdsByPartitionId.get(i),
+                        serverId, vertexClient, verticesByPartitionId.get(i), i));
+                activeThreads[i].start();
+            }
 
         }
 
-        //wait till only the threads created in this method are finished
+        // wait till only the threads created in this method are finished
 
         for (int i = 0; i < numOfServers; i++) {
             try {
-                if(activeThreads[i] != null)
+                if (activeThreads[i] != null)
                     activeThreads[i].join();
             } catch (InterruptedException e) {
                 // TODO Auto-generated catch block
@@ -133,29 +133,31 @@ public class GlobalVertexService implements VertexService {
             }
         }
 
-
-        /* for(int partitionId = 0; partitionId < numOfServers; partitionId++) {
-            if (partitionId == Integer.parseInt(serverId)) {
-                // System.out.println("Getting vertex " + vertexId + " from server " +
-                // serverId);
-                Iterable<Vertex> verticesFromMyServer = vertexService.getVerticesByIds(verticesIdsByPartitionId.get(partitionId));
-                for (Vertex vertex : verticesFromMyServer) {
-                    vertices.add(vertex);
-                }
-            } else {
-                // send to the right partition
-                // return getVertexProducer.send(vertexId, String.valueOf(partitionId));
-                //return vertexService.getVertex(vertexId);
-
-                Iterable<Vertex> verticesFromOtherServer = vertexClient.getVertices(verticesIdsByPartitionId.get(partitionId), String.valueOf(partitionId));
-                for (Vertex vertex : verticesFromOtherServer) {
-                    vertices.add(vertex);
-                }
-
-            }
-        }
- */
-        
+        /*
+         * for(int partitionId = 0; partitionId < numOfServers; partitionId++) {
+         * if (partitionId == Integer.parseInt(serverId)) {
+         * // System.out.println("Getting vertex " + vertexId + " from server " +
+         * // serverId);
+         * Iterable<Vertex> verticesFromMyServer =
+         * vertexService.getVerticesByIds(verticesIdsByPartitionId.get(partitionId));
+         * for (Vertex vertex : verticesFromMyServer) {
+         * vertices.add(vertex);
+         * }
+         * } else {
+         * // send to the right partition
+         * // return getVertexProducer.send(vertexId, String.valueOf(partitionId));
+         * //return vertexService.getVertex(vertexId);
+         * 
+         * Iterable<Vertex> verticesFromOtherServer =
+         * vertexClient.getVertices(verticesIdsByPartitionId.get(partitionId),
+         * String.valueOf(partitionId));
+         * for (Vertex vertex : verticesFromOtherServer) {
+         * vertices.add(vertex);
+         * }
+         * 
+         * }
+         * }
+         */
 
         return vertices;
     }
@@ -199,8 +201,8 @@ public class GlobalVertexService implements VertexService {
         throw new UnsupportedOperationException("Unimplemented method 'getVertexCount'");
     }
 
-   static class getVerticesByIdsAsync implements Runnable {
-       
+    static class getVerticesByIdsAsync implements Runnable {
+
         private LocalVertexService vertexService;
         private Iterable<String> verticesIds;
         private String serverId;
@@ -208,7 +210,8 @@ public class GlobalVertexService implements VertexService {
         private List<Vertex> vertices;
         private int partitionId;
 
-        public getVerticesByIdsAsync(LocalVertexService vertexService, Iterable<String> verticesIds, String serverId, VertexClient vertexClient,
+        public getVerticesByIdsAsync(LocalVertexService vertexService, Iterable<String> verticesIds, String serverId,
+                VertexClient vertexClient,
                 List<Vertex> vertices, int partitionId) {
             this.verticesIds = verticesIds;
             this.serverId = serverId;
@@ -227,7 +230,8 @@ public class GlobalVertexService implements VertexService {
                         String.valueOf(partitionId));
 
                 // append to vertices
-                if(verticesFromOtherServer==null) return;
+                if (verticesFromOtherServer == null)
+                    return;
                 for (Vertex vertex : verticesFromOtherServer) {
                     vertices.add(vertex);
                 }
@@ -241,21 +245,43 @@ public class GlobalVertexService implements VertexService {
                 }
             }
 
-
         }
 
     }
 
-@Override
-public void deleteVertex(String id) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'deleteVertex'");
-}
+    @Override
+    public void deleteVertex(String id) {
+        if (partitionManager.getPartitionId(id) == Integer.parseInt(serverId)) {
+            vertexService.deleteVertex(id);
+        } else {
+            vertexClient.deleteVertex(id, String.valueOf(partitionManager.getPartitionId(id)));
+        }
+    }
+
+    @Override
+    public void updateVertex(String id, String label, Map<String, String> properties) {
+        if(partitionManager.getPartitionId(id) == Integer.parseInt(serverId)) {
+            vertexService.updateVertex(id, label, properties);
+        } else {
+            vertexClient.updateVertex(id, label, properties, String.valueOf(partitionManager.getPartitionId(id)));
+        }
+    }
+
+    @Override
+    public void updateVertex(String id, Map<String, String> properties) {
+        if(partitionManager.getPartitionId(id) == Integer.parseInt(serverId)) {
+            vertexService.updateVertex(id, properties);
+        } else {
+            vertexClient.updateVertex(id, properties, String.valueOf(partitionManager.getPartitionId(id)));
+        }
+    }
+
+    public void createVertex (Vertex vertex){
+        if(partitionManager.getPartitionId(vertex.getId()) == Integer.parseInt(serverId)) {
+            vertexService.addVertex(vertex);
+        } else {
+            vertexClient.createVertex(vertex, String.valueOf(partitionManager.getPartitionId(vertex.getId())));
+        }
+    }
 
 }
-
-
-
-
-    
-

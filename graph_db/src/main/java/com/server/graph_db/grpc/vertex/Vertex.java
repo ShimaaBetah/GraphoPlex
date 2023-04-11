@@ -15,6 +15,46 @@ public final class Vertex {
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_createEdgeRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_createEdgeRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_createEdgeRequest_PropertiesEntry_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_createEdgeRequest_PropertiesEntry_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_deleteEdgeRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_deleteEdgeRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_updateEdgeRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_updateEdgeRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_updateEdgeRequest_PropertiesEntry_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_updateEdgeRequest_PropertiesEntry_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_createEdgeResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_createEdgeResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_deleteEdgeResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_deleteEdgeResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_updateEdgeResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_updateEdgeResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
     internal_static_getVertexRequest_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -24,6 +64,46 @@ public final class Vertex {
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_getVerticesRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_createVertexRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_createVertexRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_createVertexRequest_PropertiesEntry_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_createVertexRequest_PropertiesEntry_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_deleteVertexRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_deleteVertexRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_updateVertexRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_updateVertexRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_updateVertexRequest_PropertiesEntry_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_updateVertexRequest_PropertiesEntry_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_createVertexResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_createVertexResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_deleteVertexResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_deleteVertexResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_updateVertexResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_updateVertexResponse_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
     internal_static_getVertexResponse_descriptor;
   static final 
@@ -58,43 +138,179 @@ public final class Vertex {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\014vertex.proto\"$\n\020getVertexRequest\022\020\n\010ve" +
-      "rtexId\030\001 \001(\t\"\'\n\022getVerticesRequest\022\021\n\tve" +
-      "rtexIds\030\001 \003(\t\"\325\001\n\021getVertexResponse\022\n\n\002i" +
-      "d\030\001 \001(\t\022\r\n\005label\030\002 \001(\t\022\034\n\routgoingEdges\030" +
-      "\004 \003(\0132\005.edge\022\034\n\rincomingEdges\030\005 \003(\0132\005.ed" +
-      "ge\0226\n\nproperties\030\003 \003(\0132\".getVertexRespon" +
-      "se.PropertiesEntry\0321\n\017PropertiesEntry\022\013\n" +
-      "\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\";\n\023getVert" +
-      "icesResponse\022$\n\010vertices\030\001 \003(\0132\022.getVert" +
-      "exResponse\"\220\001\n\004edge\022\033\n\023destinationVertex" +
-      "Id\030\001 \001(\t\022\r\n\005label\030\002 \001(\t\022)\n\nproperties\030\003 " +
-      "\003(\0132\025.edge.PropertiesEntry\0321\n\017Properties" +
-      "Entry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\0012\201\001" +
-      "\n\rVertexService\0224\n\tgetVertex\022\021.getVertex" +
-      "Request\032\022.getVertexResponse\"\000\022:\n\013getVert" +
-      "ices\022\023.getVerticesRequest\032\024.getVerticesR" +
-      "esponse\"\000B#\n\037com.server.graph_db.grpc.ve" +
-      "rtexP\001b\006proto3"
+      "\n\014vertex.proto\"\302\001\n\021createEdgeRequest\022\026\n\016" +
+      "sourceVertexId\030\001 \001(\t\022\033\n\023destinationVerte" +
+      "xId\030\002 \001(\t\022\r\n\005label\030\003 \001(\t\0226\n\nproperties\030\004" +
+      " \003(\0132\".createEdgeRequest.PropertiesEntry" +
+      "\0321\n\017PropertiesEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005valu" +
+      "e\030\002 \001(\t:\0028\001\"W\n\021deleteEdgeRequest\022\026\n\016sour" +
+      "ceVertexId\030\001 \001(\t\022\033\n\023destinationVertexId\030" +
+      "\002 \001(\t\022\r\n\005label\030\003 \001(\t\"\302\001\n\021updateEdgeReque" +
+      "st\022\026\n\016sourceVertexId\030\001 \001(\t\022\033\n\023destinatio" +
+      "nVertexId\030\002 \001(\t\022\r\n\005label\030\003 \001(\t\0226\n\nproper" +
+      "ties\030\004 \003(\0132\".updateEdgeRequest.Propertie" +
+      "sEntry\0321\n\017PropertiesEntry\022\013\n\003key\030\001 \001(\t\022\r" +
+      "\n\005value\030\002 \001(\t:\0028\001\"6\n\022createEdgeResponse\022" +
+      "\017\n\007success\030\001 \001(\010\022\017\n\007message\030\002 \001(\t\"6\n\022del" +
+      "eteEdgeResponse\022\017\n\007success\030\001 \001(\010\022\017\n\007mess" +
+      "age\030\002 \001(\t\"6\n\022updateEdgeResponse\022\017\n\007succe" +
+      "ss\030\001 \001(\010\022\017\n\007message\030\002 \001(\t\"$\n\020getVertexRe" +
+      "quest\022\020\n\010vertexId\030\001 \001(\t\"\'\n\022getVerticesRe" +
+      "quest\022\021\n\tvertexIds\030\001 \003(\t\"\331\001\n\023createVerte" +
+      "xRequest\022\n\n\002id\030\001 \001(\t\022\r\n\005label\030\002 \001(\t\022\034\n\ro" +
+      "utgoingEdges\030\004 \003(\0132\005.edge\022\034\n\rincomingEdg" +
+      "es\030\005 \003(\0132\005.edge\0228\n\nproperties\030\003 \003(\0132$.cr" +
+      "eateVertexRequest.PropertiesEntry\0321\n\017Pro" +
+      "pertiesEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t" +
+      ":\0028\001\"\'\n\023deleteVertexRequest\022\020\n\010vertexId\030" +
+      "\001 \001(\t\"\235\001\n\023updateVertexRequest\022\n\n\002id\030\001 \001(" +
+      "\t\022\r\n\005label\030\002 \001(\t\0228\n\nproperties\030\003 \003(\0132$.u" +
+      "pdateVertexRequest.PropertiesEntry\0321\n\017Pr" +
+      "opertiesEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(" +
+      "\t:\0028\001\"8\n\024createVertexResponse\022\017\n\007success" +
+      "\030\001 \001(\010\022\017\n\007message\030\002 \001(\t\"8\n\024deleteVertexR" +
+      "esponse\022\017\n\007success\030\001 \001(\010\022\017\n\007message\030\002 \001(" +
+      "\t\"8\n\024updateVertexResponse\022\017\n\007success\030\001 \001" +
+      "(\010\022\017\n\007message\030\002 \001(\t\"\325\001\n\021getVertexRespons" +
+      "e\022\n\n\002id\030\001 \001(\t\022\r\n\005label\030\002 \001(\t\022\034\n\routgoing" +
+      "Edges\030\004 \003(\0132\005.edge\022\034\n\rincomingEdges\030\005 \003(" +
+      "\0132\005.edge\0226\n\nproperties\030\003 \003(\0132\".getVertex" +
+      "Response.PropertiesEntry\0321\n\017PropertiesEn" +
+      "try\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\";\n\023g" +
+      "etVerticesResponse\022$\n\010vertices\030\001 \003(\0132\022.g" +
+      "etVertexResponse\"\220\001\n\004edge\022\033\n\023destination" +
+      "VertexId\030\001 \001(\t\022\r\n\005label\030\002 \001(\t\022)\n\npropert" +
+      "ies\030\003 \003(\0132\025.edge.PropertiesEntry\0321\n\017Prop" +
+      "ertiesEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:" +
+      "\0028\0012\351\003\n\rVertexService\0224\n\tgetVertex\022\021.get" +
+      "VertexRequest\032\022.getVertexResponse\"\000\022:\n\013g" +
+      "etVertices\022\023.getVerticesRequest\032\024.getVer" +
+      "ticesResponse\"\000\022=\n\014createVertex\022\024.create" +
+      "VertexRequest\032\025.createVertexResponse\"\000\022=" +
+      "\n\014deleteVertex\022\024.deleteVertexRequest\032\025.d" +
+      "eleteVertexResponse\"\000\022=\n\014updateVertex\022\024." +
+      "updateVertexRequest\032\025.updateVertexRespon" +
+      "se\"\000\0227\n\ncreateEdge\022\022.createEdgeRequest\032\023" +
+      ".createEdgeResponse\"\000\0227\n\ndeleteEdge\022\022.de" +
+      "leteEdgeRequest\032\023.deleteEdgeResponse\"\000\0227" +
+      "\n\nupdateEdge\022\022.updateEdgeRequest\032\023.updat" +
+      "eEdgeResponse\"\000B#\n\037com.server.graph_db.g" +
+      "rpc.vertexP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         });
-    internal_static_getVertexRequest_descriptor =
+    internal_static_createEdgeRequest_descriptor =
       getDescriptor().getMessageTypes().get(0);
+    internal_static_createEdgeRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_createEdgeRequest_descriptor,
+        new java.lang.String[] { "SourceVertexId", "DestinationVertexId", "Label", "Properties", });
+    internal_static_createEdgeRequest_PropertiesEntry_descriptor =
+      internal_static_createEdgeRequest_descriptor.getNestedTypes().get(0);
+    internal_static_createEdgeRequest_PropertiesEntry_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_createEdgeRequest_PropertiesEntry_descriptor,
+        new java.lang.String[] { "Key", "Value", });
+    internal_static_deleteEdgeRequest_descriptor =
+      getDescriptor().getMessageTypes().get(1);
+    internal_static_deleteEdgeRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_deleteEdgeRequest_descriptor,
+        new java.lang.String[] { "SourceVertexId", "DestinationVertexId", "Label", });
+    internal_static_updateEdgeRequest_descriptor =
+      getDescriptor().getMessageTypes().get(2);
+    internal_static_updateEdgeRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_updateEdgeRequest_descriptor,
+        new java.lang.String[] { "SourceVertexId", "DestinationVertexId", "Label", "Properties", });
+    internal_static_updateEdgeRequest_PropertiesEntry_descriptor =
+      internal_static_updateEdgeRequest_descriptor.getNestedTypes().get(0);
+    internal_static_updateEdgeRequest_PropertiesEntry_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_updateEdgeRequest_PropertiesEntry_descriptor,
+        new java.lang.String[] { "Key", "Value", });
+    internal_static_createEdgeResponse_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_createEdgeResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_createEdgeResponse_descriptor,
+        new java.lang.String[] { "Success", "Message", });
+    internal_static_deleteEdgeResponse_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_deleteEdgeResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_deleteEdgeResponse_descriptor,
+        new java.lang.String[] { "Success", "Message", });
+    internal_static_updateEdgeResponse_descriptor =
+      getDescriptor().getMessageTypes().get(5);
+    internal_static_updateEdgeResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_updateEdgeResponse_descriptor,
+        new java.lang.String[] { "Success", "Message", });
+    internal_static_getVertexRequest_descriptor =
+      getDescriptor().getMessageTypes().get(6);
     internal_static_getVertexRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_getVertexRequest_descriptor,
         new java.lang.String[] { "VertexId", });
     internal_static_getVerticesRequest_descriptor =
-      getDescriptor().getMessageTypes().get(1);
+      getDescriptor().getMessageTypes().get(7);
     internal_static_getVerticesRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_getVerticesRequest_descriptor,
         new java.lang.String[] { "VertexIds", });
+    internal_static_createVertexRequest_descriptor =
+      getDescriptor().getMessageTypes().get(8);
+    internal_static_createVertexRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_createVertexRequest_descriptor,
+        new java.lang.String[] { "Id", "Label", "OutgoingEdges", "IncomingEdges", "Properties", });
+    internal_static_createVertexRequest_PropertiesEntry_descriptor =
+      internal_static_createVertexRequest_descriptor.getNestedTypes().get(0);
+    internal_static_createVertexRequest_PropertiesEntry_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_createVertexRequest_PropertiesEntry_descriptor,
+        new java.lang.String[] { "Key", "Value", });
+    internal_static_deleteVertexRequest_descriptor =
+      getDescriptor().getMessageTypes().get(9);
+    internal_static_deleteVertexRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_deleteVertexRequest_descriptor,
+        new java.lang.String[] { "VertexId", });
+    internal_static_updateVertexRequest_descriptor =
+      getDescriptor().getMessageTypes().get(10);
+    internal_static_updateVertexRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_updateVertexRequest_descriptor,
+        new java.lang.String[] { "Id", "Label", "Properties", });
+    internal_static_updateVertexRequest_PropertiesEntry_descriptor =
+      internal_static_updateVertexRequest_descriptor.getNestedTypes().get(0);
+    internal_static_updateVertexRequest_PropertiesEntry_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_updateVertexRequest_PropertiesEntry_descriptor,
+        new java.lang.String[] { "Key", "Value", });
+    internal_static_createVertexResponse_descriptor =
+      getDescriptor().getMessageTypes().get(11);
+    internal_static_createVertexResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_createVertexResponse_descriptor,
+        new java.lang.String[] { "Success", "Message", });
+    internal_static_deleteVertexResponse_descriptor =
+      getDescriptor().getMessageTypes().get(12);
+    internal_static_deleteVertexResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_deleteVertexResponse_descriptor,
+        new java.lang.String[] { "Success", "Message", });
+    internal_static_updateVertexResponse_descriptor =
+      getDescriptor().getMessageTypes().get(13);
+    internal_static_updateVertexResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_updateVertexResponse_descriptor,
+        new java.lang.String[] { "Success", "Message", });
     internal_static_getVertexResponse_descriptor =
-      getDescriptor().getMessageTypes().get(2);
+      getDescriptor().getMessageTypes().get(14);
     internal_static_getVertexResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_getVertexResponse_descriptor,
@@ -106,13 +322,13 @@ public final class Vertex {
         internal_static_getVertexResponse_PropertiesEntry_descriptor,
         new java.lang.String[] { "Key", "Value", });
     internal_static_getVerticesResponse_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(15);
     internal_static_getVerticesResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_getVerticesResponse_descriptor,
         new java.lang.String[] { "Vertices", });
     internal_static_edge_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(16);
     internal_static_edge_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_edge_descriptor,
