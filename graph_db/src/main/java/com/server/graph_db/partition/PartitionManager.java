@@ -41,7 +41,7 @@ public class PartitionManager {
     private int numOfServers;
 
     public int getPartitionId(String vertexId) {
-        return vertexId.hashCode()%numOfServers;
+        return ((vertexId.hashCode()%numOfServers)+numOfServers)%numOfServers;
     }
 
     public int getPartitionId(Vertex vertex) {
