@@ -6,6 +6,7 @@ import java.util.HashMap;
 import org.springframework.stereotype.Component;
 
 import com.server.graph_db.grpc.vertex.GrpcVertex;
+import com.server.graph_db.grpc.vertex.createEdgeRequest;
 import com.server.graph_db.grpc.vertex.createVertexRequest;
 import com.server.graph_db.grpc.vertex.edge;
 import com.server.graph_db.grpc.vertex.getVertexResponse;
@@ -83,6 +84,22 @@ public class Adapter {
             vertices.add(vertexResponseToVertex(vertexResponse));
         }
         return vertices;
+    }
+
+    public Edge createEdgeRequestToEdge (createEdgeRequest request) {
+        Edge edge = new Edge(request.getDestinationVertexId());
+        edge.setProperties(request.getPropertiesMap());
+        edge.setLabel(request.getLabel());
+        return edge;
+    }
+
+    public createEdgeRequest edgeToCreateEdgeRequest (String sourceVertexId, Edge edge) {
+        return createEdgeRequest.newBuilder()
+                 .setSourceVertexId(sourceVertexId)
+                .setDestinationVertexId(edge.getDestinationVertexId())
+                .setLabel(edge.getLabel())
+                .putAllProperties(edge.getProperties())
+                .build();
     }
 
 }
