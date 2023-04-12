@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.server.graph_db.algorithms.traversables.DijkstraTraversable;
+import com.server.graph_db.exceptions.VertexNotFoundException;
 import com.server.graph_db.vertex.Edge;
 import com.server.graph_db.vertex.GlobalVertexService;
 import com.server.graph_db.vertex.Vertex;
@@ -54,7 +55,12 @@ public class Dijkstra {
             visited.put(currentVertex.getVertexId(), currentVertex);
             
             //get outgoing edges of current vertex using globalVertexService and ensure it's not null
-            Vertex visitedVertex = vertexService.getVertex(currentVertex.getVertexId());
+            Vertex visitedVertex;
+            try {
+                visitedVertex = vertexService.getVertex(currentVertex.getVertexId());
+            } catch (VertexNotFoundException e) {
+                visitedVertex = null;
+            }
             LinkedList<Edge> neighbours = visitedVertex!=null?visitedVertex.getOutgoingEdges():new LinkedList<Edge>();
             
 

@@ -8,6 +8,7 @@ import java.util.Queue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.server.graph_db.exceptions.VertexNotFoundException;
 import com.server.graph_db.vertex.Edge;
 import com.server.graph_db.vertex.GlobalVertexService;
 import com.server.graph_db.vertex.Vertex;
@@ -49,7 +50,10 @@ public class BreadthFirstGrouped {
         Queue<String> currentLevelIds = new LinkedList<String>();
         Queue<Vertex> currentLevel = new LinkedList<Vertex>();
         currentLevelIds.add(id);
-        currentLevel.add(globalVertexService.getVertex(id));
+        try {
+            currentLevel.add(globalVertexService.getVertex(id));
+        } catch (VertexNotFoundException e) {
+        }
         visited.add(id);
         while(!currentLevel.isEmpty()){
             currentLevel = processAndGetNextLevel(currentLevel);
