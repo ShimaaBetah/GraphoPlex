@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.server.graph_db.exceptions.VertexAlreadyExistsException;
+import com.server.graph_db.exceptions.VertexNotFoundException;
+
 
 @RestController
 public class VertexController {
@@ -29,7 +32,12 @@ public class VertexController {
 
   @GetMapping("/vertex/{id}")
     public Vertex getVertex(@PathVariable String id) {
-        return vertexService.getVertex(id);
+        try {
+            return vertexService.getVertex(id);
+        } catch (VertexNotFoundException e) {
+            // TODO Auto-generated catch block
+            return null;
+        }
     }
      
 
@@ -37,14 +45,24 @@ public class VertexController {
 
     public void addVertex(@RequestBody Vertex vertex) {
         vertex = new Vertex(vertex.getId());
-        vertexService.addVertex(vertex);
+        try {
+            vertexService.addVertex(vertex);
+        } catch (VertexAlreadyExistsException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     } 
 
     //add edge 
     @PostMapping("/vertex/{id}/edge")
     public void addEdge(@PathVariable String id, @RequestBody Edge edge) {
         edge= new Edge(edge.getDestinationVertexId());
-        vertexService.addEdge(id, edge);
+        try {
+            vertexService.addEdge(id, edge);
+        } catch (VertexNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     @GetMapping("/vertex/{id}/edge")

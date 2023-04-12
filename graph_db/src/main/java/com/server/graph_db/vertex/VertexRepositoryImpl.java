@@ -56,8 +56,7 @@ public class VertexRepositoryImpl implements VertexRepository {
 
     @Override
     public boolean existsById(String id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'existsById'");
+        return redisDataAccess.isVertexExists(id);
     }
 
     @Override
@@ -109,5 +108,26 @@ public class VertexRepositoryImpl implements VertexRepository {
         vertex.setProperties(properties);
         redisDataAccess.saveVertex(vertex);
     }
-    
+
+    public void addEdge (String sourceVertexId , Edge edge) {
+        Vertex vertex = redisDataAccess.getVertex(sourceVertexId);
+        vertex.addOutgoingEdge(edge);
+        redisDataAccess.saveVertex(vertex);
+        edge.setSourceVertexId(sourceVertexId);
+        
+        
+    }
+
+    public void deleteEdge (String sourceVertexId , String distinationId , String label) {
+        Vertex vertex = redisDataAccess.getVertex(sourceVertexId);
+        vertex.deleteOutgoingEdge(distinationId, label);
+        redisDataAccess.saveVertex(vertex);
+    }
+
+    public void updateEdge (String sourceId, String destinationId, String label, Map<String, String> properties) {
+        Vertex vertex = redisDataAccess.getVertex(sourceId);
+        vertex.updateOutgoingEdge(destinationId, label, properties);
+        redisDataAccess.saveVertex(vertex);
+    }
+
 }

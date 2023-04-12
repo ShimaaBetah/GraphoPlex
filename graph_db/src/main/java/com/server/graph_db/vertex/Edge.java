@@ -25,6 +25,8 @@ public class Edge implements Serializable {
         label ="";
 
     }
+
+    
     
     @JsonCreator
     public Edge(@JsonProperty("destinationVertexId")String destinationVertexId, @JsonProperty("properties")HashMap<String, String> properties, @JsonProperty("label")String label) {
@@ -54,7 +56,9 @@ public class Edge implements Serializable {
     }
 
     public void setProperties(Map<String, String> properties) {
-        this.properties = properties;
+        for (Map.Entry<String, String> entry : properties.entrySet()) {
+            addProperty(entry.getKey(), entry.getValue());
+        }
     }
 
     public void addProperty(String key, String value) {
@@ -68,6 +72,6 @@ public class Edge implements Serializable {
     }
 
     public String toString () {
-        return "Edge [destinationVertexId=" + destinationVertexId + ", properties=" + properties + ", label=" + label + "]";
+        return "Edge [destinationVertexId=" + destinationVertexId +"SourceVertexID" +sourceVertexId+ ", properties=" + properties + ", label=" + label + "]";
     }
 }

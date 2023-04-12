@@ -3,11 +3,16 @@ package com.server.graph_db.vertex;
 import java.util.LinkedList;
 import java.util.Map;
 
+import com.server.graph_db.exceptions.VertexAlreadyExistsException;
+import com.server.graph_db.exceptions.VertexNotFoundException;
+
 public interface VertexService {
     
-    public Vertex getVertex(String id);
-    public void addVertex(Vertex vertex);
-    public void addEdge(String id, Edge edge);
+    public Vertex getVertex(String id) throws VertexNotFoundException;
+    public void addVertex(Vertex vertex) throws VertexAlreadyExistsException;
+    public void addEdge(String id, Edge edge) throws Exception;
+    public void deleteEdge (String id, String distinationVertexId, String label)throws Exception;
+    public void updateEdge (String id, String distinationVertexId, String label, Map<String, String> properties) throws Exception;
     public void deleteAll();
     public LinkedList<Edge> getEdges(String vertexId);
     public long getVertexCount();

@@ -7,6 +7,7 @@ import org.springframework.amqp.rabbit.annotation.Queue;
 import org.springframework.amqp.rabbit.annotation.Exchange;
 import org.springframework.stereotype.Service;
 import com.server.graph_db.vertex.Vertex;
+import com.server.graph_db.exceptions.VertexAlreadyExistsException;
 import com.server.graph_db.vertex.LocalVertexService;
 
 @Service
@@ -24,7 +25,12 @@ public class PutVertexConsumer {
     ))
     public void receiveMessage(Vertex vertex) {
 
-        vertexService.addVertex(vertex);
+        try {
+            vertexService.addVertex(vertex);
+        } catch (VertexAlreadyExistsException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
     
 }

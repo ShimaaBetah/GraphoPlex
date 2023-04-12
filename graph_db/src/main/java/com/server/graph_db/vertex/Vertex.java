@@ -77,6 +77,15 @@ public class Vertex implements Serializable{
     public void addOutgoingEdge(Edge edge) {
         this.outgoingEdges.add(edge);
     }
+
+    public void deleteOutgoingEdge (String destinationVertexId, String label) {
+        for (Edge edge : outgoingEdges) {
+            if (edge.getDestinationVertexId().equals(destinationVertexId) && edge.getLabel().equals(label)) {
+                outgoingEdges.remove(edge);
+                break;
+            }
+        }
+    }
     
     public LinkedList<Edge> getIncomingEdges() {
         return incomingEdges;
@@ -95,7 +104,9 @@ public class Vertex implements Serializable{
     }
 
     public void setProperties(Map<String, String> properties) {
-        this.properties = properties;
+        for (Map.Entry<String, String> entry : properties.entrySet()) {
+            setProperty(entry.getKey(), entry.getValue());
+        }
     }
 
     public String toString() {
@@ -113,6 +124,24 @@ public class Vertex implements Serializable{
     public void setProperty(String key, String value) {
         properties.put(key, value);
     }
+
+
+
+    public void updateOutgoingEdge(String destinationId, String label, Map<String, String> properties) {
+        System.out.println("Updating edge");
+        System.out.println("Destination id: " + destinationId);
+        System.out.println("Label: " + label);
+        for (Edge edge : outgoingEdges) {
+            System.out.println(edge);
+            if (edge.getDestinationVertexId().equals(destinationId) && edge.getLabel().equals(label)) {
+                System.out.println("Updating edge");
+                edge.setProperties(properties);
+                break;
+            }
+        }
+    }
+
+
 
 
 

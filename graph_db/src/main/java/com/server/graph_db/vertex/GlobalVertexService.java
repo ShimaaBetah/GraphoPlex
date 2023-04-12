@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import com.server.graph_db.exceptions.VertexAlreadyExistsException;
+import com.server.graph_db.exceptions.VertexNotFoundException;
 import com.server.graph_db.grpc.clients.VertexClient;
 import com.server.graph_db.partition.PartitionManager;
 import com.server.graph_db.rabbitmq.producer.GetVerticesIdsProducer;
@@ -38,7 +40,7 @@ public class GlobalVertexService implements VertexService {
     @Value("#{@myServerProperties.serverId}")
     private String serverId;
 
-    public void addVertex(Vertex vertex) {
+    public void addVertex(Vertex vertex) throws VertexAlreadyExistsException {
         int partitionId = partitionManager.getPartitionId(vertex);
         if (partitionId == Integer.parseInt(serverId)) {
             System.out.println("Saving vertex " + vertex.getId() + " in server " + serverId);
@@ -50,7 +52,7 @@ public class GlobalVertexService implements VertexService {
         }
     }
 
-    public Vertex getVertex(String vertexId) {
+    public Vertex getVertex(String vertexId) throws VertexNotFoundException{
         int partitionId = partitionManager.getPartitionId(vertexId);
         if (partitionId == Integer.parseInt(serverId)) {
             // System.out.println("Getting vertex " + vertexId + " from server " +
@@ -177,12 +179,7 @@ public class GlobalVertexService implements VertexService {
 
     }
 
-    @Override
-    public void addEdge(String id, Edge edge) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addEdge'");
-    }
-
+    
     @Override
     public void deleteAll() {
         // TODO Auto-generated method stub
@@ -209,10 +206,10 @@ public class GlobalVertexService implements VertexService {
         private VertexClient vertexClient;
         private List<Vertex> vertices;
         private int partitionId;
-
+        
         public getVerticesByIdsAsync(LocalVertexService vertexService, Iterable<String> verticesIds, String serverId,
-                VertexClient vertexClient,
-                List<Vertex> vertices, int partitionId) {
+        VertexClient vertexClient,
+        List<Vertex> vertices, int partitionId) {
             this.verticesIds = verticesIds;
             this.serverId = serverId;
             this.vertexClient = vertexClient;
@@ -238,7 +235,7 @@ public class GlobalVertexService implements VertexService {
             } else {
                 // get vertices from my server
                 Iterable<Vertex> verticesFromMyServer = vertexService.getVerticesByIds(verticesIds);
-
+                
                 // append to vertices
                 for (Vertex vertex : verticesFromMyServer) {
                     vertices.add(vertex);
@@ -276,11 +273,37 @@ public class GlobalVertexService implements VertexService {
         }
     }
 
-    public void createVertex (Vertex vertex){
+    public void createVertex (Vertex vertex) throws VertexAlreadyExistsException{
         if(partitionManager.getPartitionId(vertex.getId()) == Integer.parseInt(serverId)) {
             vertexService.addVertex(vertex);
         } else {
             vertexClient.createVertex(vertex, String.valueOf(partitionManager.getPartitionId(vertex.getId())));
+        }
+    }
+    @Override
+    public void addEdge(String sourceId, Edge edge) throws Exception{
+        if(partitionManager.getPartitionId(sourceId) == Integer.parseInt(serverId)) {
+            vertexService.addEdge(sourceId, edge);
+        } else {
+            vertexClient.createEdge(sourceId, edge, String.valueOf(partitionManager.getPartitionId(sourceId)));
+        }
+    }
+
+    @Override
+    public void deleteEdge(String sourceId, String destinationVertexId, String label) throws Exception{
+        if(partitionManager.getPartitionId(sourceId) == Integer.parseInt(serverId)) {
+            vertexService.deleteEdge(sourceId, destinationVertexId, label);
+        } else {
+            vertexClient.deleteEdge(sourceId, destinationVertexId, label, String.valueOf(partitionManager.getPartitionId(sourceId)));
+        }
+    }
+
+    @Override
+    public void updateEdge(String sourceId, String destinationVertexId, String label, Map<String, String> properties) throws Exception{
+        if(partitionManager.getPartitionId(sourceId) == Integer.parseInt(serverId)) {
+            vertexService.updateEdge(sourceId, destinationVertexId, label, properties);
+        } else {
+            vertexClient.updateEdge(sourceId, destinationVertexId, label, properties, String.valueOf(partitionManager.getPartitionId(sourceId)));
         }
     }
 
