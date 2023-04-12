@@ -12,4 +12,5 @@ public interface DataAccesser {
     public Iterable<String> getAllVerticesIds();
     public Iterable<Vertex> getVerticesByIds(Iterable<String> ids);
     public Iterable<Vertex> getAllVertices();
+    public boolean isVertexExists(String vertexId);
 }

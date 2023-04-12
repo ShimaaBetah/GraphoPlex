@@ -68,5 +68,10 @@ public class RedisDataAccess implements DataAccesser {
     public void deleteVertex(String vertexId) {
         redisTemplate.opsForHash().delete("Vertex", vertexId);
     }
+
+    @Override
+    public boolean isVertexExists(String vertexId) {
+        return redisTemplate.opsForHash().hasKey("Vertex", vertexId);
+    }
     
 }
