@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.server.graph_db.exceptions.VertexAlreadyExistsException;
-import com.server.graph_db.exceptions.VertexNotFoundException;
+import com.server.graph_db.exceptions.vertex.VertexAlreadyExistsException;
+import com.server.graph_db.exceptions.vertex.VertexNotFoundException;
 import com.server.graph_db.grpc.clients.VertexClient;
 import com.server.graph_db.partition.PartitionManager;
 import com.server.graph_db.rabbitmq.producer.GetVerticesIdsProducer;
@@ -39,6 +39,7 @@ public class GlobalVertexService implements VertexService {
 
     @Value("#{@myServerProperties.serverId}")
     private String serverId;
+
 
     public void addVertex(Vertex vertex) throws VertexAlreadyExistsException {
         int partitionId = partitionManager.getPartitionId(vertex);

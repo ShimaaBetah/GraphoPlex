@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.server.graph_db.exceptions.VertexAlreadyExistsException;
-import com.server.graph_db.exceptions.VertexNotFoundException;
+import com.server.graph_db.exceptions.vertex.VertexAlreadyExistsException;
+import com.server.graph_db.exceptions.vertex.VertexNotFoundException;
 
 
 @RestController
