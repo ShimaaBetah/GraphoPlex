@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import com.server.graph_db.exceptions.VertexAlreadyExistsException;
-import com.server.graph_db.exceptions.VertexNotFoundException;
+import com.server.graph_db.exceptions.vertex.VertexAlreadyExistsException;
+import com.server.graph_db.exceptions.vertex.VertexNotFoundException;
 import com.server.graph_db.grpc.adapter.Adapter;
 import com.server.graph_db.grpc.vertex.VertexServiceGrpc;
 import com.server.graph_db.grpc.vertex.createEdgeRequest;
