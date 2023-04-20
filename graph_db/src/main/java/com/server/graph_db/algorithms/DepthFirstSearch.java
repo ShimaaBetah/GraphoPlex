@@ -6,7 +6,7 @@ import java.util.Stack;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.server.graph_db.exceptions.VertexNotFoundException;
+import com.server.graph_db.exceptions.vertex.VertexNotFoundException;
 import com.server.graph_db.vertex.Edge;
 import com.server.graph_db.vertex.GlobalVertexService;
 import com.server.graph_db.vertex.Vertex;
