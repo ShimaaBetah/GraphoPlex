@@ -16,14 +16,15 @@ public class RedisIndexDataManager implements IndexDataManager {
 
     @Autowired 
     private RedisTemplate<String, Object> redisTemplate;
-
+    @Autowired
+    private RedisDatabaseConfig redisDatabaseConfig;
     private final String LIST_SECONDARY_INDEX_NAME = "secondaryIndex";
     
         @Override
         public boolean isIndexExist(String indexName) {
             // check if some value exist in redislist named secondaryIndex 
            
-           return (redisTemplate.opsForList().range(LIST_SECONDARY_INDEX_NAME, 0, -1).contains(indexName));
+           return (redisTemplate.opsForList().range(getSecondaryIndicesListName(), 0, -1).contains(indexName));
 
             
         }
@@ -31,15 +32,14 @@ public class RedisIndexDataManager implements IndexDataManager {
         @Override
         public void createIndex(String indexName) {
             // push in redis list called secondaryIndex
-
-            redisTemplate.opsForList().leftPush(LIST_SECONDARY_INDEX_NAME, indexName);
+            redisTemplate.opsForList().leftPush(getSecondaryIndicesListName(), indexName);
         }
     
         @Override
         public void deleteIndex(String indexName) {
             // delete it from redis list called secondaryIndex
-            redisTemplate.opsForList().remove(LIST_SECONDARY_INDEX_NAME, 0, indexName);
-            Set<String> keys = redisTemplate.keys("*"+indexName + "*");
+            redisTemplate.opsForList().remove(getSecondaryIndicesListName(), 0, indexName);
+            Set<String> keys = redisTemplate.keys(getPrefix(indexName) + "*");
             for(String key : keys) {
                 redisTemplate.delete(key);
             }
@@ -48,24 +48,24 @@ public class RedisIndexDataManager implements IndexDataManager {
         @Override
         public void addVertexToIndex(String fieldName, String fieldValue ,String vertexId) {
             String indexName = fieldName + ":" + fieldValue;
-            redisTemplate.opsForList().leftPush(indexName, vertexId);
+            redisTemplate.opsForList().leftPush(getPrefix(indexName), vertexId);
             
         }
     
         @Override
         public void removeVertexFromIndex(String fieldName,String fieldValue ,String vertexId) {
             String indexName = fieldName + ":" + fieldValue;
-            redisTemplate.opsForList().remove(indexName, 0, vertexId);
+            redisTemplate.opsForList().remove(getPrefix(indexName), 0, vertexId);
         }
     
         @Override
         public Iterable<String> getVerticesIdsFromIndex(String indexName, String fieldValue) {
             String index = indexName + ":" + fieldValue;
-            return redisTemplate.opsForList().range(index, 0, -1).stream().map(key -> (String) key).collect(Collectors.toList());
+            return redisTemplate.opsForList().range(getPrefix(index), 0, -1).stream().map(key -> (String) key).collect(Collectors.toList());
         }
 
         public Iterable<String> filterNotExistingIndices(Iterable<String> indexNames) {
-            List<String> existingIndices = redisTemplate.opsForList().range(LIST_SECONDARY_INDEX_NAME, 0, -1).stream().map(key -> (String) key).collect(Collectors.toList());
+            List<String> existingIndices = redisTemplate.opsForList().range(getSecondaryIndicesListName(), 0, -1).stream().map(key -> (String) key).collect(Collectors.toList());
             List<String > notExistingIndices = new ArrayList<>();
             for (String indexName : indexNames) {
                 if(!existingIndices.contains(indexName)) {
@@ -77,7 +77,15 @@ public class RedisIndexDataManager implements IndexDataManager {
         }
 
         public Iterable<String> getAllIndices() {
-            return redisTemplate.opsForList().range(LIST_SECONDARY_INDEX_NAME, 0, -1).stream().map(key -> (String) key).collect(Collectors.toList());
+            return redisTemplate.opsForList().range(getSecondaryIndicesListName(), 0, -1).stream().map(key -> (String) key).collect(Collectors.toList());
+        }
+
+        public String getPrefix(String indexName) {
+            return redisDatabaseConfig.getCurrentDatabase() + ":" + indexName;
+        }
+
+        public String getSecondaryIndicesListName() {
+            return redisDatabaseConfig.getCurrentDatabase() + ":" + LIST_SECONDARY_INDEX_NAME;
         }
     
 }
