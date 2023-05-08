@@ -28,12 +28,17 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency> 
+			<groupId>org.antlr</groupId> 
+			<artifactId>antlr4</artifactId> 
+			<version>4.7.2</version> 
+		  </dependency> 
         
-		<dependency>
-			<groupId>io.github.anand1st</groupId>
-			<artifactId>sshd-shell-spring-boot-starter</artifactId>
-			<version>4.2</version>
-		</dependency>
+		
+
+		
+
+
 		
 
 		<dependency>
