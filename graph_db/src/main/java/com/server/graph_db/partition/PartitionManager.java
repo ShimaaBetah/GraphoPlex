@@ -12,6 +12,7 @@ import com.server.graph_db.rabbitmq.producer.GetVertexProducer;
 import com.server.graph_db.rabbitmq.producer.GetVerticesIdsProducer;
 import com.server.graph_db.rabbitmq.producer.PutVertexProducer;
 import com.server.graph_db.vertex.Vertex;
+import com.server.graph_db.vertex.EdgeId;
 import com.server.graph_db.vertex.LocalVertexService;
 
 @Component
@@ -54,6 +55,36 @@ public class PartitionManager {
 
     public int getServerId() {
         return Integer.parseInt(serverId);
+    }
+
+    public List<List<String>> groupVerticesIdsByPartitionId(Iterable<String> verticesIds) {
+        List<List<String>> verticesIdsByPartitionId = new ArrayList<List<String>>();
+        for (int i = 0; i < numOfServers; i++) {
+            verticesIdsByPartitionId.add(new ArrayList<String>());
+        }
+
+        for (String vertexId : verticesIds) {
+            int partitionId = getPartitionId(vertexId);
+            verticesIdsByPartitionId.get(partitionId).add(vertexId);
+        }
+
+        return verticesIdsByPartitionId;
+
+    }
+
+    public List<List<EdgeId>> groupEdgeIdsByPartitionId(Iterable<EdgeId> edgeIds) {
+        List<List<EdgeId>> edgeIdsByPartitionId = new ArrayList<List<EdgeId>>();
+        for (int i = 0; i < numOfServers; i++) {
+            edgeIdsByPartitionId.add(new ArrayList<EdgeId>());
+        }
+
+        for (EdgeId edgeId : edgeIds) {
+            int partitionId = getPartitionId(edgeId.getSourceId());
+            edgeIdsByPartitionId.get(partitionId).add(edgeId);
+        }
+
+        return edgeIdsByPartitionId;
+
     }
 
 }
