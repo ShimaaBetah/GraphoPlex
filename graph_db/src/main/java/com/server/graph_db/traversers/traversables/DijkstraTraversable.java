@@ -1,6 +1,6 @@
-package com.server.graph_db.algorithms.traversables;
+package com.server.graph_db.traversers.traversables;
 
-public class DijkstraTraversable extends TraversableVertex {
+public class DijkstraTraversable extends TraversableVertex implements Comparable<TraversableVertex> {
      long distance;
      String parentId;
 

@@ -1,6 +1,6 @@
-package com.server.graph_db.algorithms.traversables;
+package com.server.graph_db.traversers.traversables;
 
-public abstract class TraversableVertex implements Comparable<TraversableVertex> {
+public abstract class TraversableVertex {
 
     String vertexId;
 

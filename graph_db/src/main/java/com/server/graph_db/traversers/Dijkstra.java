@@ -1,4 +1,4 @@
-package com.server.graph_db.algorithms;
+package com.server.graph_db.traversers;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -7,8 +7,8 @@ import java.util.PriorityQueue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.server.graph_db.algorithms.traversables.DijkstraTraversable;
 import com.server.graph_db.exceptions.vertex.VertexNotFoundException;
+import com.server.graph_db.traversers.traversables.DijkstraTraversable;
 import com.server.graph_db.vertex.Edge;
 import com.server.graph_db.vertex.GlobalVertexService;
 import com.server.graph_db.vertex.Vertex;
@@ -33,7 +33,7 @@ public class Dijkstra {
     long shortestPath = 0;
 
 
-    public void compute(String source, String destination, String costField) {
+    public void compute(String source, String destination, String costField) throws Exception {
         visited = new HashMap<String, DijkstraTraversable>();
         queue = new PriorityQueue<DijkstraTraversable>();
         pathReturned = new LinkedList<String>();
@@ -61,7 +61,7 @@ public class Dijkstra {
             } catch (VertexNotFoundException e) {
                 visitedVertex = null;
             }
-            LinkedList<Edge> neighbours = visitedVertex!=null?visitedVertex.getOutgoingEdges():new LinkedList<Edge>();
+            Iterable<Edge> neighbours = vertexService.getOutgoingEdges(visitedVertex.getId());
             
 
             for (Edge neighbour : neighbours) {
