@@ -8,6 +8,7 @@ public interface IndexDataManager {
    public void addVertexToIndex(String fieldName, String fieldValue ,String vertexId);
    public void removeVertexFromIndex(String fieldName,String fieldValue,String vertexId);
    public Iterable<String> getVerticesIdsFromIndex(String indexName, String fieldValue);
+   public boolean isIndexContainsVertex(String indexName, String fieldValue, String vertexId);
    
 
 
