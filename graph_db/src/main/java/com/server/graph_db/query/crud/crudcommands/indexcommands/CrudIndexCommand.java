@@ -4,7 +4,7 @@ import com.server.graph_db.index.GlobalSecondaryIndexManager;
 import com.server.graph_db.query.crud.crudcommands.CrudCommand;
 import com.server.graph_db.vertex.GlobalVertexService;
 
-public class CrudIndexCommand implements CrudCommand {
+public class CrudIndexCommand extends CrudCommand {
     String indexName;
     GlobalSecondaryIndexManager globalSecondaryIndexManager;
     public CrudIndexCommand( String indexName) {

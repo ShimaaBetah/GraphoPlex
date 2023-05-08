@@ -2,6 +2,8 @@ package com.server.graph_db.query.crud.crudcommands.vertexcommands;
 
 import java.util.Map;
 
+import com.server.graph_db.query.crud.CrudResult;
+
 public class UpdateVertexCommand extends CrudVertexCommand {
     String label = null;
     Map<String, String> properties;
@@ -37,6 +39,11 @@ public void execute() {
     else{
         globalVertexService.updateVertex(vertexId, properties);
     }
+
+    String message = "Vertex with id "+vertexId+" updated";
+    CrudResult crudResult = new CrudResult();
+    crudResult.setMessage(message);
+    setResult(crudResult);
 }
 
 public static class Builder {

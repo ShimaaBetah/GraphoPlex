@@ -1,5 +1,7 @@
 package com.server.graph_db.query.crud.crudcommands.edgecommands;
 
+import com.server.graph_db.query.crud.CrudResult;
+
 public class DeleteEdgeCommand extends CrudEdgeCommand{
 
     public DeleteEdgeCommand(String sourceVertexId, String destinationVertexId, String label) {
@@ -9,6 +11,10 @@ public class DeleteEdgeCommand extends CrudEdgeCommand{
     @Override
     public void execute() throws Exception {
         globalVertexService.deleteEdge(sourceVertexId, destinationVertexId, label);
+        String message = "Edge between "+sourceVertexId+" and "+destinationVertexId+"with "+ label +" deleted";
+        CrudResult crudResult = new CrudResult();
+        crudResult.setMessage(message);
+        setResult(crudResult);
     }
 
     public static class Builder{

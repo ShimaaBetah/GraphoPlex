@@ -1,25 +1,22 @@
 package com.server.graph_db.query.databaseconfig.databaseconfigcommands;
 
-
 import com.server.graph_db.database.GlobalDatabaseService;
 import com.server.graph_db.query.databaseconfig.DatabaseResult;
 
-public class SwitchToDefaultCommand extends DatabaseConfigCommand{
+public class GetCurrentDatabaseCommand  extends DatabaseConfigCommand{
 
-    GlobalDatabaseService globalDatabaseService;
-    
-    @Override
+    GlobalDatabaseService databaseConfigService;
+
     public void execute() throws Exception {
-        globalDatabaseService.switchToDefaultDatabase();
-        String message = "Switched to default database";
+        String currentDatabase = databaseConfigService.getCurrentDatabase();
+        String message = "Current database is " + currentDatabase;
         DatabaseResult databaseResult = new DatabaseResult();
         databaseResult.setMessage(message);
         setResult(databaseResult);
     }
 
-    @Override
     public void setGlobalDatabaseService(GlobalDatabaseService databaseConfigService) {
-        this.globalDatabaseService = databaseConfigService;
+        this.databaseConfigService = databaseConfigService;
     }
     
 }

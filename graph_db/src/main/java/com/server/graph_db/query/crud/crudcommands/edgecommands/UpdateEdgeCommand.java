@@ -2,6 +2,8 @@ package com.server.graph_db.query.crud.crudcommands.edgecommands;
 
 import java.util.Map;
 
+import com.server.graph_db.query.crud.CrudResult;
+
 public class UpdateEdgeCommand extends CrudEdgeCommand {
     
     Map<String, String> properties;
@@ -13,6 +15,10 @@ public class UpdateEdgeCommand extends CrudEdgeCommand {
     @Override
     public void execute() throws Exception {
         globalVertexService.updateEdge(sourceVertexId, destinationVertexId, label, properties);
+        String message = "Edge between "+sourceVertexId+" and "+destinationVertexId+"with "+ label +" updated";
+        CrudResult crudResult = new CrudResult();
+        crudResult.setMessage(message);
+        setResult(crudResult);
     }
 
 

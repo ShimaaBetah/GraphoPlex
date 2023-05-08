@@ -2,6 +2,7 @@ package com.server.graph_db.query.crud.crudcommands.edgecommands;
 
 import java.util.Map;
 
+import com.server.graph_db.query.crud.CrudResult;
 import com.server.graph_db.vertex.Edge;
 
 public class CreateEdgeCommand extends CrudEdgeCommand{
@@ -16,6 +17,10 @@ public class CreateEdgeCommand extends CrudEdgeCommand{
     @Override
     public void execute() throws Exception {
         globalVertexService.addEdge(sourceVertexId, edge);
+        String message = "Edge between "+sourceVertexId+" and "+destinationVertexId+"with "+ label +" created";
+        CrudResult crudResult = new CrudResult();
+        crudResult.setMessage(message);
+        setResult(crudResult);
     }
 
 
@@ -37,7 +42,7 @@ public class CreateEdgeCommand extends CrudEdgeCommand{
         }
 
         public CreateEdgeCommand build(){
-            Edge edge = new Edge(destinationVertexId);
+            Edge edge = new Edge(sourceVertexId,destinationVertexId);
             edge.setLabel(label);
             if(properties!=null){
                 edge.setProperties(properties);

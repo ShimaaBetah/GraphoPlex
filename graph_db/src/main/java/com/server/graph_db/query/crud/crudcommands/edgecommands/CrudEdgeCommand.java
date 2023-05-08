@@ -4,7 +4,7 @@ import com.server.graph_db.index.GlobalSecondaryIndexManager;
 import com.server.graph_db.query.crud.crudcommands.CrudCommand;
 import com.server.graph_db.vertex.GlobalVertexService;
 
-public class CrudEdgeCommand implements CrudCommand{
+public class CrudEdgeCommand extends CrudCommand{
     String sourceVertexId;
     String destinationVertexId;
     String label;
@@ -15,6 +15,7 @@ public class CrudEdgeCommand implements CrudCommand{
         this.sourceVertexId = sourceVertexId;
         this.destinationVertexId = destinationVertexId;
         this.label = label;
+        
     }
 
     public String getSourceVertexId() {

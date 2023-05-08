@@ -1,5 +1,7 @@
 package com.server.graph_db.query.crud.crudcommands.indexcommands;
 
+import com.server.graph_db.query.crud.CrudResult;
+
 public class DeleteIndexCommand extends CrudIndexCommand{
 
     public DeleteIndexCommand(String indexName) {
@@ -9,6 +11,10 @@ public class DeleteIndexCommand extends CrudIndexCommand{
     @Override
     public void execute() throws Exception {
         globalSecondaryIndexManager.deleteIndex(indexName);
+        String message = "Index Deleted on"+indexName;
+        CrudResult crudResult = new CrudResult();
+        crudResult.setMessage(message);
+        setResult(crudResult);
     }
 
     public static class Builder{

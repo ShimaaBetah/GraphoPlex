@@ -1,8 +1,9 @@
 package com.server.graph_db.query.databaseconfig.databaseconfigcommands;
 
 import com.server.graph_db.database.GlobalDatabaseService;
+import com.server.graph_db.query.databaseconfig.DatabaseResult;
 
-public class DropDatabaseCommand implements DatabaseConfigCommand{
+public class DropDatabaseCommand extends DatabaseConfigCommand{
         
         GlobalDatabaseService globalDatabaseService;
         String databaseName;
@@ -14,6 +15,10 @@ public class DropDatabaseCommand implements DatabaseConfigCommand{
         @Override
         public void execute() throws Exception {
             globalDatabaseService.dropDatabase(databaseName);
+            String message = "Database " + databaseName + " dropped";
+            DatabaseResult result = new DatabaseResult();
+            result.setMessage(message);
+            setResult(result);
         }
     
         @Override

@@ -3,6 +3,7 @@ package com.server.graph_db.query.crud.crudcommands.vertexcommands;
 import java.util.Map;
 
 import com.server.graph_db.exceptions.vertex.VertexAlreadyExistsException;
+import com.server.graph_db.query.crud.CrudResult;
 import com.server.graph_db.vertex.Vertex;
 
 public class CreateVertexCommand extends CrudVertexCommand {
@@ -50,6 +51,12 @@ public class CreateVertexCommand extends CrudVertexCommand {
         }
 
         globalVertexService.createVertex(vertex);
+
+        String message = "Vertex with id "+vertexId+" created";
+        CrudResult crudResult = new CrudResult();
+        crudResult.setMessage(message);
+        setResult(crudResult);
+
 
         
     }

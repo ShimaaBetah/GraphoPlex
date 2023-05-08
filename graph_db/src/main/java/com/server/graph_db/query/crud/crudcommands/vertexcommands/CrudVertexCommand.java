@@ -8,7 +8,7 @@ import com.server.graph_db.query.crud.crudcommands.CrudCommand;
 import com.server.graph_db.vertex.GlobalVertexService;
 
 
-public class CrudVertexCommand implements CrudCommand{
+public class CrudVertexCommand extends CrudCommand{
     String vertexId;
 
     

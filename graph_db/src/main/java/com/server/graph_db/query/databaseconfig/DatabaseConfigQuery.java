@@ -5,7 +5,7 @@ import com.server.graph_db.query.Command;
 import com.server.graph_db.query.Query;
 import com.server.graph_db.query.databaseconfig.databaseconfigcommands.DatabaseConfigCommand;
 
-public class DatabaseConfigQuery implements Query  {
+public class DatabaseConfigQuery extends Query  {
 
     DatabaseConfigCommand command;
 
@@ -18,7 +18,11 @@ public class DatabaseConfigQuery implements Query  {
     @Override
     public void execute() throws Exception {
         command.setGlobalDatabaseService(globalDatabaseService);
+        long startTime = System.currentTimeMillis();
         command.execute();
+        long endTime = System.currentTimeMillis();
+        long executionTime = endTime - startTime;
+        command.getResult().setTotalExecutionTime(executionTime);
         
     }
 

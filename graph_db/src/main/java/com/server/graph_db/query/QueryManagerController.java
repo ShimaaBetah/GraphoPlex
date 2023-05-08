@@ -18,9 +18,10 @@ public class QueryManagerController {
     public ResponseEntity<String> executeQuery(@RequestBody QueryRequest query) {
         System.out.println("Query: " + query.query);
         try {
-            queryManager.Parse(query.query);
-            return ResponseEntity.ok("Query executed successfully");
+            Query queryObj = queryManager.Parse(query.query);
+            return ResponseEntity.ok().body(queryObj.getResult().toString());
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }

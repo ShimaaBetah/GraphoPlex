@@ -1,8 +1,9 @@
 package com.server.graph_db.query.databaseconfig.databaseconfigcommands;
 
 import com.server.graph_db.database.GlobalDatabaseService;
+import com.server.graph_db.query.databaseconfig.DatabaseResult;
 
-public class DeleteDatabaseCommand implements DatabaseConfigCommand {
+public class DeleteDatabaseCommand extends DatabaseConfigCommand {
     
         GlobalDatabaseService globalDatabaseService;
         String databaseName;
@@ -14,6 +15,10 @@ public class DeleteDatabaseCommand implements DatabaseConfigCommand {
         @Override
         public void execute() throws Exception {
             globalDatabaseService.deleteDatabase(databaseName);
+            String message = "Database " + databaseName + " deleted";
+            DatabaseResult databaseResult = new DatabaseResult();
+            databaseResult.setMessage(message);
+            setResult(databaseResult);
         }
     
         @Override
