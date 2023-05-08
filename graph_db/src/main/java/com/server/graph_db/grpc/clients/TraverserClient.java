@@ -13,8 +13,8 @@ import com.server.graph_db.grpc.traverser.filterEdgesRequest;
 import com.server.graph_db.grpc.traverser.filterVerticesRequest;
 import com.server.graph_db.grpc.traverser.vertexBinding;
 import com.server.graph_db.grpc.traverser.verticesIds;
-import com.server.graph_db.query.match.path.bindings.EdgeBinding;
-import com.server.graph_db.query.match.path.bindings.VertexBinding;
+import com.server.graph_db.traversers.bindings.EdgeBinding;
+import com.server.graph_db.traversers.bindings.VertexBinding;
 import com.server.graph_db.vertex.EdgeId;
 
 import io.grpc.ManagedChannel;
