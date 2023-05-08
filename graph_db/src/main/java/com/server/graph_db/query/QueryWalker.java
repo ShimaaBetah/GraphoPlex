@@ -1,5 +1,6 @@
 package com.server.graph_db.query;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +9,8 @@ import org.antlr.v4.runtime.tree.ErrorNode;
 
 import com.server.graph_db.database.GlobalDatabaseService;
 import com.server.graph_db.index.GlobalSecondaryIndexManager;
+import com.server.graph_db.operators.select.SelectOperator;
+import com.server.graph_db.operators.select.SelectOperatorFactory;
 import com.server.graph_db.parser.QlBaseListener;
 import com.server.graph_db.parser.QlParser.Create_databaseContext;
 import com.server.graph_db.parser.QlParser.Create_edgeContext;
@@ -22,17 +25,28 @@ import com.server.graph_db.parser.QlParser.Delete_vertexContext;
 import com.server.graph_db.parser.QlParser.DestinationIdContext;
 import com.server.graph_db.parser.QlParser.Drop_databaseContext;
 import com.server.graph_db.parser.QlParser.Drop_default_databaseContext;
+import com.server.graph_db.parser.QlParser.Edge_bindingContext;
+import com.server.graph_db.parser.QlParser.Get_curr_databaseContext;
 import com.server.graph_db.parser.QlParser.IdContext;
 import com.server.graph_db.parser.QlParser.LabelContext;
+import com.server.graph_db.parser.QlParser.Match_queryContext;
+import com.server.graph_db.parser.QlParser.PathContext;
+import com.server.graph_db.parser.QlParser.Path_levelContext;
+import com.server.graph_db.parser.QlParser.Path_queryContext;
 import com.server.graph_db.parser.QlParser.PropertiesContext;
 import com.server.graph_db.parser.QlParser.PropertyContext;
+import com.server.graph_db.parser.QlParser.Return_clauseContext;
+import com.server.graph_db.parser.QlParser.Return_itemContext;
+import com.server.graph_db.parser.QlParser.SelectOperatorContext;
 import com.server.graph_db.parser.QlParser.Set_clauseContext;
 import com.server.graph_db.parser.QlParser.Set_itemContext;
 import com.server.graph_db.parser.QlParser.SourceIdContext;
+import com.server.graph_db.parser.QlParser.Starting_vertexContext;
 import com.server.graph_db.parser.QlParser.Switch_databaseContext;
 import com.server.graph_db.parser.QlParser.Switch_database_to_defaultContext;
 import com.server.graph_db.parser.QlParser.Update_edgeContext;
 import com.server.graph_db.parser.QlParser.Update_vertexContext;
+import com.server.graph_db.parser.QlParser.Vertex_bindingContext;
 import com.server.graph_db.query.crud.CrudQuery;
 import com.server.graph_db.query.crud.crudcommands.edgecommands.CreateEdgeCommand;
 import com.server.graph_db.query.crud.crudcommands.edgecommands.DeleteEdgeCommand;
@@ -47,8 +61,18 @@ import com.server.graph_db.query.databaseconfig.databaseconfigcommands.CreateDat
 import com.server.graph_db.query.databaseconfig.databaseconfigcommands.DeleteDatabaseCommand;
 import com.server.graph_db.query.databaseconfig.databaseconfigcommands.DropDatabaseCommand;
 import com.server.graph_db.query.databaseconfig.databaseconfigcommands.DropDefaultCommand;
+import com.server.graph_db.query.databaseconfig.databaseconfigcommands.GetCurrentDatabaseCommand;
 import com.server.graph_db.query.databaseconfig.databaseconfigcommands.SwitchDatabaseCommand;
 import com.server.graph_db.query.databaseconfig.databaseconfigcommands.SwitchToDefaultCommand;
+import com.server.graph_db.query.match.MatchCommand;
+import com.server.graph_db.query.match.MatchQuery;
+import com.server.graph_db.query.match.path.Path;
+import com.server.graph_db.query.match.path.PathCommand;
+import com.server.graph_db.query.match.path.ReturnClause;
+import com.server.graph_db.query.match.path.ReturnClause.ReturnedValue;
+import com.server.graph_db.traversers.GlobalTraverserManager;
+import com.server.graph_db.traversers.bindings.EdgeBinding;
+import com.server.graph_db.traversers.bindings.VertexBinding;
 import com.server.graph_db.vertex.GlobalVertexService;
 
 public class QueryWalker extends QlBaseListener {
@@ -57,13 +81,19 @@ public class QueryWalker extends QlBaseListener {
     Map<String, String> ruleMapping = new HashMap<String, String>();
 
     GlobalVertexService globalVertexService;
-    GlobalSecondaryIndexManager  globalSecondaryIndexManager;
+    GlobalSecondaryIndexManager globalSecondaryIndexManager;
     GlobalDatabaseService globalDatabaseService;
+    GlobalTraverserManager globalTraverserManager;
+    SelectOperatorFactory selectOperatorFactory;
 
-    public QueryWalker(GlobalVertexService globalVertexService, GlobalSecondaryIndexManager globalSecondaryIndexManager, GlobalDatabaseService globalDatabaseService) {
+    public QueryWalker(GlobalVertexService globalVertexService, GlobalSecondaryIndexManager globalSecondaryIndexManager,
+            GlobalDatabaseService globalDatabaseService, GlobalTraverserManager globalTraverserManager,
+            SelectOperatorFactory selectOperatorFactory) {
         this.globalVertexService = globalVertexService;
         this.globalSecondaryIndexManager = globalSecondaryIndexManager;
         this.globalDatabaseService = globalDatabaseService;
+        this.globalTraverserManager = globalTraverserManager;
+        this.selectOperatorFactory = selectOperatorFactory;
     }
 
     @Override
@@ -74,6 +104,11 @@ public class QueryWalker extends QlBaseListener {
     @Override
     public void enterDatabase_command(Database_commandContext ctx) {
         query = new DatabaseConfigQuery(globalDatabaseService);
+    }
+
+    @Override
+    public void enterMatch_query(Match_queryContext ctx) {
+        query = new MatchQuery(globalVertexService, globalTraverserManager);
     }
 
     @Override
@@ -102,12 +137,12 @@ public class QueryWalker extends QlBaseListener {
 
     @Override
     public void exitUpdate_vertex(Update_vertexContext ctx) {
-        // get id , label and set clause 
+        // get id , label and set clause
         IdContext idContext = ctx.id();
         Set_clauseContext setClauseContext = ctx.set_clause();
 
         Map<String, String> properties = new HashMap<String, String>();
-        //loop on set items
+        // loop on set items
         List<Set_itemContext> setItemContexts = setClauseContext.set_item();
         for (Set_itemContext setItemContext : setItemContexts) {
             properties.put(setItemContext.key().getText(), setItemContext.value().getText());
@@ -128,17 +163,18 @@ public class QueryWalker extends QlBaseListener {
     public void exitCreate_edge(Create_edgeContext ctx) {
         SourceIdContext sourceIdContext = ctx.sourceId();
         DestinationIdContext destinationIdContext = ctx.destinationId();
-        String label = ctx.label()==null?"":ctx.label().getText();
-        CreateEdgeCommand.Builder builder = new CreateEdgeCommand.Builder(sourceIdContext.getText(), destinationIdContext.getText(), label );
+        String label = ctx.label() == null ? "" : ctx.label().getText();
+        CreateEdgeCommand.Builder builder = new CreateEdgeCommand.Builder(sourceIdContext.getText(),
+                destinationIdContext.getText(), label);
         PropertiesContext propertiesContext = ctx.properties();
-        if(propertiesContext!=null){
-        List<PropertyContext> propertyContext = propertiesContext.property();
-        Map<String, String> properties = new HashMap<String, String>();
-        for (PropertyContext property : propertyContext) {
-            properties.put(property.key().getText(), property.value().getText());
-        }
+        if (propertiesContext != null) {
+            List<PropertyContext> propertyContext = propertiesContext.property();
+            Map<String, String> properties = new HashMap<String, String>();
+            for (PropertyContext property : propertyContext) {
+                properties.put(property.key().getText(), property.value().getText());
+            }
 
-        builder.setProperties(properties);
+            builder.setProperties(properties);
         }
 
         query.setCommand(builder.build());
@@ -150,12 +186,12 @@ public class QueryWalker extends QlBaseListener {
         String destinationId = ctx.destinationId().getText();
         Set_clauseContext setClauseContext = ctx.set_clause();
         Map<String, String> properties = new HashMap<String, String>();
-        //loop on set items
+        // loop on set items
         List<Set_itemContext> setItemContexts = setClauseContext.set_item();
         for (Set_itemContext setItemContext : setItemContexts) {
             properties.put(setItemContext.key().getText(), setItemContext.value().getText());
         }
-        String label = ctx.label()==null?"":ctx.label().getText();
+        String label = ctx.label() == null ? "" : ctx.label().getText();
 
         UpdateEdgeCommand.Builder builder = new UpdateEdgeCommand.Builder(sourceId, destinationId, label, properties);
         query.setCommand(builder.build());
@@ -166,7 +202,7 @@ public class QueryWalker extends QlBaseListener {
     public void exitDelete_edge(Delete_edgeContext ctx) {
         String sourceId = ctx.sourceId().getText();
         String destinationId = ctx.destinationId().getText();
-        String label = ctx.label()==null?"":ctx.label().getText();
+        String label = ctx.label() == null ? "" : ctx.label().getText();
 
         DeleteEdgeCommand.Builder builder = new DeleteEdgeCommand.Builder(sourceId, destinationId, label);
         query.setCommand(builder.build());
@@ -226,18 +262,130 @@ public class QueryWalker extends QlBaseListener {
         query.setCommand(dropDefaultDatabaseCommand);
     }
 
+    @Override
+    public void exitGet_curr_database (Get_curr_databaseContext ctx) {
+        GetCurrentDatabaseCommand getCurrDatabaseCommand = new GetCurrentDatabaseCommand();
+        query.setCommand(getCurrDatabaseCommand);
+    }
+
+    @Override
+    public void exitPath_query(Path_queryContext ctx) {
+        // get path context
+        PathContext pathContext = ctx.path();
+        Starting_vertexContext startingVertexContext = pathContext.starting_vertex();
+        Path path = new Path(extractVertexBinding(startingVertexContext.vertex_binding()));
+       List <Path_levelContext> pathLevelsContext = pathContext.path_level();
+       for(Path_levelContext pathLevelContext : pathLevelsContext){
+           Vertex_bindingContext vertexBindingContext = pathLevelContext.vertex_binding();
+           VertexBinding vertexBinding = extractVertexBinding(vertexBindingContext);
+           path.addVertexBinding(vertexBinding);
+           Edge_bindingContext edgeBindingContext = pathLevelContext.edge_binding();
+           EdgeBinding edgeBinding = extractEdgeBinding(edgeBindingContext);
+           path.addEdgeBinding(edgeBinding);
+       }
+       Return_clauseContext returnClauseContext = ctx.return_clause();
+       ReturnClause returnClause = new ReturnClause();
+        List<Return_itemContext> returnItemsContext = returnClauseContext.return_item();
+        for(Return_itemContext returnItemContext : returnItemsContext){
+           ReturnedValue returnValue = new ReturnedValue(returnItemContext.variable().getText());
+           if(returnItemContext.fieldName() != null){
+               returnValue.setFieldName(returnItemContext.fieldName().getText());
+           }
+            returnClause.addReturnedValue(returnValue);
+        }
+
+        PathCommand pathCommand = new PathCommand(path);
+        pathCommand.setReturnClause(returnClause);
+
+        System.out.println("helloooo");
+
+        query.setCommand(pathCommand);
+    }
+
     
-
-
-
     // throw error when cannot match the query
     @Override
     public void visitErrorNode(ErrorNode node) {
         throw new RuntimeException("Syntax error in query");
     }
-
+    
     public Query getQuery() {
         return query;
     }
 
+    public VertexBinding extractVertexBinding(Vertex_bindingContext vertexBindingContext) {
+        VertexBinding.Builder builder = new VertexBinding.Builder();
+        if (vertexBindingContext.id() != null) {
+            builder.setId(vertexBindingContext.id().getText());
+        }
+        if (vertexBindingContext.label() != null) {
+            builder.setLabel(vertexBindingContext.label().getText());
+        }
+        if (vertexBindingContext.selectOperators() != null) {
+            List<SelectOperatorContext> selectOperatorsContexts = vertexBindingContext.selectOperators()
+            .selectOperator();
+            ArrayList<SelectOperator> selectOperators = new ArrayList<SelectOperator>();
+            for (SelectOperatorContext selectOperatorContext : selectOperatorsContexts) {
+                String fieldName = selectOperatorContext.fieldName().getText();
+                System.out.println(fieldName);
+                String fieldValue = selectOperatorContext.fieldValue().getText();
+                System.out.println(fieldValue);
+                String operator = selectOperatorContext.operator().getText();
+                System.out.println(operator);
+                selectOperators.add(selectOperatorFactory.getSelectOperator(operator, fieldName, fieldValue));
+            }
+            builder.setSelectOperators(selectOperators);
+        }
+        if(vertexBindingContext.alias()!=null){
+            builder.setAlias(vertexBindingContext.alias().variable().getText());
+        }
+        return builder.build();
+    }
+    private EdgeBinding extractEdgeBinding(Edge_bindingContext edgeBindingContext) {
+        EdgeBinding.Builder builder;
+        if(edgeBindingContext.out_edge_binding()!=null){
+            builder = new EdgeBinding.Builder(true);
+            if(edgeBindingContext.out_edge_binding().label()!=null){
+                builder.setLabel(edgeBindingContext.out_edge_binding().label().getText());
+            }
+            if(edgeBindingContext.out_edge_binding().selectOperators()!=null){
+                List<SelectOperatorContext> selectOperatorsContexts = edgeBindingContext.out_edge_binding().selectOperators()
+                .selectOperator();
+                ArrayList<SelectOperator> selectOperators = new ArrayList<SelectOperator>();
+                for (SelectOperatorContext selectOperatorContext : selectOperatorsContexts) {
+                    String fieldName = selectOperatorContext.fieldName().getText();
+                    String fieldValue = selectOperatorContext.fieldValue().getText();
+                    String operator = selectOperatorContext.operator().getText();
+                    selectOperators.add(selectOperatorFactory.getSelectOperator(operator, fieldName, fieldValue));
+
+                }
+                builder.setSelectOperators(selectOperators);
+            }
+            if(edgeBindingContext.out_edge_binding().alias()!=null){
+                builder.setAlias(edgeBindingContext.out_edge_binding().alias().variable().getText());
+            }
+        }else{
+            builder = new EdgeBinding.Builder(false);
+            if(edgeBindingContext.in_edge_binding().label()!=null){
+                builder.setLabel(edgeBindingContext.in_edge_binding().label().getText());
+            }
+            if(edgeBindingContext.in_edge_binding().selectOperators()!=null){
+                List<SelectOperatorContext> selectOperatorsContexts = edgeBindingContext.in_edge_binding().selectOperators()
+                .selectOperator();
+                ArrayList<SelectOperator> selectOperators = new ArrayList<SelectOperator>();
+                for (SelectOperatorContext selectOperatorContext : selectOperatorsContexts) {
+                    String fieldName = selectOperatorContext.fieldName().getText();
+                    String fieldValue = selectOperatorContext.fieldValue().getText();
+                    String operator = selectOperatorContext.operator().getText();
+                    selectOperators.add(selectOperatorFactory.getSelectOperator(fieldName, fieldValue, operator));
+                }
+                builder.setSelectOperators(selectOperators);
+            }
+            if(edgeBindingContext.in_edge_binding().alias()!=null){
+                builder.setAlias(edgeBindingContext.in_edge_binding().alias().variable().getText());
+            }
+        }
+        return builder.build();
+    }
+    
 }

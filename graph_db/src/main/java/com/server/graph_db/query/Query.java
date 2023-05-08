@@ -1,8 +1,14 @@
 package com.server.graph_db.query;
 
-public interface Query {
-    public void execute() throws Exception;
-    public Command getCommand();
-    public void setCommand(Command command);
+public abstract class Query {
+
+
+    public abstract void execute() throws Exception;
+    public abstract Command getCommand();
+    public abstract void setCommand(Command command);
+    public Result getResult() {
+        return getCommand().getResult();
+    }
+   
 
 }
