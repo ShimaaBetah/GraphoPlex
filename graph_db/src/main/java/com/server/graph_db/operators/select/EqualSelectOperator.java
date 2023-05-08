@@ -2,30 +2,37 @@ package com.server.graph_db.operators.select;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.server.graph_db.datastore.redis.RedisIndexDataManager;
+import com.server.graph_db.query.match.path.bindings.VertexBinding;
 import com.server.graph_db.vertex.LocalVertexService;
 import com.server.graph_db.vertex.Vertex;
 
-@Component
-public class LocalSelectOperator {
-    String fieldName;
-    String fieldValue;
 
-    @Autowired
+public class EqualSelectOperator extends SelectOperator{
+    
+
+
+    
+
+
     private RedisIndexDataManager redisIndexDataManager;
 
-    @Autowired
+    
     private LocalVertexService vertexService;
 
-    public LocalSelectOperator(RedisIndexDataManager redisIndexDataManager,
+    public EqualSelectOperator(String fieldName, String fieldValue, RedisIndexDataManager redisIndexDataManager,
             LocalVertexService vertexService) {
 
+        super(fieldName, fieldValue);
         this.redisIndexDataManager = redisIndexDataManager;
         this.vertexService = vertexService;
+        System.out.println("EqualSelectOperator");
+        System.out.println(this.vertexService);
     }
 
     public void build (String fieldName, String fieldValue) {
@@ -33,6 +40,8 @@ public class LocalSelectOperator {
         this.fieldValue = fieldValue;
     }
 
+
+   // return the ids of the vertices that have the property with the given name and value
    public Iterable<String> execute() {
 
       if(redisIndexDataManager.isIndexExist(fieldName)) {
@@ -52,6 +61,8 @@ public class LocalSelectOperator {
         
     }
 
+    
+    // return the vertices that have the property with the given name and value
     public Iterable<Vertex> executeWithVertices() {
         if(redisIndexDataManager.isIndexExist(fieldName)) {
             return vertexService.getVerticesByIds(redisIndexDataManager.getVerticesIdsFromIndex(fieldName, fieldValue));
@@ -67,4 +78,40 @@ public class LocalSelectOperator {
 
         return vertices;  
     }
+
+    @Override
+    public Iterable<String> filterVertices(Iterable<String> verticesIds) throws Exception {
+
+        if(redisIndexDataManager.isIndexExist(fieldName)) {
+            List<String> intersection = new ArrayList<>();
+            for (String vertexId : verticesIds) {
+                if(redisIndexDataManager.isIndexContainsVertex(fieldName, fieldValue, vertexId)) {
+                    intersection.add(vertexId);
+                }
+            }
+            return intersection;
+        }
+
+        //otherwise get from the all vertices
+        List<String> answer = new ArrayList<>();
+        Iterable<Vertex> vertices = vertexService.getVerticesByIds(verticesIds);
+        for (Vertex vertex : vertices) {
+            if(vertex.isPropertyExist(fieldName) && vertex.getProperty(fieldName).equals(fieldValue)) {
+                answer.add(vertex.getId());
+            }
+        }
+
+        return answer;
+        
+    }
+
+    @Override
+    public String getOperator() {
+        return "=";
+    }
+
+    
+    
+
+    
 }
