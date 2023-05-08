@@ -54,20 +54,11 @@ public class VertexController {
     } 
 
     //add edge 
-    @PostMapping("/vertex/{id}/edge")
-    public void addEdge(@PathVariable String id, @RequestBody Edge edge) {
-        edge= new Edge(edge.getDestinationVertexId());
-        try {
-            vertexService.addEdge(id, edge);
-        } catch (VertexNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
 
-    @GetMapping("/vertex/{id}/edge")
-    public LinkedList<Edge> getEdges(@PathVariable String id) {
-        return vertexService.getEdges(id);
+
+    @GetMapping("/vertex/{id}/edge/{isOutgoing}")
+    public Iterable<Edge> getEdges(@PathVariable String id, @PathVariable boolean isOutgoing) {
+        return isOutgoing ? vertexService.getOutgoingEdges(id) : vertexService.getIncomingEdges(id);
     }
 
     @DeleteMapping("/vertex")

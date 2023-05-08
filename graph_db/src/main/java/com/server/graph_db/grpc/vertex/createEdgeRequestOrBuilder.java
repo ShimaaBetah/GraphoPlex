@@ -76,4 +76,14 @@ public interface createEdgeRequestOrBuilder extends
 
   java.lang.String getPropertiesOrThrow(
       java.lang.String key);
+
+  /**
+   * <pre>
+   *boolean variable
+   * </pre>
+   *
+   * <code>bool isOutGoing = 5;</code>
+   * @return The isOutGoing.
+   */
+  boolean getIsOutGoing();
 }

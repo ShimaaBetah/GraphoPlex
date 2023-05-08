@@ -42,4 +42,10 @@ public interface deleteEdgeRequestOrBuilder extends
    */
   com.google.protobuf.ByteString
       getLabelBytes();
+
+  /**
+   * <code>bool isOutGoing = 4;</code>
+   * @return The isOutGoing.
+   */
+  boolean getIsOutGoing();
 }

@@ -17,6 +17,7 @@ private static final long serialVersionUID = 0L;
   }
   private edge() {
     destinationVertexId_ = "";
+    sourceVertexId_ = "";
     label_ = "";
   }
 
@@ -60,10 +61,16 @@ private static final long serialVersionUID = 0L;
           case 18: {
             java.lang.String s = input.readStringRequireUtf8();
 
-            label_ = s;
+            sourceVertexId_ = s;
             break;
           }
           case 26: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            label_ = s;
+            break;
+          }
+          case 34: {
             if (!((mutable_bitField0_ & 0x00000001) != 0)) {
               properties_ = com.google.protobuf.MapField.newMapField(
                   PropertiesDefaultEntryHolder.defaultEntry);
@@ -105,7 +112,7 @@ private static final long serialVersionUID = 0L;
   protected com.google.protobuf.MapField internalGetMapField(
       int number) {
     switch (number) {
-      case 3:
+      case 4:
         return internalGetProperties();
       default:
         throw new RuntimeException(
@@ -158,10 +165,48 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int LABEL_FIELD_NUMBER = 2;
+  public static final int SOURCEVERTEXID_FIELD_NUMBER = 2;
+  private volatile java.lang.Object sourceVertexId_;
+  /**
+   * <code>string sourceVertexId = 2;</code>
+   * @return The sourceVertexId.
+   */
+  @java.lang.Override
+  public java.lang.String getSourceVertexId() {
+    java.lang.Object ref = sourceVertexId_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      sourceVertexId_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string sourceVertexId = 2;</code>
+   * @return The bytes for sourceVertexId.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getSourceVertexIdBytes() {
+    java.lang.Object ref = sourceVertexId_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      sourceVertexId_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int LABEL_FIELD_NUMBER = 3;
   private volatile java.lang.Object label_;
   /**
-   * <code>string label = 2;</code>
+   * <code>string label = 3;</code>
    * @return The label.
    */
   @java.lang.Override
@@ -178,7 +223,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string label = 2;</code>
+   * <code>string label = 3;</code>
    * @return The bytes for label.
    */
   @java.lang.Override
@@ -196,7 +241,7 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int PROPERTIES_FIELD_NUMBER = 3;
+  public static final int PROPERTIES_FIELD_NUMBER = 4;
   private static final class PropertiesDefaultEntryHolder {
     static final com.google.protobuf.MapEntry<
         java.lang.String, java.lang.String> defaultEntry =
@@ -223,7 +268,7 @@ private static final long serialVersionUID = 0L;
     return internalGetProperties().getMap().size();
   }
   /**
-   * <code>map&lt;string, string&gt; properties = 3;</code>
+   * <code>map&lt;string, string&gt; properties = 4;</code>
    */
 
   @java.lang.Override
@@ -241,7 +286,7 @@ private static final long serialVersionUID = 0L;
     return getPropertiesMap();
   }
   /**
-   * <code>map&lt;string, string&gt; properties = 3;</code>
+   * <code>map&lt;string, string&gt; properties = 4;</code>
    */
   @java.lang.Override
 
@@ -249,7 +294,7 @@ private static final long serialVersionUID = 0L;
     return internalGetProperties().getMap();
   }
   /**
-   * <code>map&lt;string, string&gt; properties = 3;</code>
+   * <code>map&lt;string, string&gt; properties = 4;</code>
    */
   @java.lang.Override
 
@@ -262,7 +307,7 @@ private static final long serialVersionUID = 0L;
     return map.containsKey(key) ? map.get(key) : defaultValue;
   }
   /**
-   * <code>map&lt;string, string&gt; properties = 3;</code>
+   * <code>map&lt;string, string&gt; properties = 4;</code>
    */
   @java.lang.Override
 
@@ -294,15 +339,18 @@ private static final long serialVersionUID = 0L;
     if (!getDestinationVertexIdBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 1, destinationVertexId_);
     }
+    if (!getSourceVertexIdBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, sourceVertexId_);
+    }
     if (!getLabelBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, label_);
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 3, label_);
     }
     com.google.protobuf.GeneratedMessageV3
       .serializeStringMapTo(
         output,
         internalGetProperties(),
         PropertiesDefaultEntryHolder.defaultEntry,
-        3);
+        4);
     unknownFields.writeTo(output);
   }
 
@@ -315,8 +363,11 @@ private static final long serialVersionUID = 0L;
     if (!getDestinationVertexIdBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, destinationVertexId_);
     }
+    if (!getSourceVertexIdBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, sourceVertexId_);
+    }
     if (!getLabelBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, label_);
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, label_);
     }
     for (java.util.Map.Entry<java.lang.String, java.lang.String> entry
          : internalGetProperties().getMap().entrySet()) {
@@ -326,7 +377,7 @@ private static final long serialVersionUID = 0L;
           .setValue(entry.getValue())
           .build();
       size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(3, properties__);
+          .computeMessageSize(4, properties__);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -345,6 +396,8 @@ private static final long serialVersionUID = 0L;
 
     if (!getDestinationVertexId()
         .equals(other.getDestinationVertexId())) return false;
+    if (!getSourceVertexId()
+        .equals(other.getSourceVertexId())) return false;
     if (!getLabel()
         .equals(other.getLabel())) return false;
     if (!internalGetProperties().equals(
@@ -362,6 +415,8 @@ private static final long serialVersionUID = 0L;
     hash = (19 * hash) + getDescriptor().hashCode();
     hash = (37 * hash) + DESTINATIONVERTEXID_FIELD_NUMBER;
     hash = (53 * hash) + getDestinationVertexId().hashCode();
+    hash = (37 * hash) + SOURCEVERTEXID_FIELD_NUMBER;
+    hash = (53 * hash) + getSourceVertexId().hashCode();
     hash = (37 * hash) + LABEL_FIELD_NUMBER;
     hash = (53 * hash) + getLabel().hashCode();
     if (!internalGetProperties().getMap().isEmpty()) {
@@ -479,7 +534,7 @@ private static final long serialVersionUID = 0L;
     protected com.google.protobuf.MapField internalGetMapField(
         int number) {
       switch (number) {
-        case 3:
+        case 4:
           return internalGetProperties();
         default:
           throw new RuntimeException(
@@ -490,7 +545,7 @@ private static final long serialVersionUID = 0L;
     protected com.google.protobuf.MapField internalGetMutableMapField(
         int number) {
       switch (number) {
-        case 3:
+        case 4:
           return internalGetMutableProperties();
         default:
           throw new RuntimeException(
@@ -525,6 +580,8 @@ private static final long serialVersionUID = 0L;
       super.clear();
       destinationVertexId_ = "";
 
+      sourceVertexId_ = "";
+
       label_ = "";
 
       internalGetMutableProperties().clear();
@@ -556,6 +613,7 @@ private static final long serialVersionUID = 0L;
       com.server.graph_db.grpc.vertex.edge result = new com.server.graph_db.grpc.vertex.edge(this);
       int from_bitField0_ = bitField0_;
       result.destinationVertexId_ = destinationVertexId_;
+      result.sourceVertexId_ = sourceVertexId_;
       result.label_ = label_;
       result.properties_ = internalGetProperties();
       result.properties_.makeImmutable();
@@ -609,6 +667,10 @@ private static final long serialVersionUID = 0L;
       if (other == com.server.graph_db.grpc.vertex.edge.getDefaultInstance()) return this;
       if (!other.getDestinationVertexId().isEmpty()) {
         destinationVertexId_ = other.destinationVertexId_;
+        onChanged();
+      }
+      if (!other.getSourceVertexId().isEmpty()) {
+        sourceVertexId_ = other.sourceVertexId_;
         onChanged();
       }
       if (!other.getLabel().isEmpty()) {
@@ -723,9 +785,85 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
+    private java.lang.Object sourceVertexId_ = "";
+    /**
+     * <code>string sourceVertexId = 2;</code>
+     * @return The sourceVertexId.
+     */
+    public java.lang.String getSourceVertexId() {
+      java.lang.Object ref = sourceVertexId_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        sourceVertexId_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string sourceVertexId = 2;</code>
+     * @return The bytes for sourceVertexId.
+     */
+    public com.google.protobuf.ByteString
+        getSourceVertexIdBytes() {
+      java.lang.Object ref = sourceVertexId_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        sourceVertexId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string sourceVertexId = 2;</code>
+     * @param value The sourceVertexId to set.
+     * @return This builder for chaining.
+     */
+    public Builder setSourceVertexId(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      sourceVertexId_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string sourceVertexId = 2;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearSourceVertexId() {
+      
+      sourceVertexId_ = getDefaultInstance().getSourceVertexId();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string sourceVertexId = 2;</code>
+     * @param value The bytes for sourceVertexId to set.
+     * @return This builder for chaining.
+     */
+    public Builder setSourceVertexIdBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      sourceVertexId_ = value;
+      onChanged();
+      return this;
+    }
+
     private java.lang.Object label_ = "";
     /**
-     * <code>string label = 2;</code>
+     * <code>string label = 3;</code>
      * @return The label.
      */
     public java.lang.String getLabel() {
@@ -741,7 +879,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string label = 2;</code>
+     * <code>string label = 3;</code>
      * @return The bytes for label.
      */
     public com.google.protobuf.ByteString
@@ -758,7 +896,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string label = 2;</code>
+     * <code>string label = 3;</code>
      * @param value The label to set.
      * @return This builder for chaining.
      */
@@ -773,7 +911,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string label = 2;</code>
+     * <code>string label = 3;</code>
      * @return This builder for chaining.
      */
     public Builder clearLabel() {
@@ -783,7 +921,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string label = 2;</code>
+     * <code>string label = 3;</code>
      * @param value The bytes for label to set.
      * @return This builder for chaining.
      */
@@ -826,7 +964,7 @@ private static final long serialVersionUID = 0L;
       return internalGetProperties().getMap().size();
     }
     /**
-     * <code>map&lt;string, string&gt; properties = 3;</code>
+     * <code>map&lt;string, string&gt; properties = 4;</code>
      */
 
     @java.lang.Override
@@ -844,7 +982,7 @@ private static final long serialVersionUID = 0L;
       return getPropertiesMap();
     }
     /**
-     * <code>map&lt;string, string&gt; properties = 3;</code>
+     * <code>map&lt;string, string&gt; properties = 4;</code>
      */
     @java.lang.Override
 
@@ -852,7 +990,7 @@ private static final long serialVersionUID = 0L;
       return internalGetProperties().getMap();
     }
     /**
-     * <code>map&lt;string, string&gt; properties = 3;</code>
+     * <code>map&lt;string, string&gt; properties = 4;</code>
      */
     @java.lang.Override
 
@@ -865,7 +1003,7 @@ private static final long serialVersionUID = 0L;
       return map.containsKey(key) ? map.get(key) : defaultValue;
     }
     /**
-     * <code>map&lt;string, string&gt; properties = 3;</code>
+     * <code>map&lt;string, string&gt; properties = 4;</code>
      */
     @java.lang.Override
 
@@ -886,7 +1024,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>map&lt;string, string&gt; properties = 3;</code>
+     * <code>map&lt;string, string&gt; properties = 4;</code>
      */
 
     public Builder removeProperties(
@@ -905,7 +1043,7 @@ private static final long serialVersionUID = 0L;
       return internalGetMutableProperties().getMutableMap();
     }
     /**
-     * <code>map&lt;string, string&gt; properties = 3;</code>
+     * <code>map&lt;string, string&gt; properties = 4;</code>
      */
     public Builder putProperties(
         java.lang.String key,
@@ -917,7 +1055,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>map&lt;string, string&gt; properties = 3;</code>
+     * <code>map&lt;string, string&gt; properties = 4;</code>
      */
 
     public Builder putAllProperties(

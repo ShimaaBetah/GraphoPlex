@@ -6,7 +6,5 @@ import java.util.Map;
 public interface GrpcVertex {
     public String getId();
     public String getLabel();
-    public List<edge> getOutgoingEdgesList();
-    public List<edge> getIncomingEdgesList();
     public Map<String, String> getPropertiesMap();
 }

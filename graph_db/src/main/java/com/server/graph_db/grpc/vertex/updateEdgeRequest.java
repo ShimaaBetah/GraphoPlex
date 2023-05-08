@@ -83,6 +83,11 @@ private static final long serialVersionUID = 0L;
                 properties__.getKey(), properties__.getValue());
             break;
           }
+          case 40: {
+
+            isOutGoing_ = input.readBool();
+            break;
+          }
           default: {
             if (!parseUnknownField(
                 input, unknownFields, extensionRegistry, tag)) {
@@ -322,6 +327,17 @@ private static final long serialVersionUID = 0L;
     return map.get(key);
   }
 
+  public static final int ISOUTGOING_FIELD_NUMBER = 5;
+  private boolean isOutGoing_;
+  /**
+   * <code>bool isOutGoing = 5;</code>
+   * @return The isOutGoing.
+   */
+  @java.lang.Override
+  public boolean getIsOutGoing() {
+    return isOutGoing_;
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -351,6 +367,9 @@ private static final long serialVersionUID = 0L;
         internalGetProperties(),
         PropertiesDefaultEntryHolder.defaultEntry,
         4);
+    if (isOutGoing_ != false) {
+      output.writeBool(5, isOutGoing_);
+    }
     unknownFields.writeTo(output);
   }
 
@@ -379,6 +398,10 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(4, properties__);
     }
+    if (isOutGoing_ != false) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeBoolSize(5, isOutGoing_);
+    }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
@@ -402,6 +425,8 @@ private static final long serialVersionUID = 0L;
         .equals(other.getLabel())) return false;
     if (!internalGetProperties().equals(
         other.internalGetProperties())) return false;
+    if (getIsOutGoing()
+        != other.getIsOutGoing()) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -423,6 +448,9 @@ private static final long serialVersionUID = 0L;
       hash = (37 * hash) + PROPERTIES_FIELD_NUMBER;
       hash = (53 * hash) + internalGetProperties().hashCode();
     }
+    hash = (37 * hash) + ISOUTGOING_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+        getIsOutGoing());
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -585,6 +613,8 @@ private static final long serialVersionUID = 0L;
       label_ = "";
 
       internalGetMutableProperties().clear();
+      isOutGoing_ = false;
+
       return this;
     }
 
@@ -617,6 +647,7 @@ private static final long serialVersionUID = 0L;
       result.label_ = label_;
       result.properties_ = internalGetProperties();
       result.properties_.makeImmutable();
+      result.isOutGoing_ = isOutGoing_;
       onBuilt();
       return result;
     }
@@ -679,6 +710,9 @@ private static final long serialVersionUID = 0L;
       }
       internalGetMutableProperties().mergeFrom(
           other.internalGetProperties());
+      if (other.getIsOutGoing() != false) {
+        setIsOutGoing(other.getIsOutGoing());
+      }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
       return this;
@@ -1062,6 +1096,37 @@ private static final long serialVersionUID = 0L;
         java.util.Map<java.lang.String, java.lang.String> values) {
       internalGetMutableProperties().getMutableMap()
           .putAll(values);
+      return this;
+    }
+
+    private boolean isOutGoing_ ;
+    /**
+     * <code>bool isOutGoing = 5;</code>
+     * @return The isOutGoing.
+     */
+    @java.lang.Override
+    public boolean getIsOutGoing() {
+      return isOutGoing_;
+    }
+    /**
+     * <code>bool isOutGoing = 5;</code>
+     * @param value The isOutGoing to set.
+     * @return This builder for chaining.
+     */
+    public Builder setIsOutGoing(boolean value) {
+      
+      isOutGoing_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>bool isOutGoing = 5;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearIsOutGoing() {
+      
+      isOutGoing_ = false;
+      onChanged();
       return this;
     }
     @java.lang.Override

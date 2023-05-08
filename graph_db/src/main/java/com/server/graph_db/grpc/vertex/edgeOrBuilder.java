@@ -20,23 +20,35 @@ public interface edgeOrBuilder extends
       getDestinationVertexIdBytes();
 
   /**
-   * <code>string label = 2;</code>
+   * <code>string sourceVertexId = 2;</code>
+   * @return The sourceVertexId.
+   */
+  java.lang.String getSourceVertexId();
+  /**
+   * <code>string sourceVertexId = 2;</code>
+   * @return The bytes for sourceVertexId.
+   */
+  com.google.protobuf.ByteString
+      getSourceVertexIdBytes();
+
+  /**
+   * <code>string label = 3;</code>
    * @return The label.
    */
   java.lang.String getLabel();
   /**
-   * <code>string label = 2;</code>
+   * <code>string label = 3;</code>
    * @return The bytes for label.
    */
   com.google.protobuf.ByteString
       getLabelBytes();
 
   /**
-   * <code>map&lt;string, string&gt; properties = 3;</code>
+   * <code>map&lt;string, string&gt; properties = 4;</code>
    */
   int getPropertiesCount();
   /**
-   * <code>map&lt;string, string&gt; properties = 3;</code>
+   * <code>map&lt;string, string&gt; properties = 4;</code>
    */
   boolean containsProperties(
       java.lang.String key);
@@ -47,19 +59,19 @@ public interface edgeOrBuilder extends
   java.util.Map<java.lang.String, java.lang.String>
   getProperties();
   /**
-   * <code>map&lt;string, string&gt; properties = 3;</code>
+   * <code>map&lt;string, string&gt; properties = 4;</code>
    */
   java.util.Map<java.lang.String, java.lang.String>
   getPropertiesMap();
   /**
-   * <code>map&lt;string, string&gt; properties = 3;</code>
+   * <code>map&lt;string, string&gt; properties = 4;</code>
    */
 
   java.lang.String getPropertiesOrDefault(
       java.lang.String key,
       java.lang.String defaultValue);
   /**
-   * <code>map&lt;string, string&gt; properties = 3;</code>
+   * <code>map&lt;string, string&gt; properties = 4;</code>
    */
 
   java.lang.String getPropertiesOrThrow(

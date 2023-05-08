@@ -9,7 +9,7 @@ package com.server.graph_db.grpc.vertex;
 public final class getVertexResponse extends
     com.google.protobuf.GeneratedMessageV3 implements
     // @@protoc_insertion_point(message_implements:getVertexResponse)
-    getVertexResponseOrBuilder , GrpcVertex{
+    getVertexResponseOrBuilder, GrpcVertex {
 private static final long serialVersionUID = 0L;
   // Use getVertexResponse.newBuilder() to construct.
   private getVertexResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
@@ -18,8 +18,6 @@ private static final long serialVersionUID = 0L;
   private getVertexResponse() {
     id_ = "";
     label_ = "";
-    outgoingEdges_ = java.util.Collections.emptyList();
-    incomingEdges_ = java.util.Collections.emptyList();
   }
 
   @java.lang.Override
@@ -66,34 +64,16 @@ private static final long serialVersionUID = 0L;
             break;
           }
           case 26: {
-            if (!((mutable_bitField0_ & 0x00000004) != 0)) {
+            if (!((mutable_bitField0_ & 0x00000001) != 0)) {
               properties_ = com.google.protobuf.MapField.newMapField(
                   PropertiesDefaultEntryHolder.defaultEntry);
-              mutable_bitField0_ |= 0x00000004;
+              mutable_bitField0_ |= 0x00000001;
             }
             com.google.protobuf.MapEntry<java.lang.String, java.lang.String>
             properties__ = input.readMessage(
                 PropertiesDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistry);
             properties_.getMutableMap().put(
                 properties__.getKey(), properties__.getValue());
-            break;
-          }
-          case 34: {
-            if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-              outgoingEdges_ = new java.util.ArrayList<com.server.graph_db.grpc.vertex.edge>();
-              mutable_bitField0_ |= 0x00000001;
-            }
-            outgoingEdges_.add(
-                input.readMessage(com.server.graph_db.grpc.vertex.edge.parser(), extensionRegistry));
-            break;
-          }
-          case 42: {
-            if (!((mutable_bitField0_ & 0x00000002) != 0)) {
-              incomingEdges_ = new java.util.ArrayList<com.server.graph_db.grpc.vertex.edge>();
-              mutable_bitField0_ |= 0x00000002;
-            }
-            incomingEdges_.add(
-                input.readMessage(com.server.graph_db.grpc.vertex.edge.parser(), extensionRegistry));
             break;
           }
           default: {
@@ -111,12 +91,6 @@ private static final long serialVersionUID = 0L;
       throw new com.google.protobuf.InvalidProtocolBufferException(
           e).setUnfinishedMessage(this);
     } finally {
-      if (((mutable_bitField0_ & 0x00000001) != 0)) {
-        outgoingEdges_ = java.util.Collections.unmodifiableList(outgoingEdges_);
-      }
-      if (((mutable_bitField0_ & 0x00000002) != 0)) {
-        incomingEdges_ = java.util.Collections.unmodifiableList(incomingEdges_);
-      }
       this.unknownFields = unknownFields.build();
       makeExtensionsImmutable();
     }
@@ -220,86 +194,6 @@ private static final long serialVersionUID = 0L;
     } else {
       return (com.google.protobuf.ByteString) ref;
     }
-  }
-
-  public static final int OUTGOINGEDGES_FIELD_NUMBER = 4;
-  private java.util.List<com.server.graph_db.grpc.vertex.edge> outgoingEdges_;
-  /**
-   * <code>repeated .edge outgoingEdges = 4;</code>
-   */
-  @java.lang.Override
-  public java.util.List<com.server.graph_db.grpc.vertex.edge> getOutgoingEdgesList() {
-    return outgoingEdges_;
-  }
-  /**
-   * <code>repeated .edge outgoingEdges = 4;</code>
-   */
-  @java.lang.Override
-  public java.util.List<? extends com.server.graph_db.grpc.vertex.edgeOrBuilder> 
-      getOutgoingEdgesOrBuilderList() {
-    return outgoingEdges_;
-  }
-  /**
-   * <code>repeated .edge outgoingEdges = 4;</code>
-   */
-  @java.lang.Override
-  public int getOutgoingEdgesCount() {
-    return outgoingEdges_.size();
-  }
-  /**
-   * <code>repeated .edge outgoingEdges = 4;</code>
-   */
-  @java.lang.Override
-  public com.server.graph_db.grpc.vertex.edge getOutgoingEdges(int index) {
-    return outgoingEdges_.get(index);
-  }
-  /**
-   * <code>repeated .edge outgoingEdges = 4;</code>
-   */
-  @java.lang.Override
-  public com.server.graph_db.grpc.vertex.edgeOrBuilder getOutgoingEdgesOrBuilder(
-      int index) {
-    return outgoingEdges_.get(index);
-  }
-
-  public static final int INCOMINGEDGES_FIELD_NUMBER = 5;
-  private java.util.List<com.server.graph_db.grpc.vertex.edge> incomingEdges_;
-  /**
-   * <code>repeated .edge incomingEdges = 5;</code>
-   */
-  @java.lang.Override
-  public java.util.List<com.server.graph_db.grpc.vertex.edge> getIncomingEdgesList() {
-    return incomingEdges_;
-  }
-  /**
-   * <code>repeated .edge incomingEdges = 5;</code>
-   */
-  @java.lang.Override
-  public java.util.List<? extends com.server.graph_db.grpc.vertex.edgeOrBuilder> 
-      getIncomingEdgesOrBuilderList() {
-    return incomingEdges_;
-  }
-  /**
-   * <code>repeated .edge incomingEdges = 5;</code>
-   */
-  @java.lang.Override
-  public int getIncomingEdgesCount() {
-    return incomingEdges_.size();
-  }
-  /**
-   * <code>repeated .edge incomingEdges = 5;</code>
-   */
-  @java.lang.Override
-  public com.server.graph_db.grpc.vertex.edge getIncomingEdges(int index) {
-    return incomingEdges_.get(index);
-  }
-  /**
-   * <code>repeated .edge incomingEdges = 5;</code>
-   */
-  @java.lang.Override
-  public com.server.graph_db.grpc.vertex.edgeOrBuilder getIncomingEdgesOrBuilder(
-      int index) {
-    return incomingEdges_.get(index);
   }
 
   public static final int PROPERTIES_FIELD_NUMBER = 3;
@@ -409,12 +303,6 @@ private static final long serialVersionUID = 0L;
         internalGetProperties(),
         PropertiesDefaultEntryHolder.defaultEntry,
         3);
-    for (int i = 0; i < outgoingEdges_.size(); i++) {
-      output.writeMessage(4, outgoingEdges_.get(i));
-    }
-    for (int i = 0; i < incomingEdges_.size(); i++) {
-      output.writeMessage(5, incomingEdges_.get(i));
-    }
     unknownFields.writeTo(output);
   }
 
@@ -440,14 +328,6 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(3, properties__);
     }
-    for (int i = 0; i < outgoingEdges_.size(); i++) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(4, outgoingEdges_.get(i));
-    }
-    for (int i = 0; i < incomingEdges_.size(); i++) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(5, incomingEdges_.get(i));
-    }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
@@ -467,10 +347,6 @@ private static final long serialVersionUID = 0L;
         .equals(other.getId())) return false;
     if (!getLabel()
         .equals(other.getLabel())) return false;
-    if (!getOutgoingEdgesList()
-        .equals(other.getOutgoingEdgesList())) return false;
-    if (!getIncomingEdgesList()
-        .equals(other.getIncomingEdgesList())) return false;
     if (!internalGetProperties().equals(
         other.internalGetProperties())) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
@@ -488,14 +364,6 @@ private static final long serialVersionUID = 0L;
     hash = (53 * hash) + getId().hashCode();
     hash = (37 * hash) + LABEL_FIELD_NUMBER;
     hash = (53 * hash) + getLabel().hashCode();
-    if (getOutgoingEdgesCount() > 0) {
-      hash = (37 * hash) + OUTGOINGEDGES_FIELD_NUMBER;
-      hash = (53 * hash) + getOutgoingEdgesList().hashCode();
-    }
-    if (getIncomingEdgesCount() > 0) {
-      hash = (37 * hash) + INCOMINGEDGES_FIELD_NUMBER;
-      hash = (53 * hash) + getIncomingEdgesList().hashCode();
-    }
     if (!internalGetProperties().getMap().isEmpty()) {
       hash = (37 * hash) + PROPERTIES_FIELD_NUMBER;
       hash = (53 * hash) + internalGetProperties().hashCode();
@@ -650,8 +518,6 @@ private static final long serialVersionUID = 0L;
     private void maybeForceBuilderInitialization() {
       if (com.google.protobuf.GeneratedMessageV3
               .alwaysUseFieldBuilders) {
-        getOutgoingEdgesFieldBuilder();
-        getIncomingEdgesFieldBuilder();
       }
     }
     @java.lang.Override
@@ -661,18 +527,6 @@ private static final long serialVersionUID = 0L;
 
       label_ = "";
 
-      if (outgoingEdgesBuilder_ == null) {
-        outgoingEdges_ = java.util.Collections.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000001);
-      } else {
-        outgoingEdgesBuilder_.clear();
-      }
-      if (incomingEdgesBuilder_ == null) {
-        incomingEdges_ = java.util.Collections.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000002);
-      } else {
-        incomingEdgesBuilder_.clear();
-      }
       internalGetMutableProperties().clear();
       return this;
     }
@@ -703,24 +557,6 @@ private static final long serialVersionUID = 0L;
       int from_bitField0_ = bitField0_;
       result.id_ = id_;
       result.label_ = label_;
-      if (outgoingEdgesBuilder_ == null) {
-        if (((bitField0_ & 0x00000001) != 0)) {
-          outgoingEdges_ = java.util.Collections.unmodifiableList(outgoingEdges_);
-          bitField0_ = (bitField0_ & ~0x00000001);
-        }
-        result.outgoingEdges_ = outgoingEdges_;
-      } else {
-        result.outgoingEdges_ = outgoingEdgesBuilder_.build();
-      }
-      if (incomingEdgesBuilder_ == null) {
-        if (((bitField0_ & 0x00000002) != 0)) {
-          incomingEdges_ = java.util.Collections.unmodifiableList(incomingEdges_);
-          bitField0_ = (bitField0_ & ~0x00000002);
-        }
-        result.incomingEdges_ = incomingEdges_;
-      } else {
-        result.incomingEdges_ = incomingEdgesBuilder_.build();
-      }
       result.properties_ = internalGetProperties();
       result.properties_.makeImmutable();
       onBuilt();
@@ -778,58 +614,6 @@ private static final long serialVersionUID = 0L;
       if (!other.getLabel().isEmpty()) {
         label_ = other.label_;
         onChanged();
-      }
-      if (outgoingEdgesBuilder_ == null) {
-        if (!other.outgoingEdges_.isEmpty()) {
-          if (outgoingEdges_.isEmpty()) {
-            outgoingEdges_ = other.outgoingEdges_;
-            bitField0_ = (bitField0_ & ~0x00000001);
-          } else {
-            ensureOutgoingEdgesIsMutable();
-            outgoingEdges_.addAll(other.outgoingEdges_);
-          }
-          onChanged();
-        }
-      } else {
-        if (!other.outgoingEdges_.isEmpty()) {
-          if (outgoingEdgesBuilder_.isEmpty()) {
-            outgoingEdgesBuilder_.dispose();
-            outgoingEdgesBuilder_ = null;
-            outgoingEdges_ = other.outgoingEdges_;
-            bitField0_ = (bitField0_ & ~0x00000001);
-            outgoingEdgesBuilder_ = 
-              com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
-                 getOutgoingEdgesFieldBuilder() : null;
-          } else {
-            outgoingEdgesBuilder_.addAllMessages(other.outgoingEdges_);
-          }
-        }
-      }
-      if (incomingEdgesBuilder_ == null) {
-        if (!other.incomingEdges_.isEmpty()) {
-          if (incomingEdges_.isEmpty()) {
-            incomingEdges_ = other.incomingEdges_;
-            bitField0_ = (bitField0_ & ~0x00000002);
-          } else {
-            ensureIncomingEdgesIsMutable();
-            incomingEdges_.addAll(other.incomingEdges_);
-          }
-          onChanged();
-        }
-      } else {
-        if (!other.incomingEdges_.isEmpty()) {
-          if (incomingEdgesBuilder_.isEmpty()) {
-            incomingEdgesBuilder_.dispose();
-            incomingEdgesBuilder_ = null;
-            incomingEdges_ = other.incomingEdges_;
-            bitField0_ = (bitField0_ & ~0x00000002);
-            incomingEdgesBuilder_ = 
-              com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
-                 getIncomingEdgesFieldBuilder() : null;
-          } else {
-            incomingEdgesBuilder_.addAllMessages(other.incomingEdges_);
-          }
-        }
       }
       internalGetMutableProperties().mergeFrom(
           other.internalGetProperties());
@@ -1013,486 +797,6 @@ private static final long serialVersionUID = 0L;
       label_ = value;
       onChanged();
       return this;
-    }
-
-    private java.util.List<com.server.graph_db.grpc.vertex.edge> outgoingEdges_ =
-      java.util.Collections.emptyList();
-    private void ensureOutgoingEdgesIsMutable() {
-      if (!((bitField0_ & 0x00000001) != 0)) {
-        outgoingEdges_ = new java.util.ArrayList<com.server.graph_db.grpc.vertex.edge>(outgoingEdges_);
-        bitField0_ |= 0x00000001;
-       }
-    }
-
-    private com.google.protobuf.RepeatedFieldBuilderV3<
-        com.server.graph_db.grpc.vertex.edge, com.server.graph_db.grpc.vertex.edge.Builder, com.server.graph_db.grpc.vertex.edgeOrBuilder> outgoingEdgesBuilder_;
-
-    /**
-     * <code>repeated .edge outgoingEdges = 4;</code>
-     */
-    public java.util.List<com.server.graph_db.grpc.vertex.edge> getOutgoingEdgesList() {
-      if (outgoingEdgesBuilder_ == null) {
-        return java.util.Collections.unmodifiableList(outgoingEdges_);
-      } else {
-        return outgoingEdgesBuilder_.getMessageList();
-      }
-    }
-    /**
-     * <code>repeated .edge outgoingEdges = 4;</code>
-     */
-    public int getOutgoingEdgesCount() {
-      if (outgoingEdgesBuilder_ == null) {
-        return outgoingEdges_.size();
-      } else {
-        return outgoingEdgesBuilder_.getCount();
-      }
-    }
-    /**
-     * <code>repeated .edge outgoingEdges = 4;</code>
-     */
-    public com.server.graph_db.grpc.vertex.edge getOutgoingEdges(int index) {
-      if (outgoingEdgesBuilder_ == null) {
-        return outgoingEdges_.get(index);
-      } else {
-        return outgoingEdgesBuilder_.getMessage(index);
-      }
-    }
-    /**
-     * <code>repeated .edge outgoingEdges = 4;</code>
-     */
-    public Builder setOutgoingEdges(
-        int index, com.server.graph_db.grpc.vertex.edge value) {
-      if (outgoingEdgesBuilder_ == null) {
-        if (value == null) {
-          throw new NullPointerException();
-        }
-        ensureOutgoingEdgesIsMutable();
-        outgoingEdges_.set(index, value);
-        onChanged();
-      } else {
-        outgoingEdgesBuilder_.setMessage(index, value);
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .edge outgoingEdges = 4;</code>
-     */
-    public Builder setOutgoingEdges(
-        int index, com.server.graph_db.grpc.vertex.edge.Builder builderForValue) {
-      if (outgoingEdgesBuilder_ == null) {
-        ensureOutgoingEdgesIsMutable();
-        outgoingEdges_.set(index, builderForValue.build());
-        onChanged();
-      } else {
-        outgoingEdgesBuilder_.setMessage(index, builderForValue.build());
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .edge outgoingEdges = 4;</code>
-     */
-    public Builder addOutgoingEdges(com.server.graph_db.grpc.vertex.edge value) {
-      if (outgoingEdgesBuilder_ == null) {
-        if (value == null) {
-          throw new NullPointerException();
-        }
-        ensureOutgoingEdgesIsMutable();
-        outgoingEdges_.add(value);
-        onChanged();
-      } else {
-        outgoingEdgesBuilder_.addMessage(value);
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .edge outgoingEdges = 4;</code>
-     */
-    public Builder addOutgoingEdges(
-        int index, com.server.graph_db.grpc.vertex.edge value) {
-      if (outgoingEdgesBuilder_ == null) {
-        if (value == null) {
-          throw new NullPointerException();
-        }
-        ensureOutgoingEdgesIsMutable();
-        outgoingEdges_.add(index, value);
-        onChanged();
-      } else {
-        outgoingEdgesBuilder_.addMessage(index, value);
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .edge outgoingEdges = 4;</code>
-     */
-    public Builder addOutgoingEdges(
-        com.server.graph_db.grpc.vertex.edge.Builder builderForValue) {
-      if (outgoingEdgesBuilder_ == null) {
-        ensureOutgoingEdgesIsMutable();
-        outgoingEdges_.add(builderForValue.build());
-        onChanged();
-      } else {
-        outgoingEdgesBuilder_.addMessage(builderForValue.build());
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .edge outgoingEdges = 4;</code>
-     */
-    public Builder addOutgoingEdges(
-        int index, com.server.graph_db.grpc.vertex.edge.Builder builderForValue) {
-      if (outgoingEdgesBuilder_ == null) {
-        ensureOutgoingEdgesIsMutable();
-        outgoingEdges_.add(index, builderForValue.build());
-        onChanged();
-      } else {
-        outgoingEdgesBuilder_.addMessage(index, builderForValue.build());
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .edge outgoingEdges = 4;</code>
-     */
-    public Builder addAllOutgoingEdges(
-        java.lang.Iterable<? extends com.server.graph_db.grpc.vertex.edge> values) {
-      if (outgoingEdgesBuilder_ == null) {
-        ensureOutgoingEdgesIsMutable();
-        com.google.protobuf.AbstractMessageLite.Builder.addAll(
-            values, outgoingEdges_);
-        onChanged();
-      } else {
-        outgoingEdgesBuilder_.addAllMessages(values);
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .edge outgoingEdges = 4;</code>
-     */
-    public Builder clearOutgoingEdges() {
-      if (outgoingEdgesBuilder_ == null) {
-        outgoingEdges_ = java.util.Collections.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000001);
-        onChanged();
-      } else {
-        outgoingEdgesBuilder_.clear();
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .edge outgoingEdges = 4;</code>
-     */
-    public Builder removeOutgoingEdges(int index) {
-      if (outgoingEdgesBuilder_ == null) {
-        ensureOutgoingEdgesIsMutable();
-        outgoingEdges_.remove(index);
-        onChanged();
-      } else {
-        outgoingEdgesBuilder_.remove(index);
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .edge outgoingEdges = 4;</code>
-     */
-    public com.server.graph_db.grpc.vertex.edge.Builder getOutgoingEdgesBuilder(
-        int index) {
-      return getOutgoingEdgesFieldBuilder().getBuilder(index);
-    }
-    /**
-     * <code>repeated .edge outgoingEdges = 4;</code>
-     */
-    public com.server.graph_db.grpc.vertex.edgeOrBuilder getOutgoingEdgesOrBuilder(
-        int index) {
-      if (outgoingEdgesBuilder_ == null) {
-        return outgoingEdges_.get(index);  } else {
-        return outgoingEdgesBuilder_.getMessageOrBuilder(index);
-      }
-    }
-    /**
-     * <code>repeated .edge outgoingEdges = 4;</code>
-     */
-    public java.util.List<? extends com.server.graph_db.grpc.vertex.edgeOrBuilder> 
-         getOutgoingEdgesOrBuilderList() {
-      if (outgoingEdgesBuilder_ != null) {
-        return outgoingEdgesBuilder_.getMessageOrBuilderList();
-      } else {
-        return java.util.Collections.unmodifiableList(outgoingEdges_);
-      }
-    }
-    /**
-     * <code>repeated .edge outgoingEdges = 4;</code>
-     */
-    public com.server.graph_db.grpc.vertex.edge.Builder addOutgoingEdgesBuilder() {
-      return getOutgoingEdgesFieldBuilder().addBuilder(
-          com.server.graph_db.grpc.vertex.edge.getDefaultInstance());
-    }
-    /**
-     * <code>repeated .edge outgoingEdges = 4;</code>
-     */
-    public com.server.graph_db.grpc.vertex.edge.Builder addOutgoingEdgesBuilder(
-        int index) {
-      return getOutgoingEdgesFieldBuilder().addBuilder(
-          index, com.server.graph_db.grpc.vertex.edge.getDefaultInstance());
-    }
-    /**
-     * <code>repeated .edge outgoingEdges = 4;</code>
-     */
-    public java.util.List<com.server.graph_db.grpc.vertex.edge.Builder> 
-         getOutgoingEdgesBuilderList() {
-      return getOutgoingEdgesFieldBuilder().getBuilderList();
-    }
-    private com.google.protobuf.RepeatedFieldBuilderV3<
-        com.server.graph_db.grpc.vertex.edge, com.server.graph_db.grpc.vertex.edge.Builder, com.server.graph_db.grpc.vertex.edgeOrBuilder> 
-        getOutgoingEdgesFieldBuilder() {
-      if (outgoingEdgesBuilder_ == null) {
-        outgoingEdgesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-            com.server.graph_db.grpc.vertex.edge, com.server.graph_db.grpc.vertex.edge.Builder, com.server.graph_db.grpc.vertex.edgeOrBuilder>(
-                outgoingEdges_,
-                ((bitField0_ & 0x00000001) != 0),
-                getParentForChildren(),
-                isClean());
-        outgoingEdges_ = null;
-      }
-      return outgoingEdgesBuilder_;
-    }
-
-    private java.util.List<com.server.graph_db.grpc.vertex.edge> incomingEdges_ =
-      java.util.Collections.emptyList();
-    private void ensureIncomingEdgesIsMutable() {
-      if (!((bitField0_ & 0x00000002) != 0)) {
-        incomingEdges_ = new java.util.ArrayList<com.server.graph_db.grpc.vertex.edge>(incomingEdges_);
-        bitField0_ |= 0x00000002;
-       }
-    }
-
-    private com.google.protobuf.RepeatedFieldBuilderV3<
-        com.server.graph_db.grpc.vertex.edge, com.server.graph_db.grpc.vertex.edge.Builder, com.server.graph_db.grpc.vertex.edgeOrBuilder> incomingEdgesBuilder_;
-
-    /**
-     * <code>repeated .edge incomingEdges = 5;</code>
-     */
-    public java.util.List<com.server.graph_db.grpc.vertex.edge> getIncomingEdgesList() {
-      if (incomingEdgesBuilder_ == null) {
-        return java.util.Collections.unmodifiableList(incomingEdges_);
-      } else {
-        return incomingEdgesBuilder_.getMessageList();
-      }
-    }
-    /**
-     * <code>repeated .edge incomingEdges = 5;</code>
-     */
-    public int getIncomingEdgesCount() {
-      if (incomingEdgesBuilder_ == null) {
-        return incomingEdges_.size();
-      } else {
-        return incomingEdgesBuilder_.getCount();
-      }
-    }
-    /**
-     * <code>repeated .edge incomingEdges = 5;</code>
-     */
-    public com.server.graph_db.grpc.vertex.edge getIncomingEdges(int index) {
-      if (incomingEdgesBuilder_ == null) {
-        return incomingEdges_.get(index);
-      } else {
-        return incomingEdgesBuilder_.getMessage(index);
-      }
-    }
-    /**
-     * <code>repeated .edge incomingEdges = 5;</code>
-     */
-    public Builder setIncomingEdges(
-        int index, com.server.graph_db.grpc.vertex.edge value) {
-      if (incomingEdgesBuilder_ == null) {
-        if (value == null) {
-          throw new NullPointerException();
-        }
-        ensureIncomingEdgesIsMutable();
-        incomingEdges_.set(index, value);
-        onChanged();
-      } else {
-        incomingEdgesBuilder_.setMessage(index, value);
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .edge incomingEdges = 5;</code>
-     */
-    public Builder setIncomingEdges(
-        int index, com.server.graph_db.grpc.vertex.edge.Builder builderForValue) {
-      if (incomingEdgesBuilder_ == null) {
-        ensureIncomingEdgesIsMutable();
-        incomingEdges_.set(index, builderForValue.build());
-        onChanged();
-      } else {
-        incomingEdgesBuilder_.setMessage(index, builderForValue.build());
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .edge incomingEdges = 5;</code>
-     */
-    public Builder addIncomingEdges(com.server.graph_db.grpc.vertex.edge value) {
-      if (incomingEdgesBuilder_ == null) {
-        if (value == null) {
-          throw new NullPointerException();
-        }
-        ensureIncomingEdgesIsMutable();
-        incomingEdges_.add(value);
-        onChanged();
-      } else {
-        incomingEdgesBuilder_.addMessage(value);
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .edge incomingEdges = 5;</code>
-     */
-    public Builder addIncomingEdges(
-        int index, com.server.graph_db.grpc.vertex.edge value) {
-      if (incomingEdgesBuilder_ == null) {
-        if (value == null) {
-          throw new NullPointerException();
-        }
-        ensureIncomingEdgesIsMutable();
-        incomingEdges_.add(index, value);
-        onChanged();
-      } else {
-        incomingEdgesBuilder_.addMessage(index, value);
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .edge incomingEdges = 5;</code>
-     */
-    public Builder addIncomingEdges(
-        com.server.graph_db.grpc.vertex.edge.Builder builderForValue) {
-      if (incomingEdgesBuilder_ == null) {
-        ensureIncomingEdgesIsMutable();
-        incomingEdges_.add(builderForValue.build());
-        onChanged();
-      } else {
-        incomingEdgesBuilder_.addMessage(builderForValue.build());
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .edge incomingEdges = 5;</code>
-     */
-    public Builder addIncomingEdges(
-        int index, com.server.graph_db.grpc.vertex.edge.Builder builderForValue) {
-      if (incomingEdgesBuilder_ == null) {
-        ensureIncomingEdgesIsMutable();
-        incomingEdges_.add(index, builderForValue.build());
-        onChanged();
-      } else {
-        incomingEdgesBuilder_.addMessage(index, builderForValue.build());
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .edge incomingEdges = 5;</code>
-     */
-    public Builder addAllIncomingEdges(
-        java.lang.Iterable<? extends com.server.graph_db.grpc.vertex.edge> values) {
-      if (incomingEdgesBuilder_ == null) {
-        ensureIncomingEdgesIsMutable();
-        com.google.protobuf.AbstractMessageLite.Builder.addAll(
-            values, incomingEdges_);
-        onChanged();
-      } else {
-        incomingEdgesBuilder_.addAllMessages(values);
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .edge incomingEdges = 5;</code>
-     */
-    public Builder clearIncomingEdges() {
-      if (incomingEdgesBuilder_ == null) {
-        incomingEdges_ = java.util.Collections.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000002);
-        onChanged();
-      } else {
-        incomingEdgesBuilder_.clear();
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .edge incomingEdges = 5;</code>
-     */
-    public Builder removeIncomingEdges(int index) {
-      if (incomingEdgesBuilder_ == null) {
-        ensureIncomingEdgesIsMutable();
-        incomingEdges_.remove(index);
-        onChanged();
-      } else {
-        incomingEdgesBuilder_.remove(index);
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .edge incomingEdges = 5;</code>
-     */
-    public com.server.graph_db.grpc.vertex.edge.Builder getIncomingEdgesBuilder(
-        int index) {
-      return getIncomingEdgesFieldBuilder().getBuilder(index);
-    }
-    /**
-     * <code>repeated .edge incomingEdges = 5;</code>
-     */
-    public com.server.graph_db.grpc.vertex.edgeOrBuilder getIncomingEdgesOrBuilder(
-        int index) {
-      if (incomingEdgesBuilder_ == null) {
-        return incomingEdges_.get(index);  } else {
-        return incomingEdgesBuilder_.getMessageOrBuilder(index);
-      }
-    }
-    /**
-     * <code>repeated .edge incomingEdges = 5;</code>
-     */
-    public java.util.List<? extends com.server.graph_db.grpc.vertex.edgeOrBuilder> 
-         getIncomingEdgesOrBuilderList() {
-      if (incomingEdgesBuilder_ != null) {
-        return incomingEdgesBuilder_.getMessageOrBuilderList();
-      } else {
-        return java.util.Collections.unmodifiableList(incomingEdges_);
-      }
-    }
-    /**
-     * <code>repeated .edge incomingEdges = 5;</code>
-     */
-    public com.server.graph_db.grpc.vertex.edge.Builder addIncomingEdgesBuilder() {
-      return getIncomingEdgesFieldBuilder().addBuilder(
-          com.server.graph_db.grpc.vertex.edge.getDefaultInstance());
-    }
-    /**
-     * <code>repeated .edge incomingEdges = 5;</code>
-     */
-    public com.server.graph_db.grpc.vertex.edge.Builder addIncomingEdgesBuilder(
-        int index) {
-      return getIncomingEdgesFieldBuilder().addBuilder(
-          index, com.server.graph_db.grpc.vertex.edge.getDefaultInstance());
-    }
-    /**
-     * <code>repeated .edge incomingEdges = 5;</code>
-     */
-    public java.util.List<com.server.graph_db.grpc.vertex.edge.Builder> 
-         getIncomingEdgesBuilderList() {
-      return getIncomingEdgesFieldBuilder().getBuilderList();
-    }
-    private com.google.protobuf.RepeatedFieldBuilderV3<
-        com.server.graph_db.grpc.vertex.edge, com.server.graph_db.grpc.vertex.edge.Builder, com.server.graph_db.grpc.vertex.edgeOrBuilder> 
-        getIncomingEdgesFieldBuilder() {
-      if (incomingEdgesBuilder_ == null) {
-        incomingEdgesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-            com.server.graph_db.grpc.vertex.edge, com.server.graph_db.grpc.vertex.edge.Builder, com.server.graph_db.grpc.vertex.edgeOrBuilder>(
-                incomingEdges_,
-                ((bitField0_ & 0x00000002) != 0),
-                getParentForChildren(),
-                isClean());
-        incomingEdges_ = null;
-      }
-      return incomingEdgesBuilder_;
     }
 
     private com.google.protobuf.MapField<

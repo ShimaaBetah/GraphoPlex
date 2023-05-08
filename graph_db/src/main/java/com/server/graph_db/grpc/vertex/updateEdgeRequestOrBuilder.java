@@ -76,4 +76,10 @@ public interface updateEdgeRequestOrBuilder extends
 
   java.lang.String getPropertiesOrThrow(
       java.lang.String key);
+
+  /**
+   * <code>bool isOutGoing = 5;</code>
+   * @return The isOutGoing.
+   */
+  boolean getIsOutGoing();
 }

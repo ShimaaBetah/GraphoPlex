@@ -32,54 +32,6 @@ public interface createVertexRequestOrBuilder extends
       getLabelBytes();
 
   /**
-   * <code>repeated .edge outgoingEdges = 4;</code>
-   */
-  java.util.List<com.server.graph_db.grpc.vertex.edge> 
-      getOutgoingEdgesList();
-  /**
-   * <code>repeated .edge outgoingEdges = 4;</code>
-   */
-  com.server.graph_db.grpc.vertex.edge getOutgoingEdges(int index);
-  /**
-   * <code>repeated .edge outgoingEdges = 4;</code>
-   */
-  int getOutgoingEdgesCount();
-  /**
-   * <code>repeated .edge outgoingEdges = 4;</code>
-   */
-  java.util.List<? extends com.server.graph_db.grpc.vertex.edgeOrBuilder> 
-      getOutgoingEdgesOrBuilderList();
-  /**
-   * <code>repeated .edge outgoingEdges = 4;</code>
-   */
-  com.server.graph_db.grpc.vertex.edgeOrBuilder getOutgoingEdgesOrBuilder(
-      int index);
-
-  /**
-   * <code>repeated .edge incomingEdges = 5;</code>
-   */
-  java.util.List<com.server.graph_db.grpc.vertex.edge> 
-      getIncomingEdgesList();
-  /**
-   * <code>repeated .edge incomingEdges = 5;</code>
-   */
-  com.server.graph_db.grpc.vertex.edge getIncomingEdges(int index);
-  /**
-   * <code>repeated .edge incomingEdges = 5;</code>
-   */
-  int getIncomingEdgesCount();
-  /**
-   * <code>repeated .edge incomingEdges = 5;</code>
-   */
-  java.util.List<? extends com.server.graph_db.grpc.vertex.edgeOrBuilder> 
-      getIncomingEdgesOrBuilderList();
-  /**
-   * <code>repeated .edge incomingEdges = 5;</code>
-   */
-  com.server.graph_db.grpc.vertex.edgeOrBuilder getIncomingEdgesOrBuilder(
-      int index);
-
-  /**
    * <code>map&lt;string, string&gt; properties = 3;</code>
    */
   int getPropertiesCount();

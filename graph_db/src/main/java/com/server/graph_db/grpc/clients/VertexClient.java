@@ -1,5 +1,7 @@
 package com.server.graph_db.grpc.clients;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,15 +11,19 @@ import org.springframework.stereotype.Service;
 import com.server.graph_db.exceptions.vertex.VertexAlreadyExistsException;
 import com.server.graph_db.exceptions.vertex.VertexNotFoundException;
 import com.server.graph_db.grpc.adapter.Adapter;
+import com.server.graph_db.grpc.traverser.edgeId;
 import com.server.graph_db.grpc.vertex.VertexServiceGrpc;
 import com.server.graph_db.grpc.vertex.createEdgeRequest;
-import com.server.graph_db.grpc.vertex.createEdgeResponse;
 import com.server.graph_db.grpc.vertex.createVertexRequest;
-import com.server.graph_db.grpc.vertex.createVertexResponse;
 import com.server.graph_db.grpc.vertex.deleteEdgeRequest;
-import com.server.graph_db.grpc.vertex.deleteEdgeResponse;
 import com.server.graph_db.grpc.vertex.deleteVertexRequest;
 import com.server.graph_db.grpc.vertex.deleteVertexResponse;
+import com.server.graph_db.grpc.vertex.getEdgesRequest;
+import com.server.graph_db.grpc.vertex.getEdgesResponse;
+import com.server.graph_db.grpc.vertex.getIncomingEdgesRequest;
+import com.server.graph_db.grpc.vertex.getIncomingEdgesResponse;
+import com.server.graph_db.grpc.vertex.getOutgoingEdgesRequest;
+import com.server.graph_db.grpc.vertex.getOutgoingEdgesResponse;
 import com.server.graph_db.grpc.vertex.getVertexRequest;
 import com.server.graph_db.grpc.vertex.getVertexResponse;
 import com.server.graph_db.grpc.vertex.getVerticesRequest;
@@ -26,6 +32,7 @@ import com.server.graph_db.grpc.vertex.updateEdgeRequest;
 import com.server.graph_db.grpc.vertex.updateVertexRequest;
 import com.server.graph_db.grpc.vertex.updateVertexResponse;
 import com.server.graph_db.vertex.Edge;
+import com.server.graph_db.vertex.EdgeId;
 import com.server.graph_db.vertex.Vertex;
 
 import io.grpc.ManagedChannel;
@@ -106,23 +113,30 @@ public class VertexClient {
         return;
     }
 
-    public void createEdge(String sourceVertexId, Edge edge, String serverId) throws VertexNotFoundException{
+    public void createEdge(String sourceVertexId, Edge edge,boolean isOutgoing ,String serverId) throws VertexNotFoundException{
         VertexServiceGrpc.VertexServiceBlockingStub blockingStub = VertexServiceGrpc
                 .newBlockingStub(grpcChannels.get(serverId));
-        createEdgeRequest request = adapter.edgeToCreateEdgeRequest(sourceVertexId, edge);
+        createEdgeRequest request = adapter.edgeToCreateEdgeRequest(sourceVertexId, edge, isOutgoing);
+        
         try {
             blockingStub.createEdge(request);
         } catch (Exception e) {
+            if(isOutgoing){
+
             throw new VertexNotFoundException(sourceVertexId);
+            }
+            else{
+                throw new VertexNotFoundException(edge.getDestinationVertexId());
+            }
         }
         return;
     }
 
-    public void deleteEdge(String sourceVertexId, String destinationVertexId, String label, String serverId) throws VertexNotFoundException{
+    public void deleteEdge(String sourceVertexId, String destinationVertexId, String label,boolean isOutgoing ,String serverId) throws VertexNotFoundException{
         VertexServiceGrpc.VertexServiceBlockingStub blockingStub = VertexServiceGrpc
                 .newBlockingStub(grpcChannels.get(serverId));
         deleteEdgeRequest request = deleteEdgeRequest.newBuilder().setSourceVertexId(sourceVertexId)
-                .setDestinationVertexId(destinationVertexId).setLabel(label).build();
+                .setDestinationVertexId(destinationVertexId).setLabel(label).setIsOutGoing(isOutgoing).build();
         try {
             blockingStub.deleteEdge(request);
         } catch (Exception e) {
@@ -131,17 +145,62 @@ public class VertexClient {
         return;
     }
 
-    public void updateEdge (String sourceVertexId, String destinationVertexId, String label, Map<String, String> properties, String serverId) throws VertexNotFoundException{
+    public void updateEdge (String sourceVertexId, String destinationVertexId, String label, Map<String, String> properties,boolean isOutgoing ,String serverId) throws VertexNotFoundException{
         VertexServiceGrpc.VertexServiceBlockingStub blockingStub = VertexServiceGrpc
                 .newBlockingStub(grpcChannels.get(serverId));
         updateEdgeRequest request = updateEdgeRequest.newBuilder().setSourceVertexId(sourceVertexId)
-                .setDestinationVertexId(destinationVertexId).setLabel(label).putAllProperties(properties).build();
+                .setDestinationVertexId(destinationVertexId).setLabel(label).putAllProperties(properties).setIsOutGoing(isOutgoing).build();
         try {
             blockingStub.updateEdge(request);
         } catch (Exception e) {
             throw new VertexNotFoundException(sourceVertexId);
         }
         return;
+    }
+
+    public Iterable<Edge> getOutgoingEdges (String sourceVertexId, String serverId) throws Exception{
+        VertexServiceGrpc.VertexServiceBlockingStub blockingStub = VertexServiceGrpc
+                .newBlockingStub(grpcChannels.get(serverId));
+        getOutgoingEdgesRequest request = getOutgoingEdgesRequest.newBuilder().setVertexId(sourceVertexId).build();
+        getOutgoingEdgesResponse response;
+        try {
+            response = blockingStub.getOutgoingEdges(request);
+        } catch (Exception e) {
+            throw new Exception("Internal Server Error");
+        }
+        return adapter.edgesResponseToEdges(response.getEdgesList());
+    }
+
+    public Iterable<Edge> getIncomingEdges (String destinationVertexId, String serverId) throws Exception{
+        VertexServiceGrpc.VertexServiceBlockingStub blockingStub = VertexServiceGrpc
+                .newBlockingStub(grpcChannels.get(serverId));
+        getIncomingEdgesRequest request = getIncomingEdgesRequest.newBuilder().setVertexId(destinationVertexId).build();
+        getIncomingEdgesResponse response;
+        try {
+            response = blockingStub.getIncomingEdges(request);
+        } catch (Exception e) {
+            throw new Exception("Internal Server Error");
+        }
+        return adapter.edgesResponseToEdges(response.getEdgesList());
+    }
+
+
+    public Iterable<Edge> getEdgesById(Iterable<EdgeId> edgeIds, String serverId) throws Exception{
+        VertexServiceGrpc.VertexServiceBlockingStub blockingStub = VertexServiceGrpc
+                .newBlockingStub(grpcChannels.get(serverId));
+        List<edgeId> edgeIdsList = new ArrayList<>();
+        for(EdgeId edge : edgeIds){
+            edgeId edgeIdGrpc = edgeId.newBuilder().setSourceId(edge.getSourceId()).setDestinationId(edge.getdestinationId()).setLabel(edge.getLabel()).build();
+            edgeIdsList.add(edgeIdGrpc);
+        }
+        getEdgesRequest request = getEdgesRequest.newBuilder().addAllEdgeIds(edgeIdsList).build();
+        getEdgesResponse response;
+        try {
+            response = blockingStub.getEdges(request);
+        } catch (Exception e) {
+            throw new Exception("Internal Server Error");
+        }
+        return adapter.edgesResponseToEdges(response.getEdgesList());
     }
 
 }
