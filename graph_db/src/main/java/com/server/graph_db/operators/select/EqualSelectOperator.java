@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.server.graph_db.datastore.redis.RedisIndexDataManager;
-import com.server.graph_db.query.match.path.bindings.VertexBinding;
+import com.server.graph_db.traversers.bindings.VertexBinding;
 import com.server.graph_db.vertex.LocalVertexService;
 import com.server.graph_db.vertex.Vertex;
 
