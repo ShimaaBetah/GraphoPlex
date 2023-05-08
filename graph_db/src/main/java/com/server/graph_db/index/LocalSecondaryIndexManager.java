@@ -1,10 +1,11 @@
 package com.server.graph_db.index;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.server.graph_db.datastore.redis.RedisIndexDataManager;
-import com.server.graph_db.vertex.LocalVertexService;
 import com.server.graph_db.vertex.Vertex;
 import com.server.graph_db.vertex.VertexRepositoryImpl;
 
@@ -62,6 +63,8 @@ public class LocalSecondaryIndexManager implements SecondaryIndexManager {
     }
 
     public void addVertexToIndices(Vertex vertex) {
+        //add to default label index
+        indexDataManager.addVertexToIndex("label", vertex.getLabel(), vertex.getId());
         Iterable<String> indices = indexDataManager.getAllIndices();
         for (String index : indices) {
             if(vertex.isPropertyExist(index)) {
@@ -75,6 +78,20 @@ public class LocalSecondaryIndexManager implements SecondaryIndexManager {
         for (String index : indices) {
             if(vertex.isPropertyExist(index)) {
                 indexDataManager.removeVertexFromIndex(index, vertex.getProperty(index), vertex.getId());
+            }
+        }
+    }
+
+    public void updateVertexInIndices(Vertex vertex, Map<String, String> properties) {
+        Iterable<String> indices = indexDataManager.getAllIndices();
+        for (String index : indices) {
+            if(vertex.isPropertyExist(index)) {
+                indexDataManager.removeVertexFromIndex(index, vertex.getProperty(index), vertex.getId());
+            }
+        }
+        for (String index : indices) {
+            if(properties.containsKey(index)) {
+                indexDataManager.addVertexToIndex(index, properties.get(index), vertex.getId());
             }
         }
     }
