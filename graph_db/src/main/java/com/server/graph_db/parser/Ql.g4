@@ -36,7 +36,7 @@ destinationId: id;
 set_clause: 'SET' set_item (',' set_item)*;
 set_item: key '=' value;
 properties: '{' property (',' property)* '}';
-property: key '=' value;
+property: key ':' value;
 
 label : STRING;
 key: STRING;
@@ -44,7 +44,7 @@ value:  INT | FLOAT | STRING;
 id : STRING;
 
 
-database_command: create_database | delete_database| drop_database | switch_database |get_curr_database | switch_database_to_default | drop_default_database;
+database_command: create_database | delete_database| drop_database | switch_database |get_curr_database | switch_database_to_default | drop_default_database | get_curr_database;
 create_database: 'CREATE' 'DATABASE' database_name;
 delete_database: 'DELETE' 'DATABASE' database_name;
 drop_database: 'DROP' 'DATABASE' database_name;
@@ -55,7 +55,34 @@ switch_database_to_default: 'SWITCH' 'DATABASE' 'TO' 'DEFAULT';
 drop_default_database: 'DROP' 'DEFAULT' 'DATABASE';
 
 database_name: STRING;
-match_query: 'MATCH';
+match_query: 'MATCH' path_query;
+path_query: path where_clause? return_clause;
+
+path: starting_vertex (path_level )*;
+starting_vertex: vertex_binding;
+path_level: edge_binding vertex_binding;
+vertex_binding: '('id? (':' label)? selectOperators?  alias?')';
+alias: 'AS' variable;
+variable : STRING;
+edge_binding: out_edge_binding | in_edge_binding;
+out_edge_binding: '-' label? ('WITH'  selectOperators)? alias? '->';
+in_edge_binding: '<-' label? ('WITH'  selectOperators)? alias? '-';
+
+selectOperators: '{'selectOperator (',' selectOperator)*'}';
+selectOperator: fieldName operator fieldValue;
+
+fieldName: STRING;
+fieldValue: STRING|INT|FLOAT;
+operator: '=' | '<>' | '<' | '>' | '<=' | '>=' ;
+
+where_clause: 'WHERE';
+
+return_clause: 'RETURN' return_item (',' return_item)*;
+
+return_item: variable | variable'.'fieldName;
+
+
+
 // Define the entry point for the parser
 start: command;
 

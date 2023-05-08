@@ -368,6 +368,186 @@ public interface QlListener extends ParseTreeListener {
 	 */
 	void exitMatch_query(QlParser.Match_queryContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link QlParser#path_query}.
+	 * @param ctx the parse tree
+	 */
+	void enterPath_query(QlParser.Path_queryContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link QlParser#path_query}.
+	 * @param ctx the parse tree
+	 */
+	void exitPath_query(QlParser.Path_queryContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link QlParser#path}.
+	 * @param ctx the parse tree
+	 */
+	void enterPath(QlParser.PathContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link QlParser#path}.
+	 * @param ctx the parse tree
+	 */
+	void exitPath(QlParser.PathContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link QlParser#starting_vertex}.
+	 * @param ctx the parse tree
+	 */
+	void enterStarting_vertex(QlParser.Starting_vertexContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link QlParser#starting_vertex}.
+	 * @param ctx the parse tree
+	 */
+	void exitStarting_vertex(QlParser.Starting_vertexContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link QlParser#path_level}.
+	 * @param ctx the parse tree
+	 */
+	void enterPath_level(QlParser.Path_levelContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link QlParser#path_level}.
+	 * @param ctx the parse tree
+	 */
+	void exitPath_level(QlParser.Path_levelContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link QlParser#vertex_binding}.
+	 * @param ctx the parse tree
+	 */
+	void enterVertex_binding(QlParser.Vertex_bindingContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link QlParser#vertex_binding}.
+	 * @param ctx the parse tree
+	 */
+	void exitVertex_binding(QlParser.Vertex_bindingContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link QlParser#alias}.
+	 * @param ctx the parse tree
+	 */
+	void enterAlias(QlParser.AliasContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link QlParser#alias}.
+	 * @param ctx the parse tree
+	 */
+	void exitAlias(QlParser.AliasContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link QlParser#variable}.
+	 * @param ctx the parse tree
+	 */
+	void enterVariable(QlParser.VariableContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link QlParser#variable}.
+	 * @param ctx the parse tree
+	 */
+	void exitVariable(QlParser.VariableContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link QlParser#edge_binding}.
+	 * @param ctx the parse tree
+	 */
+	void enterEdge_binding(QlParser.Edge_bindingContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link QlParser#edge_binding}.
+	 * @param ctx the parse tree
+	 */
+	void exitEdge_binding(QlParser.Edge_bindingContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link QlParser#out_edge_binding}.
+	 * @param ctx the parse tree
+	 */
+	void enterOut_edge_binding(QlParser.Out_edge_bindingContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link QlParser#out_edge_binding}.
+	 * @param ctx the parse tree
+	 */
+	void exitOut_edge_binding(QlParser.Out_edge_bindingContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link QlParser#in_edge_binding}.
+	 * @param ctx the parse tree
+	 */
+	void enterIn_edge_binding(QlParser.In_edge_bindingContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link QlParser#in_edge_binding}.
+	 * @param ctx the parse tree
+	 */
+	void exitIn_edge_binding(QlParser.In_edge_bindingContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link QlParser#selectOperators}.
+	 * @param ctx the parse tree
+	 */
+	void enterSelectOperators(QlParser.SelectOperatorsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link QlParser#selectOperators}.
+	 * @param ctx the parse tree
+	 */
+	void exitSelectOperators(QlParser.SelectOperatorsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link QlParser#selectOperator}.
+	 * @param ctx the parse tree
+	 */
+	void enterSelectOperator(QlParser.SelectOperatorContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link QlParser#selectOperator}.
+	 * @param ctx the parse tree
+	 */
+	void exitSelectOperator(QlParser.SelectOperatorContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link QlParser#fieldName}.
+	 * @param ctx the parse tree
+	 */
+	void enterFieldName(QlParser.FieldNameContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link QlParser#fieldName}.
+	 * @param ctx the parse tree
+	 */
+	void exitFieldName(QlParser.FieldNameContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link QlParser#fieldValue}.
+	 * @param ctx the parse tree
+	 */
+	void enterFieldValue(QlParser.FieldValueContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link QlParser#fieldValue}.
+	 * @param ctx the parse tree
+	 */
+	void exitFieldValue(QlParser.FieldValueContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link QlParser#operator}.
+	 * @param ctx the parse tree
+	 */
+	void enterOperator(QlParser.OperatorContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link QlParser#operator}.
+	 * @param ctx the parse tree
+	 */
+	void exitOperator(QlParser.OperatorContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link QlParser#where_clause}.
+	 * @param ctx the parse tree
+	 */
+	void enterWhere_clause(QlParser.Where_clauseContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link QlParser#where_clause}.
+	 * @param ctx the parse tree
+	 */
+	void exitWhere_clause(QlParser.Where_clauseContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link QlParser#return_clause}.
+	 * @param ctx the parse tree
+	 */
+	void enterReturn_clause(QlParser.Return_clauseContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link QlParser#return_clause}.
+	 * @param ctx the parse tree
+	 */
+	void exitReturn_clause(QlParser.Return_clauseContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link QlParser#return_item}.
+	 * @param ctx the parse tree
+	 */
+	void enterReturn_item(QlParser.Return_itemContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link QlParser#return_item}.
+	 * @param ctx the parse tree
+	 */
+	void exitReturn_item(QlParser.Return_itemContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link QlParser#start}.
 	 * @param ctx the parse tree
 	 */
