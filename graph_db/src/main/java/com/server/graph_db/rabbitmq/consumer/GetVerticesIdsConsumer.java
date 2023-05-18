@@ -3,14 +3,15 @@ package com.server.graph_db.rabbitmq.consumer;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.server.graph_db.core.vertex.LocalVertexService;
+
 import org.springframework.amqp.rabbit.annotation.QueueBinding;
 import org.springframework.amqp.rabbit.annotation.Queue;
 
 import java.util.LinkedList;
 
 import org.springframework.amqp.rabbit.annotation.Exchange;
-
-import com.server.graph_db.vertex.LocalVertexService;
 
 
 @Component

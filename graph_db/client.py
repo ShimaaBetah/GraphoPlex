@@ -7,7 +7,7 @@ import json
 
 class MyShell(cmd.Cmd):
     intro = 'Welcome to distributed graph db. Type help or ? to list commands.\n'
-    prompt = 'distributed_graphdb >'
+    prompt = 'distributed_graphdb > '
 
     def do_greet(self, arg):
         'Greet the user.'

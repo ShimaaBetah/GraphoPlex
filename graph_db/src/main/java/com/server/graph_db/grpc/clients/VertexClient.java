@@ -8,8 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import com.server.graph_db.exceptions.vertex.VertexAlreadyExistsException;
-import com.server.graph_db.exceptions.vertex.VertexNotFoundException;
+import com.server.graph_db.core.exceptions.vertex.VertexAlreadyExistsException;
+import com.server.graph_db.core.exceptions.vertex.VertexNotFoundException;
+import com.server.graph_db.core.vertex.Edge;
+import com.server.graph_db.core.vertex.EdgeId;
+import com.server.graph_db.core.vertex.Vertex;
 import com.server.graph_db.grpc.adapter.Adapter;
 import com.server.graph_db.grpc.traverser.edgeId;
 import com.server.graph_db.grpc.vertex.VertexServiceGrpc;
@@ -31,9 +34,6 @@ import com.server.graph_db.grpc.vertex.getVerticesResponse;
 import com.server.graph_db.grpc.vertex.updateEdgeRequest;
 import com.server.graph_db.grpc.vertex.updateVertexRequest;
 import com.server.graph_db.grpc.vertex.updateVertexResponse;
-import com.server.graph_db.vertex.Edge;
-import com.server.graph_db.vertex.EdgeId;
-import com.server.graph_db.vertex.Vertex;
 
 import io.grpc.ManagedChannel;
 
@@ -89,7 +89,6 @@ public class VertexClient {
                 .newBlockingStub(grpcChannels.get(serverId));
         deleteVertexRequest request = deleteVertexRequest.newBuilder().setVertexId(vertexId).build();
         deleteVertexResponse response = blockingStub.deleteVertex(request);
-        System.out.println(response.getSuccess());
         return;
     }
 

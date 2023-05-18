@@ -10,7 +10,7 @@ import org.springframework.data.redis.repository.configuration.EnableRedisReposi
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
-import com.server.graph_db.vertex.Vertex;
+import com.server.graph_db.core.vertex.Vertex;
 
 @Configuration
 @EnableRedisRepositories

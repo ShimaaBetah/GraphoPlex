@@ -1,6 +1,6 @@
 package com.server.graph_db.query.databaseconfig.databaseconfigcommands;
 
-import com.server.graph_db.database.GlobalDatabaseService;
+import com.server.graph_db.core.database.GlobalDatabaseService;
 import com.server.graph_db.query.databaseconfig.DatabaseResult;
 
 public class GetCurrentDatabaseCommand  extends DatabaseConfigCommand{

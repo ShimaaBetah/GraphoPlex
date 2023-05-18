@@ -2,9 +2,9 @@ package com.server.graph_db.grpc.services;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.google.rpc.Status;
-import com.server.graph_db.database.LocalDatabaseService;
-import com.server.graph_db.exceptions.database.DatabaseAlreadyExist;
-import com.server.graph_db.exceptions.database.DatabaseNotFound;
+import com.server.graph_db.core.database.LocalDatabaseService;
+import com.server.graph_db.core.exceptions.database.DatabaseAlreadyExist;
+import com.server.graph_db.core.exceptions.database.DatabaseNotFound;
 import com.server.graph_db.grpc.database.DatabaseName;
 import com.server.graph_db.grpc.database.databaseConfigServiceGrpc;
 import com.server.graph_db.grpc.database.emptyResponse;

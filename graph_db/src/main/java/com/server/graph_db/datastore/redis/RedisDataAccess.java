@@ -11,10 +11,10 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
+import com.server.graph_db.core.vertex.Edge;
+import com.server.graph_db.core.vertex.Vertex;
 import com.server.graph_db.datastore.DataAccesser;
 import com.server.graph_db.grpc.vertex.edge;
-import com.server.graph_db.vertex.Edge;
-import com.server.graph_db.vertex.Vertex;
 
 import io.lettuce.core.dynamic.annotation.Value;
 
@@ -29,7 +29,7 @@ public class RedisDataAccess implements DataAccesser {
 
     private final String VERTEX_HASH = "Vertex";
     private final String OUTGOING_EDGE_HASH = "OutgoingEdges";
-    private final String INCOMING_EDGE_HASH = "IngcomingEdges";
+    private final String INCOMING_EDGE_HASH = "IncomingEdges";
     
 
     
@@ -38,7 +38,6 @@ public class RedisDataAccess implements DataAccesser {
 
     @Override
     public void saveVertex(Vertex vertex) {
-        System.out.println("saving vertex");
         redisTemplate.opsForHash().put(getPrefix(VERTEX_HASH), vertex.getId() , vertex);
     }
 

@@ -2,8 +2,8 @@ package com.server.graph_db.datastore;
 
 import java.util.Map;
 
-import com.server.graph_db.vertex.Edge;
-import com.server.graph_db.vertex.Vertex;
+import com.server.graph_db.core.vertex.Edge;
+import com.server.graph_db.core.vertex.Vertex;
 
 public interface DataAccesser {
     

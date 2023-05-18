@@ -7,6 +7,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.server.graph_db.core.operators.select.SelectOperator;
+import com.server.graph_db.core.operators.select.SelectOperatorFactory;
+import com.server.graph_db.core.traversers.bindings.EdgeBinding;
+import com.server.graph_db.core.traversers.bindings.VertexBinding;
+import com.server.graph_db.core.vertex.Edge;
+import com.server.graph_db.core.vertex.EdgeId;
+import com.server.graph_db.core.vertex.Vertex;
 import com.server.graph_db.grpc.traverser.edgeId;
 import com.server.graph_db.grpc.traverser.edgeIds;
 import com.server.graph_db.grpc.traverser.filterEdgesRequest;
@@ -18,13 +25,6 @@ import com.server.graph_db.grpc.vertex.createVertexRequest;
 import com.server.graph_db.grpc.vertex.edge;
 import com.server.graph_db.grpc.vertex.getVertexResponse;
 import com.server.graph_db.grpc.vertex.getVerticesResponse;
-import com.server.graph_db.operators.select.SelectOperator;
-import com.server.graph_db.operators.select.SelectOperatorFactory;
-import com.server.graph_db.traversers.bindings.EdgeBinding;
-import com.server.graph_db.traversers.bindings.VertexBinding;
-import com.server.graph_db.vertex.Edge;
-import com.server.graph_db.vertex.EdgeId;
-import com.server.graph_db.vertex.Vertex;
 
 @Component
 public class Adapter {
@@ -86,7 +86,6 @@ public class Adapter {
     }
 
     public Edge createEdgeRequestToEdge (createEdgeRequest request) {
-        System.out.println(request.getLabel()+"frooooooooom");
         Edge edge = new Edge(request.getSourceVertexId(),request.getDestinationVertexId());
         edge.setProperties(request.getPropertiesMap());
         edge.setLabel(request.getLabel());

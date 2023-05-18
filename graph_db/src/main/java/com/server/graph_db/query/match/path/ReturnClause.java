@@ -6,13 +6,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.server.graph_db.traversers.traversables.BreadthFirstSearchTraversable;
-import com.server.graph_db.traversers.traversables.BreadthFirstSearchTraversable.AliasedEdge;
-import com.server.graph_db.traversers.traversables.BreadthFirstSearchTraversable.AliasedVertex;
-import com.server.graph_db.vertex.Edge;
-import com.server.graph_db.vertex.EdgeId;
-import com.server.graph_db.vertex.GlobalVertexService;
-import com.server.graph_db.vertex.Vertex;
+import com.server.graph_db.alghorithms.traversables.BreadthFirstSearchTraversable;
+import com.server.graph_db.alghorithms.traversables.BreadthFirstSearchTraversable.AliasedEdge;
+import com.server.graph_db.alghorithms.traversables.BreadthFirstSearchTraversable.AliasedVertex;
+import com.server.graph_db.core.vertex.Edge;
+import com.server.graph_db.core.vertex.EdgeId;
+import com.server.graph_db.core.vertex.GlobalVertexService;
+import com.server.graph_db.core.vertex.Vertex;
 
 public class ReturnClause {
 
@@ -122,8 +122,6 @@ public class ReturnClause {
     private void getNeededVerticesAndEdges() throws Exception {
         Iterable<Vertex> vertices = globalVertexService.getVerticesByIds(verticesIdsNeeded);
         Iterable<Edge> edges = globalVertexService.getEdgesById(edgesIdsNeeded);
-        System.out.println(edgesIdsNeeded);
-        System.out.println(edges);
         for (Vertex vertex : vertices) {
             verticesMap.put(vertex.getId(), vertex);
         }
@@ -138,7 +136,6 @@ public class ReturnClause {
             Iterable<AliasedVertex> aliasedVertices = traversable.aliasedVertices(aliases);
             
             for (AliasedVertex vertex : aliasedVertices) {
-                System.out.println(vertex.getVertexId());
                 verticesIdsNeeded.add(vertex.getVertexId());
             }
             // add aliased edges to edgesIdsNeeded
@@ -147,6 +144,8 @@ public class ReturnClause {
                 edgesIdsNeeded.add(edge.getEdgeId());
             }
         }
+
+        System.out.println("verticesIdsNeeded: " + verticesIdsNeeded.size());
     }
 
     public static class ReturnedValue {

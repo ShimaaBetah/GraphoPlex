@@ -6,13 +6,13 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.server.graph_db.database.GlobalDatabaseService;
-import com.server.graph_db.index.GlobalSecondaryIndexManager;
-import com.server.graph_db.operators.select.SelectOperatorFactory;
+import com.server.graph_db.core.database.GlobalDatabaseService;
+import com.server.graph_db.core.index.GlobalSecondaryIndexManager;
+import com.server.graph_db.core.operators.select.SelectOperatorFactory;
+import com.server.graph_db.core.traversers.GlobalTraverserManager;
+import com.server.graph_db.core.vertex.GlobalVertexService;
 import com.server.graph_db.parser.QlLexer;
 import com.server.graph_db.parser.QlParser;
-import com.server.graph_db.traversers.GlobalTraverserManager;
-import com.server.graph_db.vertex.GlobalVertexService;
 
 @Component
 public class QueryManager {

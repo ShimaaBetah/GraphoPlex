@@ -4,13 +4,13 @@ import net.devh.boot.grpc.server.service.GrpcService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.server.graph_db.core.index.LocalSecondaryIndexManager;
 import com.server.graph_db.grpc.index.createIndexRequest;
 import com.server.graph_db.grpc.index.createIndexResponse;
 import com.server.graph_db.grpc.index.createIndicesRequest;
 import com.server.graph_db.grpc.index.deleteIndexRequest;
 import com.server.graph_db.grpc.index.deleteIndicesRequest;
 import com.server.graph_db.grpc.index.indexServiceGrpc;
-import com.server.graph_db.index.LocalSecondaryIndexManager;
 
 @GrpcService
 public class SecondaryIndexServiceImpl extends indexServiceGrpc.indexServiceImplBase {

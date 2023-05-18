@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import com.server.graph_db.exceptions.database.DatabaseAlreadyExist;
-import com.server.graph_db.exceptions.database.DatabaseNotFound;
+import com.server.graph_db.core.exceptions.database.DatabaseAlreadyExist;
+import com.server.graph_db.core.exceptions.database.DatabaseNotFound;
 import com.server.graph_db.grpc.database.DatabaseName;
 import com.server.graph_db.grpc.database.databaseConfigServiceGrpc;
 import com.server.graph_db.grpc.database.emptyResponse;

@@ -7,10 +7,15 @@ import java.util.Map;
 
 import org.antlr.v4.runtime.tree.ErrorNode;
 
-import com.server.graph_db.database.GlobalDatabaseService;
-import com.server.graph_db.index.GlobalSecondaryIndexManager;
-import com.server.graph_db.operators.select.SelectOperator;
-import com.server.graph_db.operators.select.SelectOperatorFactory;
+import com.server.graph_db.core.database.GlobalDatabaseService;
+import com.server.graph_db.core.index.GlobalSecondaryIndexManager;
+import com.server.graph_db.core.operators.select.SelectOperator;
+import com.server.graph_db.core.operators.select.SelectOperatorFactory;
+import com.server.graph_db.core.traversers.GlobalTraverserManager;
+import com.server.graph_db.core.traversers.bindings.EdgeBinding;
+import com.server.graph_db.core.traversers.bindings.Path;
+import com.server.graph_db.core.traversers.bindings.VertexBinding;
+import com.server.graph_db.core.vertex.GlobalVertexService;
 import com.server.graph_db.parser.QlBaseListener;
 import com.server.graph_db.parser.QlParser.Create_databaseContext;
 import com.server.graph_db.parser.QlParser.Create_edgeContext;
@@ -66,14 +71,9 @@ import com.server.graph_db.query.databaseconfig.databaseconfigcommands.SwitchDat
 import com.server.graph_db.query.databaseconfig.databaseconfigcommands.SwitchToDefaultCommand;
 import com.server.graph_db.query.match.MatchCommand;
 import com.server.graph_db.query.match.MatchQuery;
-import com.server.graph_db.query.match.path.Path;
 import com.server.graph_db.query.match.path.PathCommand;
 import com.server.graph_db.query.match.path.ReturnClause;
 import com.server.graph_db.query.match.path.ReturnClause.ReturnedValue;
-import com.server.graph_db.traversers.GlobalTraverserManager;
-import com.server.graph_db.traversers.bindings.EdgeBinding;
-import com.server.graph_db.traversers.bindings.VertexBinding;
-import com.server.graph_db.vertex.GlobalVertexService;
 
 public class QueryWalker extends QlBaseListener {
 
@@ -297,7 +297,6 @@ public class QueryWalker extends QlBaseListener {
         PathCommand pathCommand = new PathCommand(path);
         pathCommand.setReturnClause(returnClause);
 
-        System.out.println("helloooo");
 
         query.setCommand(pathCommand);
     }
@@ -327,11 +326,8 @@ public class QueryWalker extends QlBaseListener {
             ArrayList<SelectOperator> selectOperators = new ArrayList<SelectOperator>();
             for (SelectOperatorContext selectOperatorContext : selectOperatorsContexts) {
                 String fieldName = selectOperatorContext.fieldName().getText();
-                System.out.println(fieldName);
                 String fieldValue = selectOperatorContext.fieldValue().getText();
-                System.out.println(fieldValue);
                 String operator = selectOperatorContext.operator().getText();
-                System.out.println(operator);
                 selectOperators.add(selectOperatorFactory.getSelectOperator(operator, fieldName, fieldValue));
             }
             builder.setSelectOperators(selectOperators);

@@ -6,9 +6,10 @@ import org.springframework.amqp.rabbit.annotation.QueueBinding;
 import org.springframework.amqp.rabbit.annotation.Queue;
 import org.springframework.amqp.rabbit.annotation.Exchange;
 import org.springframework.stereotype.Service;
-import com.server.graph_db.vertex.Vertex;
-import com.server.graph_db.exceptions.vertex.VertexAlreadyExistsException;
-import com.server.graph_db.vertex.LocalVertexService;
+
+import com.server.graph_db.core.exceptions.vertex.VertexAlreadyExistsException;
+import com.server.graph_db.core.vertex.LocalVertexService;
+import com.server.graph_db.core.vertex.Vertex;
 
 @Service
 public class PutVertexConsumer {

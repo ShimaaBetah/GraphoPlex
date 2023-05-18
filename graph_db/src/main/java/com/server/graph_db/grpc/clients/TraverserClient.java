@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.server.graph_db.core.traversers.bindings.EdgeBinding;
+import com.server.graph_db.core.traversers.bindings.VertexBinding;
+import com.server.graph_db.core.vertex.EdgeId;
 import com.server.graph_db.grpc.adapter.Adapter;
 import com.server.graph_db.grpc.traverser.TraverserServiceGrpc;
 import com.server.graph_db.grpc.traverser.edgeIds;
@@ -13,9 +16,6 @@ import com.server.graph_db.grpc.traverser.filterEdgesRequest;
 import com.server.graph_db.grpc.traverser.filterVerticesRequest;
 import com.server.graph_db.grpc.traverser.vertexBinding;
 import com.server.graph_db.grpc.traverser.verticesIds;
-import com.server.graph_db.traversers.bindings.EdgeBinding;
-import com.server.graph_db.traversers.bindings.VertexBinding;
-import com.server.graph_db.vertex.EdgeId;
 
 import io.grpc.ManagedChannel;
 

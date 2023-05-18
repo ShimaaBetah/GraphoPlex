@@ -1,6 +1,6 @@
 package com.server.graph_db.query.databaseconfig;
 
-import com.server.graph_db.database.GlobalDatabaseService;
+import com.server.graph_db.core.database.GlobalDatabaseService;
 import com.server.graph_db.query.Command;
 import com.server.graph_db.query.Query;
 import com.server.graph_db.query.databaseconfig.databaseconfigcommands.DatabaseConfigCommand;

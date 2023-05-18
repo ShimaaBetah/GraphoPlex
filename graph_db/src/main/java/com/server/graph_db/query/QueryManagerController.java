@@ -16,7 +16,6 @@ public class QueryManagerController {
     @PostMapping("/query")
     // function to execute query and return bad request if query is not valid or have errors
     public ResponseEntity<String> executeQuery(@RequestBody QueryRequest query) {
-        System.out.println("Query: " + query.query);
         try {
             Query queryObj = queryManager.Parse(query.query);
             return ResponseEntity.ok().body(queryObj.getResult().toString());

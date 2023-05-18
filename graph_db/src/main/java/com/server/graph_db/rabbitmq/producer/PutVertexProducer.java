@@ -4,7 +4,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.server.graph_db.vertex.Vertex;
+import com.server.graph_db.core.vertex.Vertex;
 
 @Service
 public class PutVertexProducer {

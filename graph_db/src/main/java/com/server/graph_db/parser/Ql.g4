@@ -61,7 +61,7 @@ path_query: path where_clause? return_clause;
 path: starting_vertex (path_level )*;
 starting_vertex: vertex_binding;
 path_level: edge_binding vertex_binding;
-vertex_binding: '('id? (':' label)? selectOperators?  alias?')';
+vertex_binding: '[('id?  (':' label)? selectOperators? ')' alias? ']';
 alias: 'AS' variable;
 variable : STRING;
 edge_binding: out_edge_binding | in_edge_binding;

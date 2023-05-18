@@ -3,14 +3,15 @@ package com.server.graph_db.query.match.path;
 import java.util.List;
 import java.util.Set;
 
+import com.server.graph_db.alghorithms.BreadtFirstSearchGrouped;
+import com.server.graph_db.alghorithms.traversables.BreadthFirstSearchTraversable;
+import com.server.graph_db.core.traversers.GlobalTraverserManager;
+import com.server.graph_db.core.traversers.bindings.Path;
+import com.server.graph_db.core.vertex.GlobalVertexService;
 import com.server.graph_db.query.Command;
 import com.server.graph_db.query.Result;
 import com.server.graph_db.query.crud.CrudResult;
 import com.server.graph_db.query.match.MatchCommand;
-import com.server.graph_db.traversers.BreadtFirstSearchGrouped;
-import com.server.graph_db.traversers.GlobalTraverserManager;
-import com.server.graph_db.traversers.traversables.BreadthFirstSearchTraversable;
-import com.server.graph_db.vertex.GlobalVertexService;
 
 public class PathCommand extends MatchCommand{
 
@@ -51,9 +52,11 @@ public class PathCommand extends MatchCommand{
     public void execute() throws Exception {
         verify();
         BreadtFirstSearchGrouped bfs = new BreadtFirstSearchGrouped(globalVertexService, globalTraverserManager, path);
+        int startTime = (int) System.currentTimeMillis();
         List<BreadthFirstSearchTraversable> matchedPaths = bfs.compute().getMatchedPaths();
-        System.out.println("Matched Paths");
-        System.out.println(matchedPaths);
+        System.out.println("Matched Paths: " + matchedPaths.size());
+        int endTime = (int) System.currentTimeMillis();
+        System.out.println("Time taken for BFS: " + (endTime - startTime) + "ms");
         returnClause.setGlobalVertexService(globalVertexService);
         returnClause.setPathReturned(matchedPaths);
         returnClause.execute();

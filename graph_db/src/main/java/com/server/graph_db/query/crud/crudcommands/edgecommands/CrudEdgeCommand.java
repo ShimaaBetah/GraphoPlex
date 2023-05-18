@@ -1,8 +1,8 @@
 package com.server.graph_db.query.crud.crudcommands.edgecommands;
 
-import com.server.graph_db.index.GlobalSecondaryIndexManager;
+import com.server.graph_db.core.index.GlobalSecondaryIndexManager;
+import com.server.graph_db.core.vertex.GlobalVertexService;
 import com.server.graph_db.query.crud.crudcommands.CrudCommand;
-import com.server.graph_db.vertex.GlobalVertexService;
 
 public class CrudEdgeCommand extends CrudCommand{
     String sourceVertexId;

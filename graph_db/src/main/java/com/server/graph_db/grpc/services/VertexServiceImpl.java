@@ -5,8 +5,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.server.graph_db.exceptions.vertex.VertexAlreadyExistsException;
-import com.server.graph_db.exceptions.vertex.VertexNotFoundException;
+import com.server.graph_db.core.exceptions.vertex.VertexAlreadyExistsException;
+import com.server.graph_db.core.exceptions.vertex.VertexNotFoundException;
+import com.server.graph_db.core.vertex.Edge;
+import com.server.graph_db.core.vertex.EdgeId;
+import com.server.graph_db.core.vertex.LocalVertexService;
+import com.server.graph_db.core.vertex.Vertex;
 import com.server.graph_db.grpc.adapter.Adapter;
 import com.server.graph_db.grpc.traverser.edgeId;
 import com.server.graph_db.grpc.traverser.edgeIds;
@@ -27,10 +31,6 @@ import com.server.graph_db.grpc.vertex.getOutgoingEdgesRequest;
 import com.server.graph_db.grpc.vertex.getOutgoingEdgesResponse;
 import com.server.graph_db.grpc.vertex.getVertexRequest;
 import com.server.graph_db.grpc.vertex.getVertexResponse;
-import com.server.graph_db.vertex.Vertex;
-import com.server.graph_db.vertex.Edge;
-import com.server.graph_db.vertex.EdgeId;
-import com.server.graph_db.vertex.LocalVertexService;
 import com.server.graph_db.grpc.vertex.getVerticesRequest;
 import com.server.graph_db.grpc.vertex.getVerticesResponse;
 import com.server.graph_db.grpc.vertex.updateEdgeRequest;

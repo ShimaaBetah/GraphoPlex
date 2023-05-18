@@ -2,9 +2,9 @@ package com.server.graph_db.query.crud.crudcommands.vertexcommands;
 
 import java.util.Map;
 
-import com.server.graph_db.exceptions.vertex.VertexAlreadyExistsException;
+import com.server.graph_db.core.exceptions.vertex.VertexAlreadyExistsException;
+import com.server.graph_db.core.vertex.Vertex;
 import com.server.graph_db.query.crud.CrudResult;
-import com.server.graph_db.vertex.Vertex;
 
 public class CreateVertexCommand extends CrudVertexCommand {
     String label;

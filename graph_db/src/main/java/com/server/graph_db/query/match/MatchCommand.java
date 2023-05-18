@@ -1,8 +1,8 @@
 package com.server.graph_db.query.match;
 
+import com.server.graph_db.core.traversers.GlobalTraverserManager;
+import com.server.graph_db.core.vertex.GlobalVertexService;
 import com.server.graph_db.query.Command;
-import com.server.graph_db.traversers.GlobalTraverserManager;
-import com.server.graph_db.vertex.GlobalVertexService;
 
 public abstract class  MatchCommand extends Command{
 

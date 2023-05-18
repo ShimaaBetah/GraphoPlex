@@ -2,8 +2,8 @@ package com.server.graph_db.query.crud.crudcommands.edgecommands;
 
 import java.util.Map;
 
+import com.server.graph_db.core.vertex.Edge;
 import com.server.graph_db.query.crud.CrudResult;
-import com.server.graph_db.vertex.Edge;
 
 public class CreateEdgeCommand extends CrudEdgeCommand{
     Edge edge;
