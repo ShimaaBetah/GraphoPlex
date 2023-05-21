@@ -11,7 +11,7 @@ public class CreateIndexCommand extends CrudIndexCommand{
     @Override
     public void execute() throws Exception {
         globalSecondaryIndexManager.createIndex(indexName);
-        String message = "Index Created on"+indexName;
+        String message = "Index Created on "+indexName;
         CrudResult crudResult = new CrudResult();
         crudResult.setMessage(message);
         setResult(crudResult);

@@ -11,7 +11,7 @@ public class DeleteIndexCommand extends CrudIndexCommand{
     @Override
     public void execute() throws Exception {
         globalSecondaryIndexManager.deleteIndex(indexName);
-        String message = "Index Deleted on"+indexName;
+        String message = "Index Deleted on "+indexName;
         CrudResult crudResult = new CrudResult();
         crudResult.setMessage(message);
         setResult(crudResult);

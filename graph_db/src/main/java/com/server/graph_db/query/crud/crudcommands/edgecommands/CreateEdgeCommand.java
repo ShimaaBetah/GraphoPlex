@@ -17,7 +17,7 @@ public class CreateEdgeCommand extends CrudEdgeCommand{
     @Override
     public void execute() throws Exception {
         globalVertexService.addEdge(sourceVertexId, edge);
-        String message = "Edge between "+sourceVertexId+" and "+destinationVertexId+"with "+ label +" created";
+        String message = "Edge between "+sourceVertexId+" and "+destinationVertexId+" with "+ label +" label created";
         CrudResult crudResult = new CrudResult();
         crudResult.setMessage(message);
         setResult(crudResult);
