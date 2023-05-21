@@ -373,7 +373,7 @@ public class QueryWalker extends QlBaseListener {
                     String fieldName = selectOperatorContext.fieldName().getText();
                     String fieldValue = selectOperatorContext.fieldValue().getText();
                     String operator = selectOperatorContext.operator().getText();
-                    selectOperators.add(selectOperatorFactory.getSelectOperator(fieldName, fieldValue, operator));
+                    selectOperators.add(selectOperatorFactory.getSelectOperator( operator,fieldName, fieldValue));
                 }
                 builder.setSelectOperators(selectOperators);
             }
