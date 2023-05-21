@@ -66,9 +66,7 @@ public class LocalTraversalManager {
                 boolean isVertexValid = true;
                 if (vertexBinding.getSelectOperators() != null) {
                     for (SelectOperator selectOperator : getNotIndexedSelectOperators(vertexBinding)) {
-                        if (!vertex.isPropertyExist(selectOperator.getFieldName())
-                                || !vertex.getProperty(selectOperator.getFieldName())
-                                        .equals(selectOperator.getFieldValue())) {
+                        if (!selectOperator.isVertexValid(vertex)) {
                                             
                             isVertexValid = false;
                             break;
@@ -95,9 +93,7 @@ public class LocalTraversalManager {
             boolean isVertexValid = true;
             if (vertexBinding.getSelectOperators() != null) {
                 for (SelectOperator selectOperator : vertexBinding.getSelectOperators()) {
-                    if (!vertex.isPropertyExist(selectOperator.getFieldName())
-                            || !vertex.getProperty(selectOperator.getFieldName())
-                                    .equals(selectOperator.getFieldValue())) {
+                    if (!selectOperator.isVertexValid(vertex)) {
                         isVertexValid = false;
                         break;
                     }
@@ -123,8 +119,7 @@ public class LocalTraversalManager {
             boolean isEdgeValid = true;
             if (edgeBinding.getSelectOperators() != null) {
                 for (SelectOperator selectOperator : edgeBinding.getSelectOperators()) {
-                    if (!edge.isPropertyExist(selectOperator.getFieldName()) || !edge
-                            .getProperty(selectOperator.getFieldName()).equals(selectOperator.getFieldValue())) {
+                    if (!selectOperator.isEdgeValid(edge)) {
                         isEdgeValid = false;
                         break;
                     }
@@ -147,8 +142,7 @@ public class LocalTraversalManager {
             boolean isEdgeValid = true;
             if (edgeBinding.getSelectOperators() != null) {
                 for (SelectOperator selectOperator : edgeBinding.getSelectOperators()) {
-                    if (!edge.isPropertyExist(selectOperator.getFieldName()) || !edge
-                            .getProperty(selectOperator.getFieldName()).equals(selectOperator.getFieldValue())) {
+                    if (!selectOperator.isEdgeValid(edge)) {
                         isEdgeValid = false;
                         break;
                     }

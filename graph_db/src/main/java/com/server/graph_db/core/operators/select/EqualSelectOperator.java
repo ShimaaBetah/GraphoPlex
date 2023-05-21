@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.server.graph_db.core.traversers.bindings.VertexBinding;
+import com.server.graph_db.core.vertex.Edge;
 import com.server.graph_db.core.vertex.LocalVertexService;
 import com.server.graph_db.core.vertex.Vertex;
 import com.server.graph_db.datastore.redis.RedisIndexDataManager;
@@ -106,6 +107,22 @@ public class EqualSelectOperator extends SelectOperator{
     @Override
     public String getOperator() {
         return "=";
+    }
+
+    @Override
+    public boolean isVertexValid(Vertex vertex) {
+        if(vertex.isPropertyExist(fieldName) && vertex.getProperty(fieldName).equals(fieldValue)) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean isEdgeValid(Edge edge) {
+        if(edge.isPropertyExist(fieldName) && edge.getProperty(fieldName).equals(fieldValue)) {
+            return true;
+        }
+        return false;
     }
 
     
