@@ -8,9 +8,6 @@ import com.server.graph_db.alghorithms.traversables.BreadthFirstSearchTraversabl
 import com.server.graph_db.core.traversers.GlobalTraverserManager;
 import com.server.graph_db.core.traversers.bindings.Path;
 import com.server.graph_db.core.vertex.GlobalVertexService;
-import com.server.graph_db.query.Command;
-import com.server.graph_db.query.Result;
-import com.server.graph_db.query.crud.CrudResult;
 import com.server.graph_db.query.match.MatchCommand;
 
 public class PathCommand extends MatchCommand{
@@ -52,11 +49,7 @@ public class PathCommand extends MatchCommand{
     public void execute() throws Exception {
         verify();
         BreadtFirstSearchGrouped bfs = new BreadtFirstSearchGrouped(globalVertexService, globalTraverserManager, path);
-        int startTime = (int) System.currentTimeMillis();
         List<BreadthFirstSearchTraversable> matchedPaths = bfs.compute().getMatchedPaths();
-        System.out.println("Matched Paths: " + matchedPaths.size());
-        int endTime = (int) System.currentTimeMillis();
-        System.out.println("Time taken for BFS: " + (endTime - startTime) + "ms");
         returnClause.setGlobalVertexService(globalVertexService);
         returnClause.setPathReturned(matchedPaths);
         returnClause.execute();
