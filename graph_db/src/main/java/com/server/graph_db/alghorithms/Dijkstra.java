@@ -3,43 +3,45 @@ package com.server.graph_db.alghorithms;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import com.server.graph_db.alghorithms.traversables.DijkstraTraversable;
-import com.server.graph_db.core.exceptions.vertex.VertexNotFoundException;
 import com.server.graph_db.core.vertex.Edge;
 import com.server.graph_db.core.vertex.GlobalVertexService;
-import com.server.graph_db.core.vertex.Vertex;
 
 
-@Component
 public class Dijkstra {
 
-    @Autowired
     GlobalVertexService vertexService;
+
+
 
     String sourceVertexId;
     String destinationVertexId;
+    
 
-    int count = 0;
 
-    LinkedList<String> pathReturned;
+    LinkedList<Edge> pathReturned;
     HashMap<String, DijkstraTraversable> visited;
 
     
     PriorityQueue<DijkstraTraversable> queue;
     long shortestPath = 0;
 
+    public Dijkstra(GlobalVertexService vertexService) {
+        this.vertexService = vertexService;
+    }
+
 
     public void compute(String source, String destination, String costField) throws Exception {
         visited = new HashMap<String, DijkstraTraversable>();
         queue = new PriorityQueue<DijkstraTraversable>();
-        pathReturned = new LinkedList<String>();
+        pathReturned = new LinkedList<Edge>();
         sourceVertexId = source;
         destinationVertexId = destination;
-        queue.add(new DijkstraTraversable(source, 0L, source ));
+        queue.add(new DijkstraTraversable(source, 0L, null ));
         while (!queue.isEmpty()) {
             DijkstraTraversable currentVertex = queue.poll();
             if (currentVertex.getVertexId() .equals( destination)) {
@@ -50,38 +52,21 @@ public class Dijkstra {
             if (visited.containsKey(currentVertex.getVertexId())) {
                 continue;
             }
-            count++;
-           // System.out.println(count);
             visited.put(currentVertex.getVertexId(), currentVertex);
             
-            //get outgoing edges of current vertex using globalVertexService and ensure it's not null
-            Vertex visitedVertex;
-            try {
-                visitedVertex = vertexService.getVertex(currentVertex.getVertexId());
-            } catch (VertexNotFoundException e) {
-                visitedVertex = null;
-            }
-            Iterable<Edge> neighbours = vertexService.getOutgoingEdges(visitedVertex.getId());
-            
+           
+            Iterable<Edge> neighbours = vertexService.getOutgoingEdges(currentVertex.getVertexId());
+            //filter only edhes that has isPropertyExist(costField)
+            neighbours = StreamSupport.stream(neighbours.spliterator(), false).filter(edge -> edge.isPropertyExist(costField)).collect(Collectors.toList());
 
             for (Edge neighbour : neighbours) {
-                queue.add(new DijkstraTraversable(neighbour.getDestinationVertexId(), currentVertex.getDistance() + Long.parseLong(neighbour.getProperties().get(costField)), currentVertex.getVertexId()));
+                queue.add(new DijkstraTraversable(neighbour.getDestinationVertexId(), currentVertex.getDistance() + Long.parseLong(neighbour.getProperties().get(costField)), neighbour));
             }
         }
 
         
     }
-    public int getCount(){
-        return count;
-    }
 
-    public long compute(int source, int destination, int maxHops) {
-        return 0;
-    }
-
-    public long compute(int source, int destination, int maxHops, int maxCost) {
-        return 0;
-    }
 
 
     public long getShortestPath() {
@@ -89,13 +74,15 @@ public class Dijkstra {
     }
 
 
-    public Iterable<String> getPath() {
+    public Iterable<Edge> getPath() throws Exception {
         DijkstraTraversable currentVertex = visited.get(destinationVertexId);
-        while (currentVertex.getVertexId() != sourceVertexId) {
-            pathReturned.addFirst(currentVertex.getVertexId());
-            currentVertex = visited.get(currentVertex.getParentId());
+        if(currentVertex == null){
+           throw new Exception ("Vertex with id " + destinationVertexId + " is not reachable from vertex with id " + sourceVertexId + "");
         }
-        pathReturned.addFirst(sourceVertexId);
+        while (currentVertex != null) {
+            pathReturned.addFirst(currentVertex.getPrecedingEdge());
+            currentVertex = visited.get(currentVertex.getPrecedingEdge().getSourceVertexId());
+        }
         return pathReturned;
     }
 

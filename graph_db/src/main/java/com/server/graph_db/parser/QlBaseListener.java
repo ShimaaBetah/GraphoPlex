@@ -232,6 +232,18 @@ public class QlBaseListener implements QlListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterCost(QlParser.CostContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCost(QlParser.CostContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterSet_clause(QlParser.Set_clauseContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -443,6 +455,18 @@ public class QlBaseListener implements QlListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitMatch_query(QlParser.Match_queryContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterShortest_path_query(QlParser.Shortest_path_queryContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitShortest_path_query(QlParser.Shortest_path_queryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

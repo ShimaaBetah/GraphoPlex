@@ -33,6 +33,7 @@ update_edge: 'UPDATE' 'EDGE' label? 'FROM' sourceId 'TO' destinationId set_claus
 
 sourceId: id;
 destinationId: id;
+cost: STRING;
 set_clause: 'SET' set_item (',' set_item)*;
 set_item: key '=' value;
 properties: '{' property (',' property)* '}';
@@ -55,7 +56,8 @@ switch_database_to_default: 'SWITCH' 'DATABASE' 'TO' 'DEFAULT';
 drop_default_database: 'DROP' 'DEFAULT' 'DATABASE';
 
 database_name: STRING;
-match_query: 'MATCH' path_query;
+match_query: 'MATCH' (path_query|shortest_path_query);
+shortest_path_query: 'SHORTEST' 'PATH' 'FROM' sourceId 'TO' destinationId 'WITH COST =' cost;
 path_query: path where_clause? return_clause;
 
 path: starting_vertex (path_level )*;

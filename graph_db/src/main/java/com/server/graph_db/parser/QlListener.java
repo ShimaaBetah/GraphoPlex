@@ -188,6 +188,16 @@ public interface QlListener extends ParseTreeListener {
 	 */
 	void exitDestinationId(QlParser.DestinationIdContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link QlParser#cost}.
+	 * @param ctx the parse tree
+	 */
+	void enterCost(QlParser.CostContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link QlParser#cost}.
+	 * @param ctx the parse tree
+	 */
+	void exitCost(QlParser.CostContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link QlParser#set_clause}.
 	 * @param ctx the parse tree
 	 */
@@ -367,6 +377,16 @@ public interface QlListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitMatch_query(QlParser.Match_queryContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link QlParser#shortest_path_query}.
+	 * @param ctx the parse tree
+	 */
+	void enterShortest_path_query(QlParser.Shortest_path_queryContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link QlParser#shortest_path_query}.
+	 * @param ctx the parse tree
+	 */
+	void exitShortest_path_query(QlParser.Shortest_path_queryContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link QlParser#path_query}.
 	 * @param ctx the parse tree

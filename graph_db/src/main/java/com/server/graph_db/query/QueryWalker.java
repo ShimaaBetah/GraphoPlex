@@ -45,6 +45,7 @@ import com.server.graph_db.parser.QlParser.Return_itemContext;
 import com.server.graph_db.parser.QlParser.SelectOperatorContext;
 import com.server.graph_db.parser.QlParser.Set_clauseContext;
 import com.server.graph_db.parser.QlParser.Set_itemContext;
+import com.server.graph_db.parser.QlParser.Shortest_path_queryContext;
 import com.server.graph_db.parser.QlParser.SourceIdContext;
 import com.server.graph_db.parser.QlParser.Starting_vertexContext;
 import com.server.graph_db.parser.QlParser.Switch_databaseContext;
@@ -74,6 +75,7 @@ import com.server.graph_db.query.match.MatchQuery;
 import com.server.graph_db.query.match.path.PathCommand;
 import com.server.graph_db.query.match.path.ReturnClause;
 import com.server.graph_db.query.match.path.ReturnClause.ReturnedValue;
+import com.server.graph_db.query.match.shortestPath.ShortestPathCommand;
 
 public class QueryWalker extends QlBaseListener {
 
@@ -299,6 +301,15 @@ public class QueryWalker extends QlBaseListener {
 
 
         query.setCommand(pathCommand);
+    }
+
+    @Override
+    public void exitShortest_path_query(Shortest_path_queryContext ctx) {
+        String sourceId = ctx.sourceId().getText();
+        String destinationId = ctx.destinationId().getText();
+        String costField = ctx.cost().getText();
+        ShortestPathCommand shortestPathCommand = new ShortestPathCommand(sourceId, destinationId, costField);  
+        query.setCommand(shortestPathCommand);
     }
 
     
