@@ -3,11 +3,12 @@ import requests
 import json
 
 
-
+def color_string(text, color_code):
+    return f"\x1b[{color_code}m{text}\x1b[0m"
 
 class MyShell(cmd.Cmd):
     intro = 'Welcome to distributed graph db. Type help or ? to list commands.\n'
-    prompt = 'distributed_graphdb > '
+    prompt = color_string('distributed_graphdb > ', 91)
 
     def do_greet(self, arg):
         'Greet the user.'
@@ -15,7 +16,8 @@ class MyShell(cmd.Cmd):
     
     def do_ping(self, arg):
         'Ping the server.'
-        
+
+       
         
     
     def default(self, line):
@@ -28,7 +30,7 @@ class MyShell(cmd.Cmd):
         body = json.dumps(json_data)
         # print response
         response = requests.post(url, body, headers = headers)
-        print(response.text)
+        print(response.text+"\n")
 
        
 
@@ -38,3 +40,6 @@ class MyShell(cmd.Cmd):
 
 if __name__ == '__main__':
     MyShell().cmdloop()
+
+
+
