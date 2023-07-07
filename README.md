@@ -1,3 +1,11 @@
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
+[![LinkedIn][linkedin-shield]][linkedin-url]
+
+
 # GraphoPlex
 ## Description
 GraphoPlex is a distributed graph database engine that stores users' graph-like data with a supported query language.
@@ -59,3 +67,16 @@ the previous steps will only run 1 server on default 8080 port, to run a cluster
 
 
 
+[contributors-shield]: https://img.shields.io/github/contributors/ShimaaBetah/GraphoPlex.svg?style=for-the-badge
+[contributors-url]: https://github.com/ShimaaBetah/GraphoPlex/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/ShimaaBetah/GraphoPlex.svg?style=for-the-badge
+[forks-url]: https://github.com/ShimaaBetah/GraphoPlex/network/members
+[stars-shield]: https://img.shields.io/github/stars/ShimaaBetah/GraphoPlex.svg?style=for-the-badge
+[stars-url]: https://github.com/ShimaaBetah/GraphoPlex/stargazers
+[issues-shield]: https://img.shields.io/github/issues/ShimaaBetah/GraphoPlex.svg?style=for-the-badge
+[issues-url]: https://github.com/ShimaaBetah/GraphoPlex/issues
+[license-shield]: https://img.shields.io/github/license/ShimaaBetah/GraphoPlex.svg?style=for-the-badge&
+[license-url]: https://github.com/ShimaaBetah/GraphoPlex/blob/master/LICENSE
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://www.linkedin.com/in/shimaa-ahmed2864/
+[product-screenshot]: images/screenshot.png
