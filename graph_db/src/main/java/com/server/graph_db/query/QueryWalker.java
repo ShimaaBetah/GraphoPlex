@@ -5,8 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.antlr.v4.runtime.tree.ErrorNode;
 
+import com.server.graph_db.alghorithms.AStar;
+import com.server.graph_db.alghorithms.Dijkstra;
+import com.server.graph_db.alghorithms.ShortestPathAlghorithm;
+import com.server.graph_db.alghorithms.heuristics.Euclidean;
+import com.server.graph_db.alghorithms.heuristics.Hueristic;
+import com.server.graph_db.alghorithms.heuristics.Manhattan;
 import com.server.graph_db.core.database.GlobalDatabaseService;
 import com.server.graph_db.core.index.GlobalSecondaryIndexManager;
 import com.server.graph_db.core.operators.select.SelectOperator;
@@ -70,7 +75,6 @@ import com.server.graph_db.query.databaseconfig.databaseconfigcommands.DropDefau
 import com.server.graph_db.query.databaseconfig.databaseconfigcommands.GetCurrentDatabaseCommand;
 import com.server.graph_db.query.databaseconfig.databaseconfigcommands.SwitchDatabaseCommand;
 import com.server.graph_db.query.databaseconfig.databaseconfigcommands.SwitchToDefaultCommand;
-import com.server.graph_db.query.match.MatchCommand;
 import com.server.graph_db.query.match.MatchQuery;
 import com.server.graph_db.query.match.path.PathCommand;
 import com.server.graph_db.query.match.path.ReturnClause;
@@ -128,7 +132,7 @@ public class QueryWalker extends QlBaseListener {
             List<PropertyContext> propertyContext = propertiesContext.property();
             Map<String, String> properties = new HashMap<String, String>();
             for (PropertyContext property : propertyContext) {
-                properties.put(property.key().getText(), property.value().getText());
+                properties.put(property.key().getText(), getTextInQoutes(property.value().getText()));
             }
             builder.setProperties(properties);
         }
@@ -147,7 +151,7 @@ public class QueryWalker extends QlBaseListener {
         // loop on set items
         List<Set_itemContext> setItemContexts = setClauseContext.set_item();
         for (Set_itemContext setItemContext : setItemContexts) {
-            properties.put(setItemContext.key().getText(), setItemContext.value().getText());
+            properties.put(setItemContext.key().getText(), getTextInQoutes(setItemContext.value().getText()));
         }
 
         // create builder for update vertex command
@@ -173,7 +177,7 @@ public class QueryWalker extends QlBaseListener {
             List<PropertyContext> propertyContext = propertiesContext.property();
             Map<String, String> properties = new HashMap<String, String>();
             for (PropertyContext property : propertyContext) {
-                properties.put(property.key().getText(), property.value().getText());
+                properties.put(property.key().getText(), getTextInQoutes(property.value().getText()));
             }
 
             builder.setProperties(properties);
@@ -191,7 +195,7 @@ public class QueryWalker extends QlBaseListener {
         // loop on set items
         List<Set_itemContext> setItemContexts = setClauseContext.set_item();
         for (Set_itemContext setItemContext : setItemContexts) {
-            properties.put(setItemContext.key().getText(), setItemContext.value().getText());
+            properties.put(setItemContext.key().getText(), getTextInQoutes(setItemContext.value().getText()));
         }
         String label = ctx.label() == null ? "" : ctx.label().getText();
 
@@ -205,6 +209,7 @@ public class QueryWalker extends QlBaseListener {
         String sourceId = ctx.sourceId().getText();
         String destinationId = ctx.destinationId().getText();
         String label = ctx.label() == null ? "" : ctx.label().getText();
+        System.out.println("label: " + label);
 
         DeleteEdgeCommand.Builder builder = new DeleteEdgeCommand.Builder(sourceId, destinationId, label);
         query.setCommand(builder.build());
@@ -308,16 +313,34 @@ public class QueryWalker extends QlBaseListener {
         String sourceId = ctx.sourceId().getText();
         String destinationId = ctx.destinationId().getText();
         String costField = ctx.cost().getText();
-        ShortestPathCommand shortestPathCommand = new ShortestPathCommand(sourceId, destinationId, costField);  
+        ShortestPathAlghorithm shortestPathAlghorithm;
+        if (ctx.heuristic() == null) {
+            shortestPathAlghorithm = new Dijkstra(globalVertexService);
+        } else {
+            Hueristic hueristic = null;
+            // getting the huerstic function child of hueristic ctx 
+            if(ctx.heuristic().heuristic_function().manhattan() != null){
+                String x = ctx.heuristic().heuristic_function().manhattan().first_variable().getText();
+                String y = ctx.heuristic().heuristic_function().manhattan().second_variable().getText();
+                hueristic = new Manhattan(x,y);
+            }
+            else if (ctx.heuristic().heuristic_function().euclidean()!=null){
+                String x = ctx.heuristic().heuristic_function().euclidean().first_variable().getText();
+                String y = ctx.heuristic().heuristic_function().euclidean().second_variable().getText();
+                hueristic = new Euclidean(x,y);
+
+            }
+            shortestPathAlghorithm = new AStar(globalVertexService, hueristic);
+        }
+
+
+        ShortestPathCommand shortestPathCommand = new ShortestPathCommand(shortestPathAlghorithm,sourceId, destinationId, costField); 
         query.setCommand(shortestPathCommand);
     }
 
     
     // throw error when cannot match the query
-    @Override
-    public void visitErrorNode(ErrorNode node) {
-        throw new RuntimeException("Syntax error in query");
-    }
+   
     
     public Query getQuery() {
         return query;
@@ -337,7 +360,7 @@ public class QueryWalker extends QlBaseListener {
             ArrayList<SelectOperator> selectOperators = new ArrayList<SelectOperator>();
             for (SelectOperatorContext selectOperatorContext : selectOperatorsContexts) {
                 String fieldName = selectOperatorContext.fieldName().getText();
-                String fieldValue = selectOperatorContext.fieldValue().getText();
+                String fieldValue = getTextInQoutes(selectOperatorContext.fieldValue().getText());
                 String operator = selectOperatorContext.operator().getText();
                 selectOperators.add(selectOperatorFactory.getSelectOperator(operator, fieldName, fieldValue));
             }
@@ -361,7 +384,7 @@ public class QueryWalker extends QlBaseListener {
                 ArrayList<SelectOperator> selectOperators = new ArrayList<SelectOperator>();
                 for (SelectOperatorContext selectOperatorContext : selectOperatorsContexts) {
                     String fieldName = selectOperatorContext.fieldName().getText();
-                    String fieldValue = selectOperatorContext.fieldValue().getText();
+                    String fieldValue = getTextInQoutes(selectOperatorContext.fieldValue().getText());
                     String operator = selectOperatorContext.operator().getText();
                     selectOperators.add(selectOperatorFactory.getSelectOperator(operator, fieldName, fieldValue));
 
@@ -382,7 +405,7 @@ public class QueryWalker extends QlBaseListener {
                 ArrayList<SelectOperator> selectOperators = new ArrayList<SelectOperator>();
                 for (SelectOperatorContext selectOperatorContext : selectOperatorsContexts) {
                     String fieldName = selectOperatorContext.fieldName().getText();
-                    String fieldValue = selectOperatorContext.fieldValue().getText();
+                    String fieldValue = getTextInQoutes(selectOperatorContext.fieldValue().getText());
                     String operator = selectOperatorContext.operator().getText();
                     selectOperators.add(selectOperatorFactory.getSelectOperator( operator,fieldName, fieldValue));
                 }
@@ -394,5 +417,21 @@ public class QueryWalker extends QlBaseListener {
         }
         return builder.build();
     }
+
+
+
+
+    public static String getTextInQoutes(String text){
+        // if it start with " and end with " then remove the quotes
+        if(text.charAt(0) == '"' && text.charAt(text.length()-1) == '"'){
+            return text.substring(1, text.length()-1);
+        }
+        return text;
+    }
+
+    
+
+       
+    
     
 }
