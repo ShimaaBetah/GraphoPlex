@@ -36,6 +36,7 @@ ness models in addition to eliminating the unnecessary overhead associated with 
 databases when querying complex and interconnected data. In addition, the increasing
 amount of data needed to be stored requires graph database systems to be distributed
 across multiple server
+
 ## Architecture
 GraphoPlex consists of a client (an interactive shell in Python) and a cluster (multiple servers that run the same code and were implemented in Java).
 The client could be connected to any server in the cluster through an HTTP connection to send user queries. 
@@ -48,14 +49,14 @@ Inter-cluster communication is done through gRPC.
 
 
 
-## Usage
+## Getting Started
 ### Prerequisites
 1) Python 3.6 or higher
 2) Java 17 or higher
 3) Maven 3.6.3 or higher
 4) Docker 
 
-### Installation
+### Installation & Setup
 1) Clone the repository
 ```bash
 git clone https://github.com/ShimaaBetah/GraphoPlex.git && cd GraphoPlex
@@ -67,23 +68,63 @@ git clone https://github.com/ShimaaBetah/GraphoPlex.git && cd GraphoPlex
 cd graph_db && mvn install
 ```
 
-3) Run the Server (this will only run 1 server on default 8080 port)
+## Usage
+1) Run the Server (this will only run 1 server on default 8080 port)
 ```bash
 mvn spring-boot:run
 ```
 
-4) Run the client
+2) Run the client
 ```bash 
 python3 client.py
 ```
 
-5) Start writing commands
+3) Start writing commands
 
-   see section 3.2.2 in the thesis for more details about the commands
+   see section 3.2.2 in the <a href="https://github.com/ShimaaBetah/GraphoPlex/blob/main/thesis.pdf"> thesis</a> for more details about the supported commands.
 
 
-### How ro run a cluster
-the previous steps will only run 1 server on default 8080 port, to run a cluster of servers, you need to run the following commands
+## How to run a cluster
+the previous steps will only run 1 server on default 8080 port, to run a cluster of servers, you need to run the following commands.
+
+1) Setup app properties
+
+    open the file `graph_db/src/main/resources/application.properties` and change the following properties
+    ```bash 
+    server.numOfServers= ${number of servers you want in the cluster}
+    grpc.servers.ports= ${grpc ports of the servers in the cluster separated by comma}
+
+    grpc.servers.hosts= ${ip address of the servers in the cluster separated by comma}
+    ```
+2) Build the server code
+    ```bash
+    cd graph_db && mvn install
+    ```
+3) Build Docker Image
+    ```bash
+    docker build -t graphdb-server .
+    ```
+4) Run Docker Container 
+
+
+   ```
+   docker run --network="host"  -e SERVER_ID=${server_id} -e REDIS_PORT=${redis_port} -e SERVER_PORT=${http_port} -e GRPC_SERVER_PORT=${grpc_port}  graphdb-server
+   
+   ```
+
+   this should be done for each server replacing all enviroment variables by actual values for each server in the cluster. 
+   Note that if your cluster number servers you specified before is `n` then SERVER_ID should be between `0` and `n-1`.
+
+   Also GRPC_SERVER_PORT should be different for each server and included in the grpc port you specified in the `application.properties` file .
+
+5) Run the client
+    ```bash 
+    python3 client.py
+    ```
+6) Start writing commands as before
+
+
+    
 
 
 
