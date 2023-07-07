@@ -1,6 +1,7 @@
 package com.server.graph_db.query.match.shortestPath;
 
 import com.server.graph_db.alghorithms.Dijkstra;
+import com.server.graph_db.alghorithms.ShortestPathAlghorithm;
 import com.server.graph_db.core.traversers.GlobalTraverserManager;
 import com.server.graph_db.core.vertex.Edge;
 import com.server.graph_db.core.vertex.GlobalVertexService;
@@ -12,8 +13,11 @@ public class ShortestPathCommand extends MatchCommand {
     String costField;
     GlobalVertexService globalVertexService;
     GlobalTraverserManager globalTraverserManager;
+    ShortestPathAlghorithm shortestPathAlghorithm;
+    
 
-    public ShortestPathCommand(String sourceVertexId, String destinationVertexId, String costField) {
+    public ShortestPathCommand(ShortestPathAlghorithm shortestPathAlghorithm, String sourceVertexId, String destinationVertexId, String costField) {
+        this.shortestPathAlghorithm = shortestPathAlghorithm;
         this.sourceVertexId = sourceVertexId;
         this.destinationVertexId = destinationVertexId;
         this.costField = costField;
@@ -31,6 +35,22 @@ public class ShortestPathCommand extends MatchCommand {
         return costField;
     }
 
+    public GlobalVertexService getGlobalVertexService() {
+        return globalVertexService;
+    }
+
+    public GlobalTraverserManager getGlobalTraverserManager() {
+        return globalTraverserManager;
+    }
+
+    public ShortestPathAlghorithm getShortestPathAlghorithm() {
+        return shortestPathAlghorithm;
+    }
+
+    public void setShortestPathAlghorithm(ShortestPathAlghorithm shortestPathAlghorithm) {
+        this.shortestPathAlghorithm = shortestPathAlghorithm;
+    }
+
     @Override
     public void setGlobalVertexService(GlobalVertexService globalVertexService) {
         this.globalVertexService = globalVertexService;
@@ -44,10 +64,9 @@ public class ShortestPathCommand extends MatchCommand {
 
     @Override
     public void execute() throws Exception {
-          Dijkstra dijkstra = new Dijkstra(globalVertexService);
-          dijkstra.compute(sourceVertexId, destinationVertexId, costField);
-          long cost = dijkstra.getShortestPath();
-          Iterable<Edge> path = dijkstra.getPath();
+          shortestPathAlghorithm.compute(sourceVertexId, destinationVertexId, costField);
+          long cost = shortestPathAlghorithm.getShortestPath();
+          Iterable<Edge> path = shortestPathAlghorithm.getPath();
           ShortestPathResult result = new ShortestPathResult(path, cost);
           setResult(result);
     }
