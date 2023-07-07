@@ -40,7 +40,7 @@ public class LocalVertexService implements VertexService {
         return vertexRepository.findAll();
     }
 
-    public void addVertex(Vertex vertex) throws VertexAlreadyExistsException {
+    public void createVertex(Vertex vertex) throws VertexAlreadyExistsException {
         if (vertexRepository.existsById(vertex.getId())) {
             throw new VertexAlreadyExistsException(vertex.getId());
         }
@@ -49,13 +49,15 @@ public class LocalVertexService implements VertexService {
     }
 
     public void addEdge(String id, Edge edge, boolean isOutgoing) throws VertexNotFoundException {
+        System.out.println("addEdge"+ edge);
         // check that source vertex exists
         if (isOutgoing && vertexRepository.existsById(id)) {
             vertexRepository.addEdge(edge, isOutgoing);
         } else if (!isOutgoing && vertexRepository.existsById(edge.getDestinationVertexId())) {
             vertexRepository.addEdge(edge, isOutgoing);
         } else {
-            throw new VertexNotFoundException(id);
+            String vertexId = isOutgoing ? id : edge.getDestinationVertexId();
+            throw new VertexNotFoundException(vertexId);
         }
 
     }
@@ -121,6 +123,7 @@ public class LocalVertexService implements VertexService {
         } else if (!isOutgoing && vertexRepository.existsById(destinationVertexId)) {
             vertexRepository.deleteEdge(sourceVertexId, destinationVertexId, label, isOutgoing);
         } else {
+            
             throw new VertexNotFoundException(sourceVertexId);
         }
     }
@@ -137,23 +140,7 @@ public class LocalVertexService implements VertexService {
         }
     }
 
-    public Iterable<Edge> getOutGoingEdges(Iterable<String> verticesIds) {
-        LinkedList<Edge> edges = new LinkedList<>();
-        for (String vertexId : verticesIds) {
-            List<Edge> vertexEdges = (List<Edge>) vertexRepository.getEdges(vertexId, true);
-            edges.addAll(vertexEdges);
-        }
-        return edges;
-    }
 
-    public Iterable<Edge> getIncomingEdges(Iterable<String> verticesIds) {
-        LinkedList<Edge> edges = new LinkedList<>();
-        for (String vertexId : verticesIds) {
-            List<Edge> vertexEdges = (List<Edge>) vertexRepository.getEdges(vertexId, false);
-            edges.addAll(vertexEdges);
-        }
-        return edges;
-    }
 
     @Override
     public Iterable<Edge> getEdgesById(Iterable<EdgeId> edgeIds) {
@@ -165,6 +152,28 @@ public class LocalVertexService implements VertexService {
         }
         return edges;
         
+    }
+
+    @Override
+    public Iterable<Edge> getOutgoingEdges(Iterable<String> verticesIds) throws Exception {
+          List<Edge> edges = new ArrayList<>();
+            for (String vertexId : verticesIds) {
+                List<Edge> vertexEdges = (List<Edge>) getOutgoingEdges(vertexId);
+                edges.addAll(vertexEdges);
+            }
+
+            return edges;
+    }
+
+    @Override
+    public Iterable<Edge> getIncomingEdges(Iterable<String> verticesIds) throws Exception {
+        List<Edge> edges = new ArrayList<>();
+        for (String vertexId : verticesIds) {
+            List<Edge> vertexEdges = (List<Edge>) getIncomingEdges(vertexId);
+            edges.addAll(vertexEdges);
+        }
+
+        return edges;
     }
 
 }

@@ -112,8 +112,8 @@ public class LocalTraversalManager {
         return resultSet;
     }
 
-    public Iterable<EdgeId> filterOutGoingEdges(Iterable<String> verticesIds, EdgeBinding edgeBinding) {
-        Iterable<Edge> edgesToFilter = localVertexService.getOutGoingEdges(verticesIds);
+    public Iterable<EdgeId> filterOutGoingEdges(Iterable<String> verticesIds, EdgeBinding edgeBinding) throws Exception {
+        Iterable<Edge> edgesToFilter = localVertexService.getOutgoingEdges(verticesIds);
         List<EdgeId> resultSet = new ArrayList<>();
         for (Edge edge : edgesToFilter) {
             boolean isEdgeValid = true;
@@ -135,7 +135,7 @@ public class LocalTraversalManager {
         return resultSet;
     }
 
-    public Iterable<EdgeId> filterIncomingEdges(Iterable<String> verticesIds, EdgeBinding edgeBinding) {
+    public Iterable<EdgeId> filterIncomingEdges(Iterable<String> verticesIds, EdgeBinding edgeBinding) throws Exception {
         Iterable<Edge> edgesToFilter = localVertexService.getIncomingEdges(verticesIds);
         List<EdgeId> resultSet = new ArrayList<>();
         for (Edge edge : edgesToFilter) {

@@ -9,7 +9,7 @@ import com.server.graph_db.core.exceptions.vertex.VertexNotFoundException;
 public interface VertexService {
     
     public Vertex getVertex(String id) throws VertexNotFoundException;
-    public void addVertex(Vertex vertex) throws VertexAlreadyExistsException;
+    public void createVertex(Vertex vertex) throws VertexAlreadyExistsException;
    
     public void deleteAll();
     public Iterable<Edge> getOutgoingEdges(String vertexId) throws Exception;
@@ -21,6 +21,9 @@ public interface VertexService {
     public void updateVertex(String id, String label , Map<String, String> properties);
     public void updateVertex (String id , Map<String, String> properties);
     public Iterable<Edge> getEdgesById(Iterable<EdgeId> edgeIds) throws Exception;
+    public Iterable<Edge> getOutgoingEdges(Iterable<String> vertexId) throws Exception;
+    public Iterable<Edge> getIncomingEdges(Iterable<String> vertexId)throws Exception;
+
 
 
 }
