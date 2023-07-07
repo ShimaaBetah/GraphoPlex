@@ -1,0 +1,186 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.server.graph_db.grpc.vertex";
+
+//import edgeId from traverser.proto
+import "traverser.proto";
+
+service VertexService{
+    rpc getVertex(getVertexRequest) returns (getVertexResponse) {
+    }
+    rpc getVertices(getVerticesRequest) returns (getVerticesResponse) {
+    }
+    rpc createVertex(createVertexRequest) returns (createVertexResponse) {
+    }
+    rpc deleteVertex(deleteVertexRequest) returns (deleteVertexResponse) {
+    }
+    rpc updateVertex(updateVertexRequest) returns (updateVertexResponse) {
+    }
+
+    rpc createEdge(createEdgeRequest) returns (createEdgeResponse) {
+    }
+
+    rpc deleteEdge(deleteEdgeRequest) returns (deleteEdgeResponse) {
+    }
+
+    rpc updateEdge(updateEdgeRequest) returns (updateEdgeResponse) {
+    }
+
+    rpc getOutgoingEdges(getOutgoingEdgesRequest) returns (getOutgoingEdgesResponse) {
+    }
+    rpc getIncomingEdges(getIncomingEdgesRequest) returns (getIncomingEdgesResponse) {
+    }
+ 
+    rpc getEdges(getEdgesRequest) returns (getEdgesResponse) {
+    }
+    rpc getOutgoingEdgesForVertices(getOutGoingEdgesForVerticesRequest) returns (getEdgesResponse) {
+    }
+    rpc getIncomingEdgesForVertices(getIncomingEdgesForVerticesRequest) returns (getEdgesResponse) {
+    }
+
+    rpc getAllVerticesIds(getAllVerticesIdsRequest) returns (getAllVerticesIdsResponse) {
+    }
+}
+
+message getAllVerticesIdsRequest{
+}
+
+message getAllVerticesIdsResponse{
+    repeated string vertexIds = 1;
+}
+
+message getEdgesRequest{
+   repeated edgeId edgeIds = 1;
+}
+
+
+
+message getEdgesResponse{
+    repeated edge edges = 1;
+}
+
+message getOutGoingEdgesForVerticesRequest{
+    repeated string vertexIds = 1;
+}
+
+message getIncomingEdgesForVerticesRequest{
+    repeated string vertexIds = 1;
+}
+
+message getOutgoingEdgesRequest {
+    string vertexId = 1;
+}
+
+message getIncomingEdgesRequest {
+    string vertexId = 1;
+}
+
+message getOutgoingEdgesResponse {
+    repeated edge edges = 1;
+}
+
+message getIncomingEdgesResponse {
+    repeated edge edges = 1;
+}
+
+message createEdgeRequest{
+    string sourceVertexId = 1;
+    string destinationVertexId = 2;
+    string label = 3;
+    map<string, string> properties = 4;
+    //boolean variable
+    bool isOutGoing = 5;
+}
+
+message deleteEdgeRequest{
+    string sourceVertexId = 1;
+    string destinationVertexId = 2;
+    string label = 3;
+    bool isOutGoing = 4;
+}
+
+message updateEdgeRequest{
+    string sourceVertexId = 1;
+    string destinationVertexId = 2;
+    string label = 3;
+    map<string, string> properties = 4;
+    bool isOutGoing = 5;
+}
+
+message createEdgeResponse{
+    bool success = 1;
+    string message = 2;
+}
+
+message deleteEdgeResponse{
+    bool success = 1;
+    string message = 2;
+}
+
+message updateEdgeResponse{
+    bool success = 1;
+    string message = 2;
+}
+
+message getVertexRequest{
+    string vertexId = 1;
+}
+
+message getVerticesRequest{
+    repeated string vertexIds = 1;
+}
+
+// create vertex request is same as get vertex resoponse
+message createVertexRequest{
+    string id = 1;
+    string label = 2;
+    map<string, string> properties = 3;
+}
+
+message deleteVertexRequest{
+    string vertexId = 1;
+}
+
+message updateVertexRequest{
+    string id = 1;
+    string label = 2;
+    map<string, string> properties = 3;
+}
+
+// create , delete, update all same response with succuss and message field
+message createVertexResponse{
+    bool success = 1;
+    string message = 2;
+}
+
+message deleteVertexResponse{
+    bool success = 1;
+    string message = 2;
+}
+
+message updateVertexResponse{
+    bool success = 1;
+    string message = 2;
+}
+
+
+
+message getVertexResponse{
+    string id = 1;
+    string label = 2;
+    map<string, string> properties = 3;
+
+}
+
+message getVerticesResponse{
+    repeated getVertexResponse vertices = 1;
+}
+
+message edge{
+    string destinationVertexId = 1;
+    string sourceVertexId = 2;
+    string label = 3;
+    map<string, string> properties = 4;
+
+}

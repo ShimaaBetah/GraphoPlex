@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.server.graph_db.grpc.database";
+import "google/protobuf/empty.proto";
+import "google/rpc/status.proto";
+
+
+
+service databaseConfigService {
+    // createDatabase return emoty response
+    
+    rpc createDatabase (DatabaseName) returns (reply) {}
+    rpc getCurrentDatabase (emptyResponse) returns (DatabaseName) {}
+    rpc deleteDatabase (DatabaseName) returns (reply ) {}
+    rpc dropDatabase (DatabaseName) returns (reply) {}
+    rpc switchDatabase (DatabaseName) returns (reply) {}
+    rpc switchToDefaultDatabase (emptyResponse) returns (reply) {}
+    rpc dropDefaultDatabase (emptyResponse) returns (reply) {}
+}
+
+//use status code to indicate the result of the operation
+message reply{
+  google.rpc.Status status = 1;
+}
+
+message emptyResponse{
+
+}
+
+message DatabaseName {
+  string name = 1;
+}

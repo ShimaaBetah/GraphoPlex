@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.server.graph_db.grpc.traverser";
+
+service TraverserService {
+    rpc getVertices(vertexBinding) returns (verticesIds) {}
+    rpc filterVertices(filterVerticesRequest) returns (verticesIds) {}
+    rpc filterOutGoingEdges(filterEdgesRequest) returns (edgeIds) {}
+    rpc filterInGoingEdges(filterEdgesRequest) returns (edgeIds) {}
+}
+
+message selectOperator {
+    string fieldName = 1;
+    string operator = 2;
+    string fieldValue = 3;
+}
+
+message vertexBinding {
+    string id = 1;
+    string label = 2;
+    repeated selectOperator selectOperators = 3;
+}
+
+message filterVerticesRequest {
+    repeated string verticesIds = 1;
+    vertexBinding vertexBinding = 2;
+}
+
+message filterEdgesRequest {
+    repeated string verticesIds = 1;
+    string edgeLabel = 2;
+    repeated selectOperator selectOperators = 3;
+}
+
+message verticesIds {
+    repeated string verticesIds = 1;
+}
+
+message edgeIds {
+    repeated edgeId edgeIds = 1;
+}
+
+message edgeId {
+    string sourceId = 1;
+    string destinationId = 2;
+    string label = 3;
+}
+

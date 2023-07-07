@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.server.graph_db.grpc.index";
+
+service indexService{
+    rpc createIndex(createIndexRequest) returns (createIndexResponse);
+    rpc deleteIndex(deleteIndexRequest) returns (deleteIndexResponse);
+    rpc createIndices(createIndicesRequest) returns (createIndicesResponse);
+    rpc deleteIndices(deleteIndicesRequest) returns (deleteIndicesResponse);
+
+}
+
+message createIndexRequest{
+    string indexName = 1;
+}
+message createIndexResponse{
+    bool success = 1;
+}
+
+message deleteIndexRequest{
+    string indexName = 1;
+}
+
+message deleteIndexResponse{
+    bool success = 1;
+}
+
+message createIndicesRequest{
+    repeated string indicesNames = 1;
+}
+
+message createIndicesResponse{
+    bool success = 1;
+}
+
+message deleteIndicesRequest{
+    repeated string indicesNames = 1;
+}
+
+message deleteIndicesResponse{
+    bool success = 1;
+}
+
+
