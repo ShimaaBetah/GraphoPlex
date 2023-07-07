@@ -11,9 +11,7 @@ import com.server.graph_db.core.vertex.EdgeId;
 import com.server.graph_db.core.vertex.LocalVertexService;
 import com.server.graph_db.core.vertex.Vertex;
 import com.server.graph_db.grpc.clients.VertexClient;
-import com.server.graph_db.rabbitmq.producer.GetVertexProducer;
-import com.server.graph_db.rabbitmq.producer.GetVerticesIdsProducer;
-import com.server.graph_db.rabbitmq.producer.PutVertexProducer;
+
 
 @Component
 public class PartitionManager {
@@ -21,17 +19,9 @@ public class PartitionManager {
     @Autowired
     LocalVertexService vertexService;
 
-    @Value("#{@myServerProperties.serverId}")
+    @Value("${myserver.serverId}")
     private String serverId;
 
-    @Autowired
-    PutVertexProducer putVertexProducer;
-
-    @Autowired
-    GetVertexProducer getVertexProducer;
-
-    @Autowired
-    GetVerticesIdsProducer getVerticesIdsProducer;
 
     @Autowired
     VertexClient vertexClient;
