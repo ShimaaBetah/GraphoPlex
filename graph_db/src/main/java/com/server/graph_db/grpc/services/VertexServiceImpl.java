@@ -23,10 +23,14 @@ import com.server.graph_db.grpc.vertex.deleteEdgeRequest;
 import com.server.graph_db.grpc.vertex.deleteEdgeResponse;
 import com.server.graph_db.grpc.vertex.deleteVertexRequest;
 import com.server.graph_db.grpc.vertex.deleteVertexResponse;
+import com.server.graph_db.grpc.vertex.getAllVerticesIdsRequest;
+import com.server.graph_db.grpc.vertex.getAllVerticesIdsResponse;
 import com.server.graph_db.grpc.vertex.getEdgesRequest;
 import com.server.graph_db.grpc.vertex.getEdgesResponse;
+import com.server.graph_db.grpc.vertex.getIncomingEdgesForVerticesRequest;
 import com.server.graph_db.grpc.vertex.getIncomingEdgesRequest;
 import com.server.graph_db.grpc.vertex.getIncomingEdgesResponse;
+import com.server.graph_db.grpc.vertex.getOutGoingEdgesForVerticesRequest;
 import com.server.graph_db.grpc.vertex.getOutgoingEdgesRequest;
 import com.server.graph_db.grpc.vertex.getOutgoingEdgesResponse;
 import com.server.graph_db.grpc.vertex.getVertexRequest;
@@ -88,7 +92,7 @@ public class VertexServiceImpl extends VertexServiceGrpc.VertexServiceImplBase {
             io.grpc.stub.StreamObserver<createVertexResponse> responseObserver) {
         Vertex createdVertex = adapter.vertexResponseToVertex(request);
         try {
-            vertexService.addVertex(createdVertex);
+            vertexService.createVertex(createdVertex);
             createVertexResponse reply = createVertexResponse.newBuilder().setSuccess(true).build();
             responseObserver.onNext(reply);
             responseObserver.onCompleted();
@@ -193,6 +197,48 @@ public class VertexServiceImpl extends VertexServiceGrpc.VertexServiceImplBase {
             Iterable<Edge> edges = vertexService.getEdgesById(edgeIds);
             getEdgesResponse reply = getEdgesResponse.newBuilder().addAllEdges(adapter.edgesToEdgesResponse(edges))
                     .build();
+            responseObserver.onNext(reply);
+            responseObserver.onCompleted();
+        } catch (Exception e) {
+            responseObserver.onError(e);
+        }
+    }
+
+    @Override
+    public void getOutgoingEdgesForVertices(getOutGoingEdgesForVerticesRequest request,
+            io.grpc.stub.StreamObserver<getEdgesResponse> responseObserver) {
+        try {
+            Iterable<Edge> edges = vertexService.getOutgoingEdges(request.getVertexIdsList());
+            getEdgesResponse reply = getEdgesResponse.newBuilder()
+                    .addAllEdges(adapter.edgesToEdgesResponse(edges)).build();
+            responseObserver.onNext(reply);
+            responseObserver.onCompleted();
+        } catch (Exception e) {
+            responseObserver.onError(e);
+        }
+    }
+
+    @Override
+    public void getIncomingEdgesForVertices(getIncomingEdgesForVerticesRequest request,
+            io.grpc.stub.StreamObserver<getEdgesResponse> responseObserver) {
+        try {
+            Iterable<Edge> edges = vertexService.getIncomingEdges(request.getVertexIdsList());
+            getEdgesResponse reply = getEdgesResponse.newBuilder()
+                    .addAllEdges(adapter.edgesToEdgesResponse(edges)).build();
+            responseObserver.onNext(reply);
+            responseObserver.onCompleted();
+        } catch (Exception e) {
+            responseObserver.onError(e);
+        }
+    }
+
+    @Override
+    public void getAllVerticesIds (getAllVerticesIdsRequest request,
+            io.grpc.stub.StreamObserver<getAllVerticesIdsResponse> responseObserver) {
+        try {
+            Iterable<String> vertexIds = vertexService.getAllVerticesIds();
+            getAllVerticesIdsResponse reply = getAllVerticesIdsResponse.newBuilder()
+                    .addAllVertexIds(vertexIds).build();
             responseObserver.onNext(reply);
             responseObserver.onCompleted();
         } catch (Exception e) {

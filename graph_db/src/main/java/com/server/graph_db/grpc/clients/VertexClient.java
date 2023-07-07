@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.antlr.v4.parse.ANTLRParser.exceptionGroup_return;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -21,10 +22,14 @@ import com.server.graph_db.grpc.vertex.createVertexRequest;
 import com.server.graph_db.grpc.vertex.deleteEdgeRequest;
 import com.server.graph_db.grpc.vertex.deleteVertexRequest;
 import com.server.graph_db.grpc.vertex.deleteVertexResponse;
+import com.server.graph_db.grpc.vertex.getAllVerticesIdsRequest;
+import com.server.graph_db.grpc.vertex.getAllVerticesIdsResponse;
 import com.server.graph_db.grpc.vertex.getEdgesRequest;
 import com.server.graph_db.grpc.vertex.getEdgesResponse;
+import com.server.graph_db.grpc.vertex.getIncomingEdgesForVerticesRequest;
 import com.server.graph_db.grpc.vertex.getIncomingEdgesRequest;
 import com.server.graph_db.grpc.vertex.getIncomingEdgesResponse;
+import com.server.graph_db.grpc.vertex.getOutGoingEdgesForVerticesRequest;
 import com.server.graph_db.grpc.vertex.getOutgoingEdgesRequest;
 import com.server.graph_db.grpc.vertex.getOutgoingEdgesResponse;
 import com.server.graph_db.grpc.vertex.getVertexRequest;
@@ -200,6 +205,33 @@ public class VertexClient {
             throw new Exception("Internal Server Error");
         }
         return adapter.edgesResponseToEdges(response.getEdgesList());
+    }
+
+    public Iterable<Edge> getOutgoingEdges(Iterable<String> verticesIds, String serverId){
+        VertexServiceGrpc.VertexServiceBlockingStub blockingStub = VertexServiceGrpc
+                .newBlockingStub(grpcChannels.get(serverId));
+        getOutGoingEdgesForVerticesRequest request = getOutGoingEdgesForVerticesRequest.newBuilder().addAllVertexIds(verticesIds).build();
+        getEdgesResponse response = blockingStub.getOutgoingEdgesForVertices(request);
+        return adapter.edgesResponseToEdges(response.getEdgesList());
+
+    }
+
+    public Iterable<Edge> getIncomingEdges(Iterable<String> verticesIds, String serverId){
+        VertexServiceGrpc.VertexServiceBlockingStub blockingStub = VertexServiceGrpc
+                .newBlockingStub(grpcChannels.get(serverId));
+        getIncomingEdgesForVerticesRequest request = getIncomingEdgesForVerticesRequest.newBuilder().addAllVertexIds(verticesIds).build();
+        getEdgesResponse response = blockingStub.getIncomingEdgesForVertices(request);
+        return adapter.edgesResponseToEdges(response.getEdgesList());
+
+    }
+
+    public Iterable<String> getAllVerticesIds(String serverId){
+        VertexServiceGrpc.VertexServiceBlockingStub blockingStub = VertexServiceGrpc
+                .newBlockingStub(grpcChannels.get(serverId));
+        getAllVerticesIdsRequest request = getAllVerticesIdsRequest.newBuilder().build();
+        getAllVerticesIdsResponse response = blockingStub.getAllVerticesIds(request);
+        return response.getVertexIdsList();
+
     }
 
 }

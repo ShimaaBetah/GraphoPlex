@@ -355,6 +355,99 @@ public final class VertexServiceGrpc {
     return getGetEdgesMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<com.server.graph_db.grpc.vertex.getOutGoingEdgesForVerticesRequest,
+      com.server.graph_db.grpc.vertex.getEdgesResponse> getGetOutgoingEdgesForVerticesMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "getOutgoingEdgesForVertices",
+      requestType = com.server.graph_db.grpc.vertex.getOutGoingEdgesForVerticesRequest.class,
+      responseType = com.server.graph_db.grpc.vertex.getEdgesResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.server.graph_db.grpc.vertex.getOutGoingEdgesForVerticesRequest,
+      com.server.graph_db.grpc.vertex.getEdgesResponse> getGetOutgoingEdgesForVerticesMethod() {
+    io.grpc.MethodDescriptor<com.server.graph_db.grpc.vertex.getOutGoingEdgesForVerticesRequest, com.server.graph_db.grpc.vertex.getEdgesResponse> getGetOutgoingEdgesForVerticesMethod;
+    if ((getGetOutgoingEdgesForVerticesMethod = VertexServiceGrpc.getGetOutgoingEdgesForVerticesMethod) == null) {
+      synchronized (VertexServiceGrpc.class) {
+        if ((getGetOutgoingEdgesForVerticesMethod = VertexServiceGrpc.getGetOutgoingEdgesForVerticesMethod) == null) {
+          VertexServiceGrpc.getGetOutgoingEdgesForVerticesMethod = getGetOutgoingEdgesForVerticesMethod =
+              io.grpc.MethodDescriptor.<com.server.graph_db.grpc.vertex.getOutGoingEdgesForVerticesRequest, com.server.graph_db.grpc.vertex.getEdgesResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "getOutgoingEdgesForVertices"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.server.graph_db.grpc.vertex.getOutGoingEdgesForVerticesRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.server.graph_db.grpc.vertex.getEdgesResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new VertexServiceMethodDescriptorSupplier("getOutgoingEdgesForVertices"))
+              .build();
+        }
+      }
+    }
+    return getGetOutgoingEdgesForVerticesMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<com.server.graph_db.grpc.vertex.getIncomingEdgesForVerticesRequest,
+      com.server.graph_db.grpc.vertex.getEdgesResponse> getGetIncomingEdgesForVerticesMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "getIncomingEdgesForVertices",
+      requestType = com.server.graph_db.grpc.vertex.getIncomingEdgesForVerticesRequest.class,
+      responseType = com.server.graph_db.grpc.vertex.getEdgesResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.server.graph_db.grpc.vertex.getIncomingEdgesForVerticesRequest,
+      com.server.graph_db.grpc.vertex.getEdgesResponse> getGetIncomingEdgesForVerticesMethod() {
+    io.grpc.MethodDescriptor<com.server.graph_db.grpc.vertex.getIncomingEdgesForVerticesRequest, com.server.graph_db.grpc.vertex.getEdgesResponse> getGetIncomingEdgesForVerticesMethod;
+    if ((getGetIncomingEdgesForVerticesMethod = VertexServiceGrpc.getGetIncomingEdgesForVerticesMethod) == null) {
+      synchronized (VertexServiceGrpc.class) {
+        if ((getGetIncomingEdgesForVerticesMethod = VertexServiceGrpc.getGetIncomingEdgesForVerticesMethod) == null) {
+          VertexServiceGrpc.getGetIncomingEdgesForVerticesMethod = getGetIncomingEdgesForVerticesMethod =
+              io.grpc.MethodDescriptor.<com.server.graph_db.grpc.vertex.getIncomingEdgesForVerticesRequest, com.server.graph_db.grpc.vertex.getEdgesResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "getIncomingEdgesForVertices"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.server.graph_db.grpc.vertex.getIncomingEdgesForVerticesRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.server.graph_db.grpc.vertex.getEdgesResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new VertexServiceMethodDescriptorSupplier("getIncomingEdgesForVertices"))
+              .build();
+        }
+      }
+    }
+    return getGetIncomingEdgesForVerticesMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<com.server.graph_db.grpc.vertex.getAllVerticesIdsRequest,
+      com.server.graph_db.grpc.vertex.getAllVerticesIdsResponse> getGetAllVerticesIdsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "getAllVerticesIds",
+      requestType = com.server.graph_db.grpc.vertex.getAllVerticesIdsRequest.class,
+      responseType = com.server.graph_db.grpc.vertex.getAllVerticesIdsResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.server.graph_db.grpc.vertex.getAllVerticesIdsRequest,
+      com.server.graph_db.grpc.vertex.getAllVerticesIdsResponse> getGetAllVerticesIdsMethod() {
+    io.grpc.MethodDescriptor<com.server.graph_db.grpc.vertex.getAllVerticesIdsRequest, com.server.graph_db.grpc.vertex.getAllVerticesIdsResponse> getGetAllVerticesIdsMethod;
+    if ((getGetAllVerticesIdsMethod = VertexServiceGrpc.getGetAllVerticesIdsMethod) == null) {
+      synchronized (VertexServiceGrpc.class) {
+        if ((getGetAllVerticesIdsMethod = VertexServiceGrpc.getGetAllVerticesIdsMethod) == null) {
+          VertexServiceGrpc.getGetAllVerticesIdsMethod = getGetAllVerticesIdsMethod =
+              io.grpc.MethodDescriptor.<com.server.graph_db.grpc.vertex.getAllVerticesIdsRequest, com.server.graph_db.grpc.vertex.getAllVerticesIdsResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "getAllVerticesIds"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.server.graph_db.grpc.vertex.getAllVerticesIdsRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.server.graph_db.grpc.vertex.getAllVerticesIdsResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new VertexServiceMethodDescriptorSupplier("getAllVerticesIds"))
+              .build();
+        }
+      }
+    }
+    return getGetAllVerticesIdsMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -480,6 +573,27 @@ public final class VertexServiceGrpc {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetEdgesMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void getOutgoingEdgesForVertices(com.server.graph_db.grpc.vertex.getOutGoingEdgesForVerticesRequest request,
+        io.grpc.stub.StreamObserver<com.server.graph_db.grpc.vertex.getEdgesResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetOutgoingEdgesForVerticesMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void getIncomingEdgesForVertices(com.server.graph_db.grpc.vertex.getIncomingEdgesForVerticesRequest request,
+        io.grpc.stub.StreamObserver<com.server.graph_db.grpc.vertex.getEdgesResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetIncomingEdgesForVerticesMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void getAllVerticesIds(com.server.graph_db.grpc.vertex.getAllVerticesIdsRequest request,
+        io.grpc.stub.StreamObserver<com.server.graph_db.grpc.vertex.getAllVerticesIdsResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetAllVerticesIdsMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -559,6 +673,27 @@ public final class VertexServiceGrpc {
                 com.server.graph_db.grpc.vertex.getEdgesRequest,
                 com.server.graph_db.grpc.vertex.getEdgesResponse>(
                   this, METHODID_GET_EDGES)))
+          .addMethod(
+            getGetOutgoingEdgesForVerticesMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                com.server.graph_db.grpc.vertex.getOutGoingEdgesForVerticesRequest,
+                com.server.graph_db.grpc.vertex.getEdgesResponse>(
+                  this, METHODID_GET_OUTGOING_EDGES_FOR_VERTICES)))
+          .addMethod(
+            getGetIncomingEdgesForVerticesMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                com.server.graph_db.grpc.vertex.getIncomingEdgesForVerticesRequest,
+                com.server.graph_db.grpc.vertex.getEdgesResponse>(
+                  this, METHODID_GET_INCOMING_EDGES_FOR_VERTICES)))
+          .addMethod(
+            getGetAllVerticesIdsMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                com.server.graph_db.grpc.vertex.getAllVerticesIdsRequest,
+                com.server.graph_db.grpc.vertex.getAllVerticesIdsResponse>(
+                  this, METHODID_GET_ALL_VERTICES_IDS)))
           .build();
     }
   }
@@ -664,6 +799,30 @@ public final class VertexServiceGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getGetEdgesMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void getOutgoingEdgesForVertices(com.server.graph_db.grpc.vertex.getOutGoingEdgesForVerticesRequest request,
+        io.grpc.stub.StreamObserver<com.server.graph_db.grpc.vertex.getEdgesResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetOutgoingEdgesForVerticesMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void getIncomingEdgesForVertices(com.server.graph_db.grpc.vertex.getIncomingEdgesForVerticesRequest request,
+        io.grpc.stub.StreamObserver<com.server.graph_db.grpc.vertex.getEdgesResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetIncomingEdgesForVerticesMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void getAllVerticesIds(com.server.graph_db.grpc.vertex.getAllVerticesIdsRequest request,
+        io.grpc.stub.StreamObserver<com.server.graph_db.grpc.vertex.getAllVerticesIdsResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetAllVerticesIdsMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -755,6 +914,27 @@ public final class VertexServiceGrpc {
     public com.server.graph_db.grpc.vertex.getEdgesResponse getEdges(com.server.graph_db.grpc.vertex.getEdgesRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getGetEdgesMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.server.graph_db.grpc.vertex.getEdgesResponse getOutgoingEdgesForVertices(com.server.graph_db.grpc.vertex.getOutGoingEdgesForVerticesRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetOutgoingEdgesForVerticesMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.server.graph_db.grpc.vertex.getEdgesResponse getIncomingEdgesForVertices(com.server.graph_db.grpc.vertex.getIncomingEdgesForVerticesRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetIncomingEdgesForVerticesMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.server.graph_db.grpc.vertex.getAllVerticesIdsResponse getAllVerticesIds(com.server.graph_db.grpc.vertex.getAllVerticesIdsRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetAllVerticesIdsMethod(), getCallOptions(), request);
     }
   }
 
@@ -859,6 +1039,30 @@ public final class VertexServiceGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getGetEdgesMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.server.graph_db.grpc.vertex.getEdgesResponse> getOutgoingEdgesForVertices(
+        com.server.graph_db.grpc.vertex.getOutGoingEdgesForVerticesRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetOutgoingEdgesForVerticesMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.server.graph_db.grpc.vertex.getEdgesResponse> getIncomingEdgesForVertices(
+        com.server.graph_db.grpc.vertex.getIncomingEdgesForVerticesRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetIncomingEdgesForVerticesMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.server.graph_db.grpc.vertex.getAllVerticesIdsResponse> getAllVerticesIds(
+        com.server.graph_db.grpc.vertex.getAllVerticesIdsRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetAllVerticesIdsMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_GET_VERTEX = 0;
@@ -872,6 +1076,9 @@ public final class VertexServiceGrpc {
   private static final int METHODID_GET_OUTGOING_EDGES = 8;
   private static final int METHODID_GET_INCOMING_EDGES = 9;
   private static final int METHODID_GET_EDGES = 10;
+  private static final int METHODID_GET_OUTGOING_EDGES_FOR_VERTICES = 11;
+  private static final int METHODID_GET_INCOMING_EDGES_FOR_VERTICES = 12;
+  private static final int METHODID_GET_ALL_VERTICES_IDS = 13;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -933,6 +1140,18 @@ public final class VertexServiceGrpc {
         case METHODID_GET_EDGES:
           serviceImpl.getEdges((com.server.graph_db.grpc.vertex.getEdgesRequest) request,
               (io.grpc.stub.StreamObserver<com.server.graph_db.grpc.vertex.getEdgesResponse>) responseObserver);
+          break;
+        case METHODID_GET_OUTGOING_EDGES_FOR_VERTICES:
+          serviceImpl.getOutgoingEdgesForVertices((com.server.graph_db.grpc.vertex.getOutGoingEdgesForVerticesRequest) request,
+              (io.grpc.stub.StreamObserver<com.server.graph_db.grpc.vertex.getEdgesResponse>) responseObserver);
+          break;
+        case METHODID_GET_INCOMING_EDGES_FOR_VERTICES:
+          serviceImpl.getIncomingEdgesForVertices((com.server.graph_db.grpc.vertex.getIncomingEdgesForVerticesRequest) request,
+              (io.grpc.stub.StreamObserver<com.server.graph_db.grpc.vertex.getEdgesResponse>) responseObserver);
+          break;
+        case METHODID_GET_ALL_VERTICES_IDS:
+          serviceImpl.getAllVerticesIds((com.server.graph_db.grpc.vertex.getAllVerticesIdsRequest) request,
+              (io.grpc.stub.StreamObserver<com.server.graph_db.grpc.vertex.getAllVerticesIdsResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -1006,6 +1225,9 @@ public final class VertexServiceGrpc {
               .addMethod(getGetOutgoingEdgesMethod())
               .addMethod(getGetIncomingEdgesMethod())
               .addMethod(getGetEdgesMethod())
+              .addMethod(getGetOutgoingEdgesForVerticesMethod())
+              .addMethod(getGetIncomingEdgesForVerticesMethod())
+              .addMethod(getGetAllVerticesIdsMethod())
               .build();
         }
       }
