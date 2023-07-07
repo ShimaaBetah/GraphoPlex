@@ -6,13 +6,14 @@ import java.util.PriorityQueue;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-
-import com.server.graph_db.alghorithms.traversables.DijkstraTraversable;
+import com.server.graph_db.alghorithms.heuristics.Hueristic;
+import com.server.graph_db.alghorithms.traversables.AStarTraversable;
 import com.server.graph_db.core.vertex.Edge;
 import com.server.graph_db.core.vertex.GlobalVertexService;
+import com.server.graph_db.core.vertex.Vertex;
 
 
-public class Dijkstra  implements ShortestPathAlghorithm{
+public class AStar implements ShortestPathAlghorithm{
 
     GlobalVertexService vertexService;
 
@@ -20,31 +21,38 @@ public class Dijkstra  implements ShortestPathAlghorithm{
 
     String sourceVertexId;
     String destinationVertexId;
+
+    Vertex sourceVertex;
+    Vertex destinationVertex;
+
+    Hueristic hueristic;
     
 
 
     LinkedList<Edge> pathReturned;
-    HashMap<String, DijkstraTraversable> visited;
+    HashMap<String, AStarTraversable> visited;
 
     
-    PriorityQueue<DijkstraTraversable> queue;
+    PriorityQueue<AStarTraversable> queue;
     long shortestPath = 0;
 
-    public Dijkstra(GlobalVertexService vertexService) {
+    public AStar(GlobalVertexService vertexService, Hueristic hueristic) {
         this.vertexService = vertexService;
+        this.hueristic = hueristic;
     }
 
 
     public void compute(String source, String destination, String costField) throws Exception {
-        int count = 0;
-        visited = new HashMap<String, DijkstraTraversable>();
-        queue = new PriorityQueue<DijkstraTraversable>();
+        visited = new HashMap<String, AStarTraversable>();
+        queue = new PriorityQueue<AStarTraversable>();
         pathReturned = new LinkedList<Edge>();
         sourceVertexId = source;
         destinationVertexId = destination;
-        queue.add(new DijkstraTraversable(source, 0L, null ));
+        sourceVertex = vertexService.getVertex(sourceVertexId);
+        destinationVertex = vertexService.getVertex(destinationVertexId);
+        queue.add(new AStarTraversable(source, 0L, null,0L ));
         while (!queue.isEmpty()) {
-            DijkstraTraversable currentVertex = queue.poll();
+            AStarTraversable currentVertex = queue.poll();
             if (currentVertex.getVertexId() .equals( destination)) {
                 visited.put(currentVertex.getVertexId(), currentVertex);
                 shortestPath = currentVertex.getDistance();
@@ -62,7 +70,9 @@ public class Dijkstra  implements ShortestPathAlghorithm{
 
             for (Edge neighbour : neighbours) {
                 if(!visited.containsKey(neighbour.getDestinationVertexId())){
-                queue.add(new DijkstraTraversable(neighbour.getDestinationVertexId(), currentVertex.getDistance() + Long.parseLong(neighbour.getProperties().get(costField)), neighbour));
+                Vertex neighbourVertex = vertexService.getVertex(neighbour.getDestinationVertexId());
+                long hueristicValue = hueristic.getHeuristic(neighbourVertex, destinationVertex);
+                queue.add(new AStarTraversable(neighbour.getDestinationVertexId(), currentVertex.getDistance() + Long.parseLong(neighbour.getProperties().get(costField)), neighbour, hueristicValue));
                 }
             }
         }
@@ -78,7 +88,7 @@ public class Dijkstra  implements ShortestPathAlghorithm{
 
 
     public Iterable<Edge> getPath() throws Exception {
-        DijkstraTraversable currentVertex = visited.get(destinationVertexId);
+        AStarTraversable currentVertex = visited.get(destinationVertexId);
         if(currentVertex == null){
            throw new Exception ("Vertex with id " + destinationVertexId + " is not reachable from vertex with id " + sourceVertexId + "");
         }
