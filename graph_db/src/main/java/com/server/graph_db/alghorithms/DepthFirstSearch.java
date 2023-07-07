@@ -39,25 +39,17 @@ public class DepthFirstSearch {
     public void dfs (String id) throws Exception{
         Stack<String> stack = new Stack<String>();
         stack.push(id);
+        visited.add(id);
         while(!stack.isEmpty()){
             String vertexId = stack.pop();
-            if(!visited.contains(vertexId)){
-                visited.add(vertexId);
-                count++;
-                Vertex visitedVertex;
-                try {
-                    visitedVertex = globalVertexService.getVertex(vertexId);
-                } catch (VertexNotFoundException e) {
-                    continue;
-                }
-                if(visitedVertex == null){
-                    continue;
-                }
                 Iterable<Edge> edges = globalVertexService.getOutgoingEdges(vertexId);
                 for (Edge edge : edges) {
-                    stack.push(edge.getDestinationVertexId());
+                    if(!visited.contains(edge.getDestinationVertexId())){
+                        stack.push(edge.getDestinationVertexId());
+                       visited.add(edge.getDestinationVertexId());
+                    }
                 }
-            }
+            
         }
     }
     
