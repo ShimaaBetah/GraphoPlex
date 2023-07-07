@@ -16,9 +16,11 @@ public class ShortestPathResult extends Result {
         sb.append("Shortest path: ");
         for (Edge edge : path) {
             sb.append(edge.toString());
-            sb.append(" -> ");
+            sb.append(",");
         }
 
-        return sb.toString()+"\n" +super.toString();
+        sb.deleteCharAt(sb.length()-1);
+
+        return sb.toString()+"\n\n" +super.toString();
     }
 }
