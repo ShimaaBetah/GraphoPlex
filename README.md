@@ -85,7 +85,7 @@ python3 client.py
 
 
 ## How to run a cluster
-the previous steps will only run 1 server on default 8080 port, to run a cluster of servers, you need to run the following commands.
+The previous steps will only run 1 server on default 8080 port, to run a cluster of servers, you need to run the following commands.
 
 1) Setup app properties
 
@@ -93,7 +93,6 @@ the previous steps will only run 1 server on default 8080 port, to run a cluster
     ```bash 
     server.numOfServers= ${number of servers you want in the cluster}
     grpc.servers.ports= ${grpc ports of the servers in the cluster separated by comma}
-
     grpc.servers.hosts= ${ip address of the servers in the cluster separated by comma}
     ```
 2) Build the server code
@@ -112,10 +111,10 @@ the previous steps will only run 1 server on default 8080 port, to run a cluster
    
    ```
 
-   this should be done for each server replacing all enviroment variables by actual values for each server in the cluster. 
-   Note that if your cluster number servers you specified before is `n` then SERVER_ID should be between `0` and `n-1`.
+   this should be done for each server replacing all environment variables by actual values for each server in the cluster. 
+   Note that if `server.numOfServers` in `application.properties` is `n` then SERVER_ID should be between `0` and `n-1`.
 
-   Also GRPC_SERVER_PORT should be different for each server and included in the grpc port you specified in the `application.properties` file .
+   Also GRPC_SERVER_PORT should be different for each server and following the order of the grpc ports you specified in the `application.properties` file .
 
 5) Run the client
     ```bash 
