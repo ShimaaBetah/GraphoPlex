@@ -1,26 +1,19 @@
 import cmd
 import requests
 import json
-
+import shutil
+import textwrap
 
 def color_string(text, color_code):
     return f"\x1b[{color_code}m{text}\x1b[0m"
 
 class MyShell(cmd.Cmd):
-    intro = 'Welcome to distributed graph db. Type help or ? to list commands.\n'
-    prompt = color_string('distributed_graphdb > ', 91)
-
-    def do_greet(self, arg):
-        'Greet the user.'
-        print('Hello,', arg)
-    
-    def do_ping(self, arg):
-        'Ping the server.'
-
-       
+    intro = 'Welcome to GraphoPlex the distributed graph database. Type help or ? to list commands.\n'
+    prompt = color_string('GraphoPlex > ', 91)        
         
     
     def default(self, line):
+        
         url = 'http://www.localhost:8080/query'
         # set header for content type
         headers = {'Content-Type': 'application/json'}
