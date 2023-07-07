@@ -53,6 +53,7 @@ public class Adapter {
         for (Edge edgeCore : edges) {
             edge convertedEdge = edge.newBuilder().setDestinationVertexId(edgeCore.getDestinationVertexId())
                     .setLabel(edgeCore.getLabel())
+                    .setSourceVertexId(edgeCore.getSourceVertexId())
                     .putAllProperties(edgeCore.getProperties())
                     .build();
             edgesResponse.add(convertedEdge);
