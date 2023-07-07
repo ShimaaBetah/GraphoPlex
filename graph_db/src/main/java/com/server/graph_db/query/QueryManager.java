@@ -39,6 +39,9 @@ public class QueryManager {
         QlLexer lexer = new QlLexer(CharStreams.fromString(query));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         QlParser parser = new QlParser(tokens);
+        CustomErrorListener errorListener = new CustomErrorListener();
+        parser.addErrorListener(errorListener);
+        lexer.addErrorListener(errorListener);
 
         // walk the tree
         ParseTreeWalker walker = new ParseTreeWalker();
