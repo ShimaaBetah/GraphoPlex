@@ -2,11 +2,12 @@ grammar Ql;
 
 
 
-// Define the basic elements of the language as lexer rules
-STRING: [a-zA-Z_][a-zA-Z0-9_]*;
+// Define the basic elements of the language as lexer ru
+STRING: [a-zA-Z0-9_][a-zA-Z0-9_]*;
 INT: [0-9]+;
 FLOAT: [0-9]+ '.' [0-9]+;
 WS: [ \t\r\n]+ -> skip;
+QOUTED_STRING: '"' ( ~'"' | '""' )* '"' ;
 
 // Define the parser rules for the commands
 command : match_query | crud_command | database_command;
@@ -41,7 +42,7 @@ property: key ':' value;
 
 label : STRING;
 key: STRING;
-value:  INT | FLOAT | STRING;
+value:  INT | FLOAT | QOUTED_STRING |STRING;
 id : STRING;
 
 
@@ -57,7 +58,13 @@ drop_default_database: 'DROP' 'DEFAULT' 'DATABASE';
 
 database_name: STRING;
 match_query: 'MATCH' (path_query|shortest_path_query);
-shortest_path_query: 'SHORTEST' 'PATH' 'FROM' sourceId 'TO' destinationId 'WITH COST =' cost;
+shortest_path_query: 'SHORTEST' 'PATH' 'FROM' sourceId 'TO' destinationId 'WITH COST =' cost (heuristic)?;
+heuristic: 'USING HUERISTIC' heuristic_function;
+heuristic_function: manhattan | euclidean;
+manhattan: 'MANHATTAN' '(' 'x ='first_variable ',' 'y ='second_variable ')';
+euclidean: 'EUCLIDEAN' '(' 'x ='first_variable ',' 'y ='second_variable ')';
+first_variable: variable;
+second_variable: variable;
 path_query: path where_clause? return_clause;
 
 path: starting_vertex (path_level )*;
@@ -74,7 +81,7 @@ selectOperators: '{'selectOperator (',' selectOperator)*'}';
 selectOperator: fieldName operator fieldValue;
 
 fieldName: STRING;
-fieldValue: STRING|INT|FLOAT;
+fieldValue:INT|FLOAT|QOUTED_STRING|STRING;
 operator: '=' | '<>' | '<' | '>' | '<=' | '>=' ;
 
 where_clause: 'WHERE';

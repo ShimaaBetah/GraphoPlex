@@ -388,6 +388,66 @@ public interface QlListener extends ParseTreeListener {
 	 */
 	void exitShortest_path_query(QlParser.Shortest_path_queryContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link QlParser#heuristic}.
+	 * @param ctx the parse tree
+	 */
+	void enterHeuristic(QlParser.HeuristicContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link QlParser#heuristic}.
+	 * @param ctx the parse tree
+	 */
+	void exitHeuristic(QlParser.HeuristicContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link QlParser#heuristic_function}.
+	 * @param ctx the parse tree
+	 */
+	void enterHeuristic_function(QlParser.Heuristic_functionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link QlParser#heuristic_function}.
+	 * @param ctx the parse tree
+	 */
+	void exitHeuristic_function(QlParser.Heuristic_functionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link QlParser#manhattan}.
+	 * @param ctx the parse tree
+	 */
+	void enterManhattan(QlParser.ManhattanContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link QlParser#manhattan}.
+	 * @param ctx the parse tree
+	 */
+	void exitManhattan(QlParser.ManhattanContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link QlParser#euclidean}.
+	 * @param ctx the parse tree
+	 */
+	void enterEuclidean(QlParser.EuclideanContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link QlParser#euclidean}.
+	 * @param ctx the parse tree
+	 */
+	void exitEuclidean(QlParser.EuclideanContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link QlParser#first_variable}.
+	 * @param ctx the parse tree
+	 */
+	void enterFirst_variable(QlParser.First_variableContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link QlParser#first_variable}.
+	 * @param ctx the parse tree
+	 */
+	void exitFirst_variable(QlParser.First_variableContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link QlParser#second_variable}.
+	 * @param ctx the parse tree
+	 */
+	void enterSecond_variable(QlParser.Second_variableContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link QlParser#second_variable}.
+	 * @param ctx the parse tree
+	 */
+	void exitSecond_variable(QlParser.Second_variableContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link QlParser#path_query}.
 	 * @param ctx the parse tree
 	 */
