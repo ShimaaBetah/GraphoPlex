@@ -9,7 +9,7 @@ Inter-cluster communication is done through gRPC.
 
 
 <p align=center>
-<img src="./images/sys_arch (1).png" alt="System Architecture" style="width:300px;"/>
+<img src="./images/sys_arch (1).png" alt="System Architecture" style="width:600px;"/>
 </p>
 
 
