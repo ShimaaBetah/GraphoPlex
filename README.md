@@ -7,7 +7,11 @@ GraphoPlex consists of a client (an interactive shell in Python) and a cluster (
 The client could be connected to any server in the cluster through an HTTP connection to send user queries. 
 Inter-cluster communication is done through gRPC.
 
-![System Architecture]( /images/sys_arch%20(1).png "System Architecture")
+
+<p align=center>
+<img src="./images/sys_arch (1).png" alt="System Architecture" style="width:300px;"/>
+</p>
+
 
 
 ## Usage
