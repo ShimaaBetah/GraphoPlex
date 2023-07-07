@@ -77,8 +77,7 @@ public class Edge implements Serializable {
     }
 
     public String toString() {
-        return "Edge [destinationVertexId=" + destinationVertexId + "SourceVertexID" + sourceVertexId + ", properties="
-                + properties + ", label=" + label + "]";
+    return sourceVertexId +" --"+label+"--> "+destinationVertexId+" "+properties.toString();
     }
 
     // overrid isEquals to be true if same source and destination vertex id and
