@@ -54,7 +54,9 @@ Inter-cluster communication is done through gRPC.
 1) Python 3.6 or higher
 2) Java 17 or higher
 3) Maven 3.6.3 or higher
-4) Docker 
+4) Docker
+5) Redis
+
 
 ### Installation & Setup
 1) Clone the repository
