@@ -114,19 +114,45 @@ The previous steps will only run 1 server on default 8080 port, to run a cluster
    this should be done for each server replacing all environment variables by actual values for each server in the cluster. 
    Note that if `server.numOfServers` in `application.properties` is `n` then SERVER_ID should be between `0` and `n-1`.
 
-   Also GRPC_SERVER_PORT should be different for each server and following the order of the grpc ports you specified in the `application.properties` file .
+   Also GRPC_SERVER_PORT should be the element with index of (SERVER_ID) in the array of `grpc.servers.ports` in the `application.properties` file .
 
 5) Run the client
     ```bash 
     python3 client.py
     ```
+    make sure that the `url` in client.py is belongs to one of the servers in the cluster
 6) Start writing commands as before
 
-
+## Roadmap
+The project is NOT in active development. However, the following ideas are things that would be looked up next: 
+- [ ] Parallel implementation for Dijkstra and DFS
+- [ ] Result Set visualization
+- [ ] Partitioning Strategy Enhancement 
+- [ ] Result Set Visualization
+- [ ] Authentication and support for multiple users
     
 
 
+## Contributing
 
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+Don't forget to give the project a star! Thanks again!
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## License
+
+Distributed under the GNU General Public License v3.0. See `LICENSE.txt` for more information.
+
+## Contact
+
+Elshimaa Betah - shimaabetah1911@gmail.com
 
 
 
