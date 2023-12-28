@@ -15,10 +15,7 @@
 A distributed graph database engine that stores users' graph-like data with a supported query language.
 </p>
     <br />
-    <a href="https://github.com/ShimaaBetah/GraphoPlex/blob/main/thesis.pdf"><strong>Explore the thesis »</strong></a>
-    <br />
-    <br />
-    <a href="https://drive.google.com/file/d/1Jc09WC5AsXW4AQ3AddiRQJFJITIfJX8w/view?usp=sharing">View Demo</a>
+     href="https://drive.google.com/file/d/1Jc09WC5AsXW4AQ3AddiRQJFJITIfJX8w/view?usp=sharing">View Demo</a>
     ·
     <a href="https://github.com/ShimaaBetah/GraphoPlex/issues">Report Bug</a>
     ·
