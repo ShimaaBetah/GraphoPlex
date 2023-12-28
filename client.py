@@ -1,8 +1,7 @@
 import cmd
 import requests
 import json
-import shutil
-import textwrap
+
 
 def color_string(text, color_code):
     return f"\x1b[{color_code}m{text}\x1b[0m"
@@ -14,7 +13,7 @@ class MyShell(cmd.Cmd):
     
     def default(self, line):
         
-        url = 'http://www.localhost:8080/query'
+        url = 'http://127.0.0.1:8081/query'
         # set header for content type
         headers = {'Content-Type': 'application/json'}
         
