@@ -13,7 +13,7 @@ class MyShell(cmd.Cmd):
     
     def default(self, line):
         
-        url = 'http://127.0.0.1:8081/query'
+        url = 'http://127.0.0.1:8080/query'
         # set header for content type
         headers = {'Content-Type': 'application/json'}
         
